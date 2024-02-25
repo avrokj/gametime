@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+  }
+  
+  #container {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#game-board {
+    #border-collapse: collapse;
+    
+}
+
+#game-board td {
+    border: gray solid 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.number {
+ background-color: blue;
+}
+
+#left {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+
+svg {
+width: 50px;
+}
