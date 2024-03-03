@@ -1,0 +1,72 @@
+p {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: orange;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.actions button {
+    padding: 8px 16px;
+    font-size: 30px;
+    border-radius: 10px;
+    color: orange;
+    border-color: #A7B7B4;
+}
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    grid-gap: 16px;
+    grid-template-columns: repeat(8, 140px);
+    grid-template-rows: repeat(2, calc(140px / 2 * 3));
+}
+
+.card {
+    height: calc((140px / 2 * 3));
+    width: 140px;
+    border-radius: 10px;
+    background-color: white;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
+}
+
+.front-image {
+    height: calc((140px / 2 * 3));
+    width: 140px;
+    border-radius: 10px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.card .front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+}
+
+.card .back {
+    background-image: url("gametime_logo.png");
+    background-color:orange;
+    background-position: center center;
+    background-size: cover;
+    backface-visibility: hidden;
+}
