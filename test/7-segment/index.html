@@ -8,15 +8,15 @@
 </head>
 <body>
     <div class="container mx-auto">
-        <div class="md:columns-2 sm:columns-1 border-dashed border-2 border-sky-500">
+        <div class="md:columns-2 sm:columns-1 border-dashed border-2 border-sky-200">
             <div>
-                <div id="container" class="flex justify-center border-dashed border-2 border-sky-500">
-                    <h1 class="mb-8 text-6xl font-extrabold">HOME</h1>
+                <div id="container" class="flex justify-center border-dashed border-2 border-sky-100">
+                    <h1 class="mb-8 text-6xl font-extrabold"><a href="home.html">HOME</a></h1>
                 </div>
-                <div id="container" class="flex justify-center border-dashed border-2 border-sky-500">
-                    <table id="home-game-board"></table>
+                <div id="container" class="flex justify-center border-dashed border-2 border-sky-100">
+                    <table id="home-game-board" class="border-separate"></table>
                 </div>
-                <div id="buttons" class="flex justify-start flex-row p-4 gap-8 border-dashed border-2 border-sky-500">  
+                <div id="buttons" class="flex justify-start flex-row p-4 gap-8 border-dashed border-2 border-sky-100">  
                     <p id="homeScore" class="hidden"></p>
                     <svg type="button" id="homeMinus1" xmlns="http://www.w3.org/2000/svg">
                         <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2" opacity="0.8" />
@@ -37,13 +37,13 @@
                 </div>
             </div>
             <div>                
-                <div id="container" class="flex justify-center border-dashed border-2 border-sky-500">
-                    <h1 class="mb-8 text-6xl font-extrabold">GUEST</h1>
+                <div id="container" class="flex justify-center border-dashed border-2 border-red-100">
+                    <h1 class="mb-8 text-6xl font-extrabold"><a href="guest.html">GUEST</a></h1>
                 </div>
-                <div id="container" class="flex justify-center border-dashed border-2 border-sky-500">
-                    <table id="away-game-board"></table>
+                <div id="container" class="flex justify-center border-dashed border-2 border-red-100">
+                    <table id="away-game-board" class="border-separate"></table>
                 </div>
-                <div id="buttons" class="flex justify-end flex-row p-4 gap-8 border-dashed border-2 border-sky-500">  
+                <div id="buttons" class="flex justify-end flex-row p-4 gap-8 border-dashed border-2 border-red-100">  
                     <p id="awayScore" class="hidden"></p>
                     <svg type="button" id="awayMinus1" xmlns="http://www.w3.org/2000/svg">
                         <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2" opacity="0.8" />
