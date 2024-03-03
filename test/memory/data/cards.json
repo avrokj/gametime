@@ -1,50 +1,50 @@
 [
     {
-        "image": "../7-segment/player1.jpg",
+        "image": "../7-segment/assets/player1.jpg",
         "name": "1"
     },
     {
-        "image": "../7-segment/player2.jpg",
+        "image": "../7-segment/assets/player2.jpg",
         "name": "2"
     },
     {
-        "image": "../7-segment/player3.jpg",
+        "image": "../7-segment/assets/player3.jpg",
         "name": "3"
     },
     {
-        "image": "../7-segment/player4.jpg",
+        "image": "../7-segment/assets/player4.jpg",
         "name": "4"
     },
     {
-        "image": "../7-segment/player5.jpg",
+        "image": "../7-segment/assets/player5.jpg",
         "name": "5"
     },
     {
-        "image": "../7-segment/player6.jpg",
+        "image": "../7-segment/assets/player6.jpg",
         "name": "6"
     },
     {
-        "image": "../7-segment/player7.jpg",
+        "image": "../7-segment/assets/player7.jpg",
         "name": "7"
     },
     {
-        "image": "../7-segment/player8.jpg",
+        "image": "../7-segment/assets/player8.jpg",
         "name": "8"
     },
     {
-        "image": "../7-segment/player9.jpg",
+        "image": "../7-segment/assets/player9.jpg",
         "name": "9"
     },
     {
-        "image": "../7-segment/player10.jpg",
+        "image": "../7-segment/assets/player10.jpg",
         "name": "10"
     },
     {
-        "image": "../7-segment/player11.jpg",
+        "image": "../7-segment/assets/player11.jpg",
         "name": "11"
     },
     {
-        "image": "../7-segment/player12.jpg",
+        "image": "../7-segment/assets/player12.jpg",
         "name": "12"
     }
 ]
