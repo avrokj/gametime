@@ -18,8 +18,9 @@
         <table class="min-w-full text-left text-sm font-light">
             <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Number</th>
                     <th scope="col" class="px-6 py-4">Player Name</th>
+                    <th scope="col" class="px-6 py-4">Action</th>
                 </tr>
             </thead>
             <tbody id="teamInfo" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
@@ -42,7 +43,7 @@
             <table class="min-w-full text-left text-sm font-light">
             <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Number</th>
                     <th scope="col" class="px-6 py-4">Player Name</th>
                     <th scope="col" class="px-6 py-4">Action</th>
                 </tr>
@@ -58,7 +59,7 @@
             <table class="min-w-full text-left text-sm font-light">
             <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Number</th>
                     <th scope="col" class="px-6 py-4">Player Name</th>
                     <th scope="col" class="px-6 py-4">Action</th>
                 </tr>
@@ -90,24 +91,40 @@
   // Function to display team information
   function displayTeamInfo(team) {
     var teamInfoBody = document.getElementById("teamInfo");
-  
-    for (var key in team) {
-      var row = document.createElement("tr");
-      var playerNumberCell = document.createElement("td");
-      var playerNameCell = document.createElement("td");
-      
-      row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
 
-      playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
-      playerNameCell.className = "whitespace-nowrap px-6 py-4";
+    for (var key in team) {
+        var row = document.createElement("tr");
+        var playerKey = row.getAttribute("data-key");
+        var playerNumberCell = document.createElement("td");
+        var playerNumberCellP = document.createElement("p");
+        var playerNameCell = document.createElement("td");
+        var actionCell = document.createElement("td");
+        var actionButton = document.createElement("button");
+
+        row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
+        playerNumberCell.className = "flex justify-center";
+        playerNumberCellP.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+        playerNameCell.className = "whitespace-nowrap px-6 py-4";
+        actionButton.className = "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
+
+        playerNumberCellP.textContent = key;
+        playerNameCell.textContent = team[key];
+
+        playerNumberCell.appendChild(playerNumberCellP);
   
-      playerNumberCell.textContent = key;
-      playerNameCell.textContent = team[key];
-  
-      row.appendChild(playerNumberCell);
-      row.appendChild(playerNameCell);
-  
-      teamInfoBody.appendChild(row);
+        actionButton.textContent = "To game";
+        actionButton.onclick = function() {
+            row.remove();
+            addPlayerToGame(team[key]);
+        };
+
+        actionCell.appendChild(actionButton);
+
+        row.appendChild(playerNumberCell);
+        row.appendChild(playerNameCell);
+        row.appendChild(actionCell);
+
+        teamInfoBody.appendChild(row);
     }
   }
   
@@ -155,6 +172,7 @@
     row.setAttribute("data-key", playerKey);
   
     var playerNumberCell = document.createElement("td");
+    var playerNumberCellP = document.createElement("p");
     var playerNameCell = document.createElement("td");
     var actionCell = document.createElement("td");
     var actionButton = document.createElement("button");
@@ -163,11 +181,16 @@
       
     row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
 
-    playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+    
+    playerNumberCell.className = "flex justify-center";
+    playerNumberCellP.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
     playerNameCell.className = "whitespace-nowrap px-6 py-4";
-  
-    playerNumberCell.textContent = playerKey;
+    actionCell.className = "flex justify-center";  
+    
+    playerNumberCellP.textContent = playerKey;
     playerNameCell.textContent = playerName;
+
+    playerNumberCell.appendChild(playerNumberCellP);
   
     actionButton.textContent = isInGame ? "To bench" : "To game";
     actionButton.onclick = function() {
