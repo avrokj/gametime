@@ -38,12 +38,10 @@ class HomeGameBoard {
                 }
 
                 if (i % 2 == 0 && (j == 1 || j == 5)) {
-                    cellTd.style.border = "1px solid pink";
-                    cellTd.style.borderRadius = "15px";
+                    cellTd.className = "border rounded-full border-red-200";
                 }
                 if (i % 2 == 1 && j % 2 == 0) {
-                    cellTd.style.border = "1px solid pink";
-                    cellTd.style.borderRadius = "15px";
+                    cellTd.className = "border rounded-full border-red-200";
                 }
 
                 rowTr.append(cellTd);
@@ -97,12 +95,10 @@ class AwayGameBoard {
                 }
 
                 if (i % 2 == 0 && (j == 1 || j == 5)) {
-                    cellTd.style.border = "1px solid pink";
-                    cellTd.style.borderRadius = "15px";
+                    cellTd.className = "border rounded-full border-red-200";
                 }
                 if (i % 2 == 1 && j % 2 == 0) {
-                    cellTd.style.border = "1px solid pink";
-                    cellTd.style.borderRadius = "15px";
+                    cellTd.className = "border rounded-full border-red-200";
                 }
 
                 rowTr.append(cellTd);
