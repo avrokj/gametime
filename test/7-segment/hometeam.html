@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOME Team Information</title>
+  <link rel="stylesheet" type="text/css" href="styles/output.css">
+</head>
+  <body>
+    <div class="container mx-auto">
+  
+    <h1 class="mb-8 text-6xl font-extrabold">Basketball Team Information</h1>
+    
+    <div class="md:columns-3 sm:columns-1 border-dashed border-2 border-sky-200">
+        <div>
+            <table class="border-collapse table-auto text-sm">
+            <caption>Team Information</caption>
+            <thead>
+                <tr>
+                <th>Player Number</th>
+                <th>Player Name</th>
+                </tr>
+            </thead>
+            <tbody id="teamInfo" class="[&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-300">
+                <!-- Team information will be displayed here -->
+            </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Select Players for In-Game:</h2>
+            <select id="playerSelect"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+            <!-- Dropdown options for selecting players -->
+            <option value="">Select Player</option>
+            </select>
+            <button onclick="addPlayerToGame()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Add Player to In-Game</button>
+        </div>
+        <div>
+            
+            <table class="table-auto">
+            <caption>In Game</caption>
+            <thead>
+                <tr>
+                <th>Player Number</th>
+                <th>Player Name</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="inGameList">
+                <!-- In-game players will be displayed here -->
+            </tbody>
+            </table>
+            
+            <table class="table-auto">
+            <caption>On Bench</caption>
+            <thead>
+                <tr>
+                <th>Player Number</th>
+                <th>Player Name</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="onBenchList">
+                <!-- Players on the bench will be displayed here -->
+            </tbody>
+            </table>
+        </div>
+    </div>  
+  </div>
+  
+  <script>
+  // Your basketball team object
+  var basketballTeam = {
+    1: "Aliin",
+    2: "Aren",
+    3: "Jan",
+    4: "Karel",
+    5: "Kaspar",
+    6: "Liis",
+    7: "Mari-Liis",
+    8: "Merilyn",
+    9: "Raiko",
+    10: "Siim",
+    11: "Tene"
+  };
+  
+  // Function to display team information
+  function displayTeamInfo(team) {
+    var teamInfoBody = document.getElementById("teamInfo");
+  
+    for (var key in team) {
+      var row = document.createElement("tr");
+      var playerNumberCell = document.createElement("td");
+      var playerNameCell = document.createElement("td");
+
+      playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center";
+  
+      playerNumberCell.textContent = key;
+      playerNameCell.textContent = team[key];
+  
+      row.appendChild(playerNumberCell);
+      row.appendChild(playerNameCell);
+  
+      teamInfoBody.appendChild(row);
+    }
+  }
+  
+  // Function to add player to in-game list
+  function addPlayerToGame() {
+    var select = document.getElementById("playerSelect");
+    var selectedPlayerKey = select.value;
+    var selectedPlayerName = basketballTeam[selectedPlayerKey];
+    var inGameListBody = document.getElementById("inGameList");
+    var onBenchListBody = document.getElementById("onBenchList");
+    var inGameRowCount = inGameListBody.getElementsByTagName("tr").length;
+  
+    // If the selected player is not already in the in-game list
+    if (selectedPlayerKey && inGameRowCount < 5 && !document.querySelector("#inGameList tr[data-key='" + selectedPlayerKey + "']")) {
+      var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, true);
+      inGameListBody.appendChild(row);
+    } else if (selectedPlayerKey && !document.querySelector("#onBenchList tr[data-key='" + selectedPlayerKey + "']")) {
+      var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, false);
+      onBenchListBody.appendChild(row);
+    }
+  }
+  
+  // Function to remove player from in-game list
+  function removePlayerFromGame(row, fromListBody, toListBody) {
+    var playerKey = row.getAttribute("data-key");
+    var playerName = row.cells[1].textContent;
+    row.remove();
+  
+    var onBenchRowCount = toListBody.getElementsByTagName("tr").length;
+  
+    if (onBenchRowCount < 5 && !document.querySelector("#onBenchList tr[data-key='" + playerKey + "']")) {
+      var newRow = createPlayerRow(playerKey, playerName, false);
+      toListBody.appendChild(newRow);
+    }
+  }
+  
+  // Function to remove player from on-bench list
+  function removePlayerFromBench(row, fromListBody) {
+    row.remove();
+  }
+  
+  // Function to create a player row
+  function createPlayerRow(playerKey, playerName, isInGame) {
+    var row = document.createElement("tr");
+    row.setAttribute("data-key", playerKey);
+  
+    var playerNumberCell = document.createElement("td");
+    var playerNameCell = document.createElement("td");
+    var actionCell = document.createElement("td");
+    var actionButton = document.createElement("button");
+  
+    playerNumberCell.textContent = playerKey;
+    playerNameCell.textContent = playerName;
+  
+    actionButton.textContent = isInGame ? "Remove from In-Game" : "Add to In-Game";
+    actionButton.onclick = function() {
+      if (isInGame) {
+        removePlayerFromGame(row, document.getElementById("inGameList"), document.getElementById("onBenchList"));
+      } else {
+        row.remove();
+        addPlayerToGame();
+      }
+    };
+  
+    actionCell.appendChild(actionButton);
+  
+    row.appendChild(playerNumberCell);
+    row.appendChild(playerNameCell);
+    row.appendChild(actionCell);
+  
+    return row;
+  }
+  
+  // Populate dropdown with players
+  function populateDropdown() {
+    var select = document.getElementById("playerSelect");
+  
+    for (var key in basketballTeam) {
+      var option = document.createElement("option");
+      option.value = key;
+      option.textContent = key + ": " + basketballTeam[key];
+      select.appendChild(option);
+    }
+  }
+  
+  // Display the team information
+  displayTeamInfo(basketballTeam);
+  
+  // Populate dropdown with players
+  populateDropdown();
+  </script>
+  
+  </body>
+  </html>
