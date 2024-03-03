@@ -6,60 +6,64 @@
   <title>HOME Team Information</title>
   <link rel="stylesheet" type="text/css" href="styles/output.css">
 </head>
-  <body>
+  <body class="h-full overflow-x-hidden transition-colors duration-500 dark:bg-neutral-800 dark:text-slate-50">
     <div class="container mx-auto">
   
-    <h1 class="mb-8 text-6xl font-extrabold">Basketball Team Information</h1>
+    <h1 class="mb-8 text-6xl font-extrabold h-full text-center">Basketball Team Information</h1>
     
-    <div class="md:columns-3 sm:columns-1 border-dashed border-2 border-sky-200">
-        <div>
-            <table class="border-collapse table-auto text-sm">
-            <caption>Team Information</caption>
-            <thead>
+    <div class="flex justify-center md:columns-4 sm:columns-1 gap-8">
+        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+        <h3 class="mb-8 text-xl font-bold text-center">Team Information</h3>
+            
+        <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                <th>Player Number</th>
-                <th>Player Name</th>
+                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Player Name</th>
                 </tr>
             </thead>
-            <tbody id="teamInfo" class="[&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-300">
+            <tbody id="teamInfo" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
                 <!-- Team information will be displayed here -->
             </tbody>
             </table>
         </div>
-        <div>
+
+        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
             <h2>Select Players for In-Game:</h2>
             <select id="playerSelect"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
             <!-- Dropdown options for selecting players -->
             <option value="">Select Player</option>
             </select>
-            <button onclick="addPlayerToGame()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Add Player to In-Game</button>
+            <button onclick="addPlayerToGame()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded-full">Add Player to In-Game</button>
         </div>
-        <div>
-            
-            <table class="table-auto">
-            <caption>In Game</caption>
-            <thead>
+
+        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+            <h3 class="mb-8 text-xl font-bold text-center">In Game</h3>
+            <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                <th>Player Number</th>
-                <th>Player Name</th>
-                <th>Action</th>
+                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Player Name</th>
+                    <th scope="col" class="px-6 py-4">Action</th>
                 </tr>
             </thead>
-            <tbody id="inGameList">
+            <tbody id="inGameList" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
                 <!-- In-game players will be displayed here -->
             </tbody>
             </table>
-            
-            <table class="table-auto">
-            <caption>On Bench</caption>
-            <thead>
+        </div>
+
+        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+            <h3 class="mb-8 text-xl font-bold text-center">On Bench</h3>
+            <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
                 <tr>
-                <th>Player Number</th>
-                <th>Player Name</th>
-                <th>Action</th>
+                    <th scope="col" class="px-6 py-4">Player Number</th>
+                    <th scope="col" class="px-6 py-4">Player Name</th>
+                    <th scope="col" class="px-6 py-4">Action</th>
                 </tr>
             </thead>
-            <tbody id="onBenchList">
+            <tbody id="onBenchList" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
                 <!-- Players on the bench will be displayed here -->
             </tbody>
             </table>
@@ -91,8 +95,11 @@
       var row = document.createElement("tr");
       var playerNumberCell = document.createElement("td");
       var playerNameCell = document.createElement("td");
+      
+      row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
 
-      playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center";
+      playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+      playerNameCell.className = "whitespace-nowrap px-6 py-4";
   
       playerNumberCell.textContent = key;
       playerNameCell.textContent = team[key];
@@ -151,11 +158,18 @@
     var playerNameCell = document.createElement("td");
     var actionCell = document.createElement("td");
     var actionButton = document.createElement("button");
+    
+    actionButton.className = isInGame ? "bg-red-600 hover:bg-red-700 text-white font-bold p-2 border border-red-700 rounded-full text-xs" : "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
+      
+    row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
+
+    playerNumberCell.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+    playerNameCell.className = "whitespace-nowrap px-6 py-4";
   
     playerNumberCell.textContent = playerKey;
     playerNameCell.textContent = playerName;
   
-    actionButton.textContent = isInGame ? "Remove from In-Game" : "Add to In-Game";
+    actionButton.textContent = isInGame ? "To bench" : "To game";
     actionButton.onclick = function() {
       if (isInGame) {
         removePlayerFromGame(row, document.getElementById("inGameList"), document.getElementById("onBenchList"));
