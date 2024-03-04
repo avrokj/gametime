@@ -64,9 +64,30 @@ p {
 }
 
 .card .back {
-    background-image: url("gametime_logo.png");
+    background-image: url("../gametime_logo.png");
     background-color:orange;
     background-position: center center;
     background-size: cover;
     backface-visibility: hidden;
+}
+@media only screen and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(6, 140px);
+        grid-gap: 8px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 140px);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 140px);
+    }
+}
+@media only screen and (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 140px);
+    }
 }
