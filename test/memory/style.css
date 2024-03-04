@@ -64,7 +64,7 @@ p {
 }
 
 .card .back {
-    background-image: url("../gametime_logo.png");
+    background-image: url("./gametime_logo.png");
     background-color:orange;
     background-position: center center;
     background-size: cover;
