@@ -1,62 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="synthwave">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>team</title>
-    <link rel="stylesheet" type="text/css" href="styles/output.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teams</title>
+  <link rel="stylesheet" type="text/css" href="styles/output.css">
 </head>
-<body class="h-full overflow-x-hidden transition-colors duration-500 dark:bg-slate-900 dark:text-slate-50">
+<body>
   <div class="container mx-auto">
 
-  <h1 class="mb-8 text-6xl font-extrabold h-full text-center">Teams</h1>
-  
-  <div class="flex justify-center md:columns-4 sm:columns-1 gap-8">
-        <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+  <h1 class="mb-8 text-6xl font-extrabold h-full text-center">Teams</h1>  
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        <div class="card glass text-center rounded-md p-4">
           <a href="player.html">
-            <img src="assets/ametikooli-logo_1.jpg" alt="Team Image" class="rounded-md w-72 h-72">
+            <img src="assets/ametikooli-logo_1.jpg" alt="Team Image" class="object-cover w-full aspect-square rounded-md">
             <h2 class="text-3xl font-bold">TA-22</h2>
           </a>
         </div>
-  </div>
-  
-  <div class="flex items-center container">
-    <button onclick="history.back()" class="bg-white dark:bg-slate-600 hover:bg-blue-700 text-blue-700 dark:text-slate-100 hover:text-white font-bold py-2 px-4 border border-blue-700 dark:border-blue-900 rounded-full">Go Back</button>
-   </div>  
-  </div>
-  <div class="flex justify-center mt-4">
-    <button
-        id="theme-toggle"
-        type="button"
-        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 rounded-lg text-sm p-2.5"
-    >
-    <svg
-      id="theme-toggle-dark-icon"
-      class="w-5 h-5 hidden"
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-      ></path>
-    </svg>
-    <svg
-      id="theme-toggle-light-icon"
-      class="w-5 h-5 hidden"
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-      ></path>
-    </svg>
-  </button>
-</div>
-  
-  <script type="module" src="../app.js"></script>
+      </div>
+    
+      <div class="flex justify-center p-8">
+        <button onclick="history.back()" class="btn btn-neutral m-4">
+          <svg class="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+          </svg>
+          <p>Go back</p></button>
+        <label class="swap swap-rotate">      
+          <!-- this hidden checkbox controls the state -->
+          <input type="checkbox" id="darkModeCheckbox" />
+          
+          <!-- sun icon -->
+          <svg class="swap-on fill-current w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+          
+          <!-- moon icon -->
+          <svg class="swap-off fill-current w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+          
+        </label>
+      </div>
+    </div>
+    <script type="module" src="spaghetti.js"></script>
 </body>
 </html>
