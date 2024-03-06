@@ -1,234 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HOME Team Information</title>
-  <link rel="stylesheet" type="text/css" href="styles/output.css">
-</head>
-  <body class="h-full overflow-x-hidden transition-colors duration-500 dark:bg-neutral-800 dark:text-slate-50">
-    <div class="container mx-auto">
-  
-    <h1 class="mb-8 text-6xl font-extrabold h-full text-center">Basketball Team Information</h1>
-    
-    <div class="flex justify-center md:columns-4 sm:columns-1 gap-8">
-        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
-        <h3 class="mb-8 text-xl font-bold text-center">Team Information</h3>
-            
-        <table class="min-w-full text-left text-sm font-light">
-            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
-                <tr>
-                    <th scope="col" class="px-6 py-4">Number</th>
-                    <th scope="col" class="px-6 py-4">Player Name</th>
-                    <th scope="col" class="px-6 py-4">Action</th>
-                </tr>
-            </thead>
-            <tbody id="teamInfo" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
-                <!-- Team information will be displayed here -->
-            </tbody>
-            </table>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HOME Team Information</title>
+        <link rel="stylesheet" type="text/css" href="styles/output.css" />
+    </head>
+    <body
+        class="h-full overflow-x-hidden transition-colors duration-500 dark:bg-neutral-800 dark:text-slate-50"
+    >
+        <div class="container mx-auto">
+            <h1 class="mb-8 text-6xl font-extrabold h-full text-center">
+                Basketball Team Information
+            </h1>
+
+            <div class="flex justify-center md:columns-3 sm:columns-1 gap-8">
+                <div
+                    class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4"
+                >
+                    <h3 class="mb-8 text-xl font-bold text-center">
+                        Team Information
+                    </h3>
+
+                    <table class="min-w-full text-left text-sm font-light">
+                        <thead
+                            class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700"
+                        >
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Number</th>
+                                <th scope="col" class="px-6 py-4">
+                                    Player Name
+                                </th>
+                                <th scope="col" class="px-6 py-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            id="teamInfo"
+                            class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600"
+                        >
+                            <!-- Team information will be displayed here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div
+                    class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4"
+                >
+                    <h3 class="mb-8 text-xl font-bold text-center">In Game</h3>
+                    <table class="min-w-full text-left text-sm font-light">
+                        <thead
+                            class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700"
+                        >
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Number</th>
+                                <th scope="col" class="px-6 py-4">
+                                    Player Name
+                                </th>
+                                <th scope="col" class="px-6 py-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            id="inGameList"
+                            class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600"
+                        >
+                            <!-- In-game players will be displayed here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div
+                    class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4"
+                >
+                    <h3 class="mb-8 text-xl font-bold text-center">On Bench</h3>
+                    <table class="min-w-full text-left text-sm font-light">
+                        <thead
+                            class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700"
+                        >
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Number</th>
+                                <th scope="col" class="px-6 py-4">
+                                    Player Name
+                                </th>
+                                <th scope="col" class="px-6 py-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            id="onBenchList"
+                            class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600"
+                        >
+                            <!-- Players on the bench will be displayed here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
-            <h2>Select Players for In-Game:</h2>
-            <select id="playerSelect"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-            <!-- Dropdown options for selecting players -->
-            <option value="">Select Player</option>
-            </select>
-            <button onclick="addPlayerToGame()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded-full">Add Player to In-Game</button>
-        </div>
+        <script>
+            // Your basketball team object
+            var basketballTeam = {
+                1: "Aliin",
+                2: "Aren",
+                3: "Jan",
+                4: "Karel",
+                5: "Kaspar",
+                6: "Liis",
+                7: "Mari-Liis",
+                8: "Merilyn",
+                9: "Raiko",
+                10: "Siim",
+                11: "Tene",
+            };
 
-        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
-            <h3 class="mb-8 text-xl font-bold text-center">In Game</h3>
-            <table class="min-w-full text-left text-sm font-light">
-            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
-                <tr>
-                    <th scope="col" class="px-6 py-4">Number</th>
-                    <th scope="col" class="px-6 py-4">Player Name</th>
-                    <th scope="col" class="px-6 py-4">Action</th>
-                </tr>
-            </thead>
-            <tbody id="inGameList" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
-                <!-- In-game players will be displayed here -->
-            </tbody>
-            </table>
-        </div>
+            // Function to display team information
+            function displayTeamInfo(team) {
+                var teamInfoBody = document.getElementById("teamInfo");
 
-        <div class="shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
-            <h3 class="mb-8 text-xl font-bold text-center">On Bench</h3>
-            <table class="min-w-full text-left text-sm font-light">
-            <thead class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-700">
-                <tr>
-                    <th scope="col" class="px-6 py-4">Number</th>
-                    <th scope="col" class="px-6 py-4">Player Name</th>
-                    <th scope="col" class="px-6 py-4">Action</th>
-                </tr>
-            </thead>
-            <tbody id="onBenchList" class="border-b dark:text-gray-50 [&>*:nth-child(even)]:bg-neutral-100 [&>*:nth-child(even)]:dark:border-neutral-500 [&>*:nth-child(even)]:dark:bg-neutral-700 [&>*:nth-child(odd)]:bg-white [&>*:nth-child(odd)]:dark:border-neutral-500 [&>*:nth-child(odd)]:dark:bg-neutral-600">
-                <!-- Players on the bench will be displayed here -->
-            </tbody>
-            </table>
-        </div>
-    </div>  
-  </div>
-  
-  <script>
-  // Your basketball team object
-  var basketballTeam = {
-    1: "Aliin",
-    2: "Aren",
-    3: "Jan",
-    4: "Karel",
-    5: "Kaspar",
-    6: "Liis",
-    7: "Mari-Liis",
-    8: "Merilyn",
-    9: "Raiko",
-    10: "Siim",
-    11: "Tene"
-  };
-  
-  // Function to display team information
-  function displayTeamInfo(team) {
-    var teamInfoBody = document.getElementById("teamInfo");
+                for (var key in team) {
+                    var row = document.createElement("tr");
+                    var playerKey = row.getAttribute("data-key");
+                    var playerNumberCell = document.createElement("td");
+                    var playerNumberCellP = document.createElement("p");
+                    var playerNameCell = document.createElement("td");
+                    var actionCell = document.createElement("td");
+                    var actionButton = document.createElement("button");
 
-    for (var key in team) {
-        var row = document.createElement("tr");
-        var playerKey = row.getAttribute("data-key");
-        var playerNumberCell = document.createElement("td");
-        var playerNumberCellP = document.createElement("p");
-        var playerNameCell = document.createElement("td");
-        var actionCell = document.createElement("td");
-        var actionButton = document.createElement("button");
+                    row.className =
+                        "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
+                    playerNumberCell.className = "flex justify-center";
+                    playerNumberCellP.className =
+                        "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+                    playerNameCell.className = "whitespace-nowrap px-6 py-4";
+                    actionButton.className =
+                        "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
 
-        row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
-        playerNumberCell.className = "flex justify-center";
-        playerNumberCellP.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
-        playerNameCell.className = "whitespace-nowrap px-6 py-4";
-        actionButton.className = "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
+                    playerNumberCellP.textContent = key;
+                    playerNameCell.textContent = team[key];
 
-        playerNumberCellP.textContent = key;
-        playerNameCell.textContent = team[key];
+                    playerNumberCell.appendChild(playerNumberCellP);
 
-        playerNumberCell.appendChild(playerNumberCellP);
-  
-        actionButton.textContent = "To game";
-        actionButton.onclick = function() {
-            row.remove();
-            addPlayerToGame(team[key]);
-        };
+                    actionButton.textContent = "To game";
+                    actionButton.dataset.playerKey = key;
+                    actionButton.onclick = function () {
+                        var playerKey = this.dataset.playerKey;
+                        row.remove();
+                        addPlayerToGame(playerKey);
+                    };
 
-        actionCell.appendChild(actionButton);
+                    actionCell.appendChild(actionButton);
 
-        row.appendChild(playerNumberCell);
-        row.appendChild(playerNameCell);
-        row.appendChild(actionCell);
+                    row.appendChild(playerNumberCell);
+                    row.appendChild(playerNameCell);
+                    row.appendChild(actionCell);
 
-        teamInfoBody.appendChild(row);
-    }
-  }
-  
-  // Function to add player to in-game list
-  function addPlayerToGame() {
-    var select = document.getElementById("playerSelect");
-    var selectedPlayerKey = select.value;
-    var selectedPlayerName = basketballTeam[selectedPlayerKey];
-    var inGameListBody = document.getElementById("inGameList");
-    var onBenchListBody = document.getElementById("onBenchList");
-    var inGameRowCount = inGameListBody.getElementsByTagName("tr").length;
-  
-    // If the selected player is not already in the in-game list
-    if (selectedPlayerKey && inGameRowCount < 5 && !document.querySelector("#inGameList tr[data-key='" + selectedPlayerKey + "']")) {
-      var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, true);
-      inGameListBody.appendChild(row);
-    } else if (selectedPlayerKey && !document.querySelector("#onBenchList tr[data-key='" + selectedPlayerKey + "']")) {
-      var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, false);
-      onBenchListBody.appendChild(row);
-    }
-  }
-  
-  // Function to remove player from in-game list
-  function removePlayerFromGame(row, fromListBody, toListBody) {
-    var playerKey = row.getAttribute("data-key");
-    var playerName = row.cells[1].textContent;
-    row.remove();
-  
-    var onBenchRowCount = toListBody.getElementsByTagName("tr").length;
-  
-    if (onBenchRowCount < 5 && !document.querySelector("#onBenchList tr[data-key='" + playerKey + "']")) {
-      var newRow = createPlayerRow(playerKey, playerName, false);
-      toListBody.appendChild(newRow);
-    }
-  }
-  
-  // Function to remove player from on-bench list
-  function removePlayerFromBench(row, fromListBody) {
-    row.remove();
-  }
-  
-  // Function to create a player row
-  function createPlayerRow(playerKey, playerName, isInGame) {
-    var row = document.createElement("tr");
-    row.setAttribute("data-key", playerKey);
-  
-    var playerNumberCell = document.createElement("td");
-    var playerNumberCellP = document.createElement("p");
-    var playerNameCell = document.createElement("td");
-    var actionCell = document.createElement("td");
-    var actionButton = document.createElement("button");
-    
-    actionButton.className = isInGame ? "bg-red-600 hover:bg-red-700 text-white font-bold p-2 border border-red-700 rounded-full text-xs" : "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
-      
-    row.className = "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
+                    teamInfoBody.appendChild(row);
+                }
+            }
 
-    
-    playerNumberCell.className = "flex justify-center";
-    playerNumberCellP.className = "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
-    playerNameCell.className = "whitespace-nowrap px-6 py-4";
-    actionCell.className = "flex justify-center";  
-    
-    playerNumberCellP.textContent = playerKey;
-    playerNameCell.textContent = playerName;
+            // Function to add player to in-game list
+            function addPlayerToGame(selectedPlayerKey) {
+                var selectedPlayerName = basketballTeam[selectedPlayerKey];
+                var inGameListBody = document.getElementById("inGameList");
+                var onBenchListBody = document.getElementById("onBenchList");
+                var inGameRowCount =
+                    inGameListBody.getElementsByTagName("tr").length;
 
-    playerNumberCell.appendChild(playerNumberCellP);
-  
-    actionButton.textContent = isInGame ? "To bench" : "To game";
-    actionButton.onclick = function() {
-      if (isInGame) {
-        removePlayerFromGame(row, document.getElementById("inGameList"), document.getElementById("onBenchList"));
-      } else {
-        row.remove();
-        addPlayerToGame();
-      }
-    };
-  
-    actionCell.appendChild(actionButton);
-  
-    row.appendChild(playerNumberCell);
-    row.appendChild(playerNameCell);
-    row.appendChild(actionCell);
-  
-    return row;
-  }
-  
-  // Populate dropdown with players
-  function populateDropdown() {
-    var select = document.getElementById("playerSelect");
-  
-    for (var key in basketballTeam) {
-      var option = document.createElement("option");
-      option.value = key;
-      option.textContent = key + ": " + basketballTeam[key];
-      select.appendChild(option);
-    }
-  }
-  
-  // Display the team information
-  displayTeamInfo(basketballTeam);
-  
-  // Populate dropdown with players
-  populateDropdown();
-  </script>
-  
-  </body>
-  </html>
+                // If the selected player is not already in the in-game list
+                if (
+                    selectedPlayerKey &&
+                    inGameRowCount < 5 &&
+                    !document.querySelector(
+                        "#inGameList tr[data-key='" + selectedPlayerKey + "']"
+                    )
+                ) {
+                    var row = createPlayerRow(
+                        selectedPlayerKey,
+                        selectedPlayerName,
+                        true
+                    );
+                    inGameListBody.appendChild(row);
+                } else if (
+                    selectedPlayerKey &&
+                    !document.querySelector(
+                        "#onBenchList tr[data-key='" + selectedPlayerKey + "']"
+                    )
+                ) {
+                    var row = createPlayerRow(
+                        selectedPlayerKey,
+                        selectedPlayerName,
+                        false
+                    );
+                    onBenchListBody.appendChild(row);
+                }
+            }
+
+            // Function to remove player from in-game list
+            function removePlayerFromGame(row, fromListBody, toListBody) {
+                var playerKey = row.getAttribute("data-key");
+                var playerName = row.cells[1].textContent;
+                row.remove();
+
+                var onBenchRowCount =
+                    toListBody.getElementsByTagName("tr").length;
+
+                if (
+                    onBenchRowCount < 5 &&
+                    !document.querySelector(
+                        "#onBenchList tr[data-key='" + playerKey + "']"
+                    )
+                ) {
+                    var newRow = createPlayerRow(playerKey, playerName, false);
+                    toListBody.appendChild(newRow);
+                }
+            }
+
+            // Function to remove player from on-bench list
+            function removePlayerFromBench(row, fromListBody) {
+                row.remove();
+            }
+
+            // Function to create a player row
+            function createPlayerRow(playerKey, playerName, isInGame) {
+                var row = document.createElement("tr");
+                row.setAttribute("data-key", playerKey);
+
+                var playerNumberCell = document.createElement("td");
+                var playerNumberCellP = document.createElement("p");
+                var playerNameCell = document.createElement("td");
+                var actionCell = document.createElement("td");
+                var actionButton = document.createElement("button");
+
+                actionButton.className = isInGame
+                    ? "bg-red-600 hover:bg-red-700 text-white font-bold p-2 border border-red-700 rounded-full text-xs"
+                    : "bg-green-600 hover:bg-green-700 text-white font-bold p-2 border border-green-700 rounded-full text-xs";
+
+                row.className =
+                    "border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700 p-4";
+
+                playerNumberCell.className = "flex justify-center";
+                playerNumberCellP.className =
+                    "w-12 h-12 rounded-full border border-1 border-sky-500 flex justify-center items-center font-bold";
+                playerNameCell.className = "whitespace-nowrap px-6 py-4";
+                actionCell.className = "flex justify-center";
+
+                playerNumberCellP.textContent = playerKey;
+                playerNameCell.textContent = playerName;
+
+                playerNumberCell.appendChild(playerNumberCellP);
+
+                actionButton.textContent = isInGame ? "To bench" : "To game";
+                actionButton.onclick = function () {
+                    if (isInGame) {
+                        removePlayerFromGame(
+                            row,
+                            document.getElementById("inGameList"),
+                            document.getElementById("onBenchList")
+                        );
+                    } else {
+                        row.remove();
+                        addPlayerToGame();
+                    }
+                };
+
+                actionCell.appendChild(actionButton);
+
+                row.appendChild(playerNumberCell);
+                row.appendChild(playerNameCell);
+                row.appendChild(actionCell);
+
+                return row;
+            }
+
+            // Display the team information
+            displayTeamInfo(basketballTeam);
+
+            // Populate dropdown with players
+            populateDropdown();
+        </script>
+    </body>
+</html>
