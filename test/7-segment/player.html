@@ -4,128 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Basketball Player Profile</title>
+  <link rel="stylesheet" type="text/css" href="styles/output.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-    }
-    .profile {
-      text-align: center;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
     img {
       width: 200px;
       height: 200px;
       border-radius: 50%;
       margin-bottom: 20px;
     }
-    .players {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 70px;
-    }
-    .goback {
-      margin: 25px;
-    }
   </style>
 </head>
-<body>
-  <div class="goback">
-    <button onclick="history.back()">Go Back</button>
-  </div>  
-  <div class="players">
-    <div class="profile">
-      <img src="assets/player1.jpg" alt="Player Image">
+<body class="h-full overflow-x-hidden transition-colors duration-500 dark:bg-slate-900 dark:text-slate-50">
+  <div class="container mx-auto">
+
+  <h1 class="mb-8 text-6xl font-extrabold h-full text-center">Players</h1>  
+  <div class="grid justify-center md:columns-4 sm:columns-1 gap-8">
+      <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+        <img src="assets/player1.jpg" alt="Player Image">
+        <h2>TA-22</h2>
+        <h3>Aliin Saar</h3>
+        <p>Age: 30</p>
+        <p>Player Number: 1</p>
+      </div>
+      <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+        <img src="assets/player2.jpg" alt="Player Image">
+        <h2>TA-22</h2>
+        <h3>Aren Ansper</h3>
+        <p>Age: 30</p>
+        <p>Player Number: 2</p>
+      </div>
+      <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+        <img src="assets/player3.jpg" alt="Player Image">
+        <h2>TA-22</h2>
+        <h3>Jan Kõrva</h3>
+        <p>Age: 30</p>
+        <p>Player Number: 3</p>
+      </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player4.jpg" alt="Player Image">
       <h2>TA-22</h2>
-      <h3>Aliin Saar</h3>
-      <p>Age: 30</p>
-      <p>Player Number: 1</p>
+      <h3>Karel Maarma</h3>
+      <p>Age: 37</p>
+      <p>Player Number: 4</p>
     </div>
-    <div class="profile">
-      <img src="assets/player2.jpg" alt="Player Image">
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player5.jpg" alt="Player Image">
       <h2>TA-22</h2>
-      <h3>Aren Ansper</h3>
+      <h3>Kaspar Kaasik</h3>
       <p>Age: 30</p>
-      <p>Player Number: 2</p>
+      <p>Player Number: 5</p>
     </div>
-    <div class="profile">
-      <img src="assets/player3.jpg" alt="Player Image">
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player6.jpg" alt="Player Image">
       <h2>TA-22</h2>
-      <h3>Jan Kõrva</h3>
-      <p>Age: 30</p>
-      <p>Player Number: 3</p>
+      <h3>Liis Alber-Jaansalu</h3>
+      <p>Age: 25+</p>
+      <p>Player Number: 6</p>
     </div>
-  <div class="profile">
-    <img src="assets/player4.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Karel Maarma</h3>
-    <p>Age: 37</p>
-    <p>Player Number: 4</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player5.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Kaspar Kaasik</h3>
-    <p>Age: 30</p>
-    <p>Player Number: 5</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player6.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Liis Alber-Jaansalu</h3>
-    <p>Age: 25+</p>
-    <p>Player Number: 6</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player7.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Mari-Liis Sink</h3>
-    <p>Age: 25+</p>
-    <p>Player Number: 7</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player8.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Merilyn Tohv</h3>
-    <p>Age: 30</p>
-    <p>Player Number: 8</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player9.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Raiko Tõhk</h3>
-    <p>Age: 30</p>
-    <p>Player Number: 9</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player10.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Siim Pildre</h3>
-    <p>Age: 30</p>
-    <p>Player Number: 10</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player11.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Tene Tiitma</h3>
-    <p>Age: 25+</p>
-    <p>Player Number: 11</p>
-  </div>
-  <div class="profile">
-    <img src="assets/player12.jpg" alt="Player Image">
-    <h2>TA-22</h2>
-    <h3>Karl G Rauniste</h3>
-    <p>Age: 30</p>
-    <p>Player Number: 12</p>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player7.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Mari-Liis Sink</h3>
+      <p>Age: 25+</p>
+      <p>Player Number: 7</p>
+    </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player8.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Merilyn Tohv</h3>
+      <p>Age: 30</p>
+      <p>Player Number: 8</p>
+    </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player9.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Raiko Tõhk</h3>
+      <p>Age: 30</p>
+      <p>Player Number: 9</p>
+    </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player10.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Siim Pildre</h3>
+      <p>Age: 30</p>
+      <p>Player Number: 10</p>
+    </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player11.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Tene Tiitma</h3>
+      <p>Age: 25+</p>
+      <p>Player Number: 11</p>
+    </div>
+    <div class="text-center dark:bg-slate-700 dark:text-slate-50 p-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] dark:shadow-[rgba(238,_238,_238,_0.1)_0px_0px_16px] rounded-sm p-4">
+      <img src="assets/player12.jpg" alt="Player Image">
+      <h2>TA-22</h2>
+      <h3>Karl G Rauniste</h3>
+      <p>Age: 30</p>
+      <p>Player Number: 12</p>
+    </div>
   </div>
 </div>
 </body>
