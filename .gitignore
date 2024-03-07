@@ -17,7 +17,3 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/test/node_modules
-/test/7-segment/node_modules
-/test/5x7_matrix/node_modules
-
