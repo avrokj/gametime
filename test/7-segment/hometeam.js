@@ -33,8 +33,9 @@ function displayTeamInfo(team) {
         actionButton.dataset.playerKey = key;
         actionButton.onclick = function () {
             var playerKey = this.dataset.playerKey;
+            var clonedRow = row.cloneNode(true);
             row.remove();
-            addPlayerToGame(playerKey);
+            addPlayerToGame(playerKey, clonedRow);
         };
 
         actionCell.appendChild(actionButton);
@@ -54,29 +55,27 @@ function addPlayerToGame(selectedPlayerKey) {
     var onBenchListBody = document.getElementById("onBenchList");
     var inGameRowCount = inGameListBody.getElementsByTagName("tr").length;
 
-    // If the selected player is not already in the in-game list
+    // If the selected player is already in the in-game list, return immediately
     if (
-        selectedPlayerKey &&
-        inGameRowCount < 5 &&
-        !document.querySelector(
+        document.querySelector(
             "#inGameList tr[data-key='" + selectedPlayerKey + "']"
         )
     ) {
+        return;
+    }
+
+    // If the selected player is not already in the in-game list
+    if (selectedPlayerKey && inGameRowCount < 5) {
         var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, true);
         inGameListBody.appendChild(row);
-    } else if (
-        selectedPlayerKey &&
-        !document.querySelector(
-            "#onBenchList tr[data-key='" + selectedPlayerKey + "']"
-        )
-    ) {
+    } else if (selectedPlayerKey) {
         var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, false);
         onBenchListBody.appendChild(row);
     }
 }
 
 // Function to remove player from in-game list
-function removePlayerFromGame(row, fromListBody, toListBody) {
+function removePlayerFromGame(row, toListBody) {
     var playerKey = row.getAttribute("data-key");
     var playerName = row.cells[1].textContent;
     row.remove();
@@ -90,11 +89,6 @@ function removePlayerFromGame(row, fromListBody, toListBody) {
         var newRow = createPlayerRow(playerKey, playerName, false);
         toListBody.appendChild(newRow);
     }
-}
-
-// Function to remove player from on-bench list
-function removePlayerFromBench(row, fromListBody) {
-    row.remove();
 }
 
 // Function to create a player row
