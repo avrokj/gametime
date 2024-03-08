@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SegmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
+Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
+Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
 
 require __DIR__.'/auth.php';
