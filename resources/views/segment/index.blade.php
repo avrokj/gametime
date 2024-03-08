@@ -81,7 +81,7 @@
                 </div>
                 <div id="buttons" class="flex justify-end flex-row p-4 gap-8 border-dashed border-2 border-red-100">
                     <p id="awayScore" class="hidden"></p>
-                    <svg type="button" id="awayMinus1" xmlns="http://www.w3.org/2000/svg">
+                    <svg type="button" id="awayMinus1" class="select-none" xmlns="http://www.w3.org/2000/svg">
                         <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
                             opacity="0.8" />
                         <text x="12" y="40"

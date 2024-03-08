@@ -9,3 +9,5 @@ mix.js("resources/js/segment/draganddrop.js", "public/js");
 mix.js("resources/js/segment/hometeam.js", "public/js");
 mix.js("resources/js/segment/guestteam.js", "public/js");
 mix.js("resources/js/segment/spaghetti.js", "public/js");
+
+mix.copyDirectory("resources/assets", "public/assets");
