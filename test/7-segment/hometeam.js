@@ -7,8 +7,8 @@ console.log(currentTeam);
 // Function to display team information
 function displayTeamInfo() {
     const teamInfoBody = document.getElementById("teamInfo");
-    
-    currentTeam.forEach(player => {
+
+    currentTeam.forEach((player) => {
         const row = document.createElement("tr");
         const playerKey = row.getAttribute("data-key");
         const playerNumberCell = document.createElement("td");
@@ -21,7 +21,7 @@ function displayTeamInfo() {
         playerNumberCell.className = "flex justify-center";
         playerNumberCellP.className =
             "btn btn-outline btn-info aspect-square rounded-full flex justify-center items-center font-bold";
-        playerNameCell.className = "whitespace-nowrap px-6 py-4";
+        playerNameCell.className = "whitespace-nowrap px-2 xl:px-6 py-4";
         actionButton.className = "btn btn-outline btn-success btn-sm text-xs";
 
         playerNumberCellP.textContent = player.number;
@@ -47,7 +47,7 @@ function displayTeamInfo() {
         row.appendChild(actionCell);
 
         teamInfoBody.appendChild(row);
-    })
+    });
 }
 
 // Function to add player to in-game list
@@ -60,14 +60,23 @@ function addPlayerToGame(player) {
 
     // If the selected player is already in the in-game list, return immediately
     if (
-        document.querySelector("#inGameList tr[data-key='" + player.number + "']" )
-        || 
-        document.querySelector("#onBenchList tr[data-key='" + player.number + "']" )
+        document.querySelector(
+            "#inGameList tr[data-key='" + player.number + "']"
+        ) ||
+        document.querySelector(
+            "#onBenchList tr[data-key='" + player.number + "']"
+        )
     ) {
-        console.log('here')
+        console.log("here");
         //siia kribasin midagi kokku
-        if (document.querySelector("#onBenchList tr[data-key='" + player.number + "']" )){
-            let row = document.querySelector("#onBenchList tr[data-key='" + player.number + "']" );
+        if (
+            document.querySelector(
+                "#onBenchList tr[data-key='" + player.number + "']"
+            )
+        ) {
+            let row = document.querySelector(
+                "#onBenchList tr[data-key='" + player.number + "']"
+            );
             row.parentElement.removeChild(row);
             addPlayerToGame(player);
         }
@@ -81,9 +90,7 @@ function addPlayerToGame(player) {
         sessionStorage.setItem(player.number, player.name);
         console.log(sessionStorage);
         //selectedPlayerName[1] += 1;
-    }
-    
-    else if (player) {
+    } else if (player) {
         const row = createPlayerRow(player, false);
         onBenchListBody.appendChild(row);
     }
@@ -91,15 +98,19 @@ function addPlayerToGame(player) {
 
 // Function to remove player from in-game list
 function removePlayerFromGame(player) {
-    const toListBody = document.getElementById("onBenchList")
-    const row = document.querySelector("#inGameList tr[data-key='" + player.number + "']" )
-    row.parentElement.removeChild(row)
+    const toListBody = document.getElementById("onBenchList");
+    const row = document.querySelector(
+        "#inGameList tr[data-key='" + player.number + "']"
+    );
+    row.parentElement.removeChild(row);
     sessionStorage.removeItem(player.number, player.name);
     const onBenchRowCount = toListBody.getElementsByTagName("tr").length;
 
     if (
         onBenchRowCount < 5 &&
-        !document.querySelector("#onBenchList tr[data-key='" + player.name + "']")
+        !document.querySelector(
+            "#onBenchList tr[data-key='" + player.name + "']"
+        )
     ) {
         const newRow = createPlayerRow(player, false);
         toListBody.appendChild(newRow);
@@ -126,7 +137,7 @@ function createPlayerRow(player, isInGame) {
     playerNumberCell.className = "flex justify-center";
     playerNumberCellP.className =
         "btn btn-outline btn-info aspect-square rounded-full flex justify-center items-center font-bold";
-    playerNameCell.className = "whitespace-nowrap px-6 py-4";
+    playerNameCell.className = "whitespace-nowrap px-2 xl:px-6 py-4";
     actionCell.className = "flex justify-center";
 
     playerNumberCellP.textContent = player.number;
