@@ -7,9 +7,9 @@ function toggleDarkMode() {
     localStorage.setItem("darkMode", isDarkMode);
     // Toggle Daisy UI theme classes
     if (isDarkMode) {
-        document.documentElement.dataset.theme = "synthwave";
+        document.documentElement.dataset.theme = "dracula";
     } else {
-        document.documentElement.dataset.theme = "cupcake";
+        document.documentElement.dataset.theme = "light";
     }
 }
 
@@ -18,9 +18,9 @@ function initializeDarkMode() {
     const savedDarkMode = localStorage.getItem("darkMode");
     if (savedDarkMode === "true") {
         document.body.classList.add("dark-mode");
-        document.documentElement.dataset.theme = "synthwave";
+        document.documentElement.dataset.theme = "dracula";
     } else {
-        document.documentElement.dataset.theme = "cupcake";
+        document.documentElement.dataset.theme = "light";
     }
 }
 
