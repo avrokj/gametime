@@ -5,19 +5,73 @@ var __webpack_exports__ = {};
   \******************************************/
 var basketballTeam = [{
   teamName: "ta-22",
-  players: {
-    1: "Aliin",
-    2: "Aren",
-    3: "Jan",
-    4: "Karel",
-    5: "Kaspar",
-    6: "Liis",
-    7: "Mari-Liis",
-    8: "Merilyn",
-    9: "Raiko",
-    10: "Siim",
-    11: "Tene"
-  }
+  players: [{
+    name: "Aliin",
+    number: 1,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Aren",
+    number: 2,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Jan",
+    number: 3,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Karel",
+    number: 4,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Kaspar",
+    number: 5,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Liis",
+    number: 6,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Mari-Liis",
+    number: 7,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Merilyn",
+    number: 8,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Raiko",
+    number: 9,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Siim",
+    number: 10,
+    status: 0,
+    points: 0,
+    shots: 0
+  }, {
+    name: "Tene",
+    number: 11,
+    status: 0,
+    points: 0,
+    shots: 0
+  }]
 }, {
   teamName: "guest",
   players: {
@@ -41,9 +95,9 @@ var currentTeam = teamData["players"];
 console.log(currentTeam);
 
 // Function to display team information
-function displayTeamInfo(team) {
+function displayTeamInfo() {
   var teamInfoBody = document.getElementById("teamInfo");
-  for (var key in team) {
+  currentTeam.forEach(function (player) {
     var row = document.createElement("tr");
     var playerKey = row.getAttribute("data-key");
     var playerNumberCell = document.createElement("td");
@@ -56,63 +110,78 @@ function displayTeamInfo(team) {
     playerNumberCellP.className = "btn btn-outline btn-info aspect-square rounded-full flex justify-center items-center font-bold";
     playerNameCell.className = "whitespace-nowrap px-6 py-4";
     actionButton.className = "btn btn-outline btn-success btn-sm text-xs";
-    playerNumberCellP.textContent = key;
-    playerNameCell.textContent = team[key];
+    playerNumberCellP.textContent = player.number;
+    playerNameCell.textContent = player.name;
+    //console.log(key);
+    //console.log(team[key][0]);
+
     playerNumberCell.appendChild(playerNumberCellP);
     actionButton.textContent = "To game";
-    actionButton.dataset.playerKey = key;
+    actionButton.dataset.playerKey = player.status;
     actionButton.onclick = function () {
       var playerKey = this.dataset.playerKey;
       var clonedRow = row.cloneNode(true);
-      row.remove();
-      addPlayerToGame(playerKey, clonedRow);
+      //row.remove(); //removes last player row
+      addPlayerToGame(player, clonedRow);
     };
     actionCell.appendChild(actionButton);
     row.appendChild(playerNumberCell);
     row.appendChild(playerNameCell);
     row.appendChild(actionCell);
     teamInfoBody.appendChild(row);
-  }
+  });
 }
 
 // Function to add player to in-game list
-function addPlayerToGame(selectedPlayerKey) {
-  var selectedPlayerName = currentTeam[selectedPlayerKey];
+function addPlayerToGame(player) {
+  console.log(player);
+  //const selectedPlayerName = player.name;
   var inGameListBody = document.getElementById("inGameList");
   var onBenchListBody = document.getElementById("onBenchList");
   var inGameRowCount = inGameListBody.getElementsByTagName("tr").length;
 
   // If the selected player is already in the in-game list, return immediately
-  if (document.querySelector("#inGameList tr[data-key='" + selectedPlayerKey + "']")) {
+  if (document.querySelector("#inGameList tr[data-key='" + player.number + "']") || document.querySelector("#onBenchList tr[data-key='" + player.number + "']")) {
+    console.log("here");
+    //siia kribasin midagi kokku
+    if (document.querySelector("#onBenchList tr[data-key='" + player.number + "']")) {
+      var row = document.querySelector("#onBenchList tr[data-key='" + player.number + "']");
+      row.parentElement.removeChild(row);
+      addPlayerToGame(player);
+    }
     return;
   }
 
   // If the selected player is not already in the in-game list
-  if (selectedPlayerKey && inGameRowCount < 5) {
-    var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, true);
-    inGameListBody.appendChild(row);
-  } else if (selectedPlayerKey) {
-    var row = createPlayerRow(selectedPlayerKey, selectedPlayerName, false);
-    onBenchListBody.appendChild(row);
+  if (player && inGameRowCount < 5) {
+    var _row = createPlayerRow(player, true);
+    inGameListBody.appendChild(_row);
+    sessionStorage.setItem(player.number, player.name);
+    console.log(sessionStorage);
+    //selectedPlayerName[1] += 1;
+  } else if (player) {
+    var _row2 = createPlayerRow(player, false);
+    onBenchListBody.appendChild(_row2);
   }
 }
 
 // Function to remove player from in-game list
-function removePlayerFromGame(row, toListBody) {
-  var playerKey = row.getAttribute("data-key");
-  var playerName = row.cells[1].textContent;
-  row.remove();
+function removePlayerFromGame(player) {
+  var toListBody = document.getElementById("onBenchList");
+  var row = document.querySelector("#inGameList tr[data-key='" + player.number + "']");
+  row.parentElement.removeChild(row);
+  sessionStorage.removeItem(player.number, player.name);
   var onBenchRowCount = toListBody.getElementsByTagName("tr").length;
-  if (onBenchRowCount < 5 && !document.querySelector("#onBenchList tr[data-key='" + playerKey + "']")) {
-    var newRow = createPlayerRow(playerKey, playerName, false);
+  if (onBenchRowCount < 5 && !document.querySelector("#onBenchList tr[data-key='" + player.name + "']")) {
+    var newRow = createPlayerRow(player, false);
     toListBody.appendChild(newRow);
   }
 }
 
 // Function to create a player row
-function createPlayerRow(playerKey, playerName, isInGame) {
+function createPlayerRow(player, isInGame) {
   var row = document.createElement("tr");
-  row.setAttribute("data-key", playerKey);
+  row.setAttribute("data-key", player.number);
   var playerNumberCell = document.createElement("td");
   var playerNumberCellP = document.createElement("p");
   var playerNameCell = document.createElement("td");
@@ -124,16 +193,20 @@ function createPlayerRow(playerKey, playerName, isInGame) {
   playerNumberCellP.className = "btn btn-outline btn-info aspect-square rounded-full flex justify-center items-center font-bold";
   playerNameCell.className = "whitespace-nowrap px-6 py-4";
   actionCell.className = "flex justify-center";
-  playerNumberCellP.textContent = playerKey;
-  playerNameCell.textContent = playerName;
+  playerNumberCellP.textContent = player.number;
+  playerNameCell.textContent = player.name;
   playerNumberCell.appendChild(playerNumberCellP);
   actionButton.textContent = isInGame ? "To bench" : "To game";
   actionButton.onclick = function () {
     if (isInGame) {
-      removePlayerFromGame(row, document.getElementById("inGameList"), document.getElementById("onBenchList"));
+      removePlayerFromGame(player
+      // document.getElementById("inGameList").innerHTML     ,
+      // document.getElementById("onBenchList"),
+      // //row.remove() //lisasin remove() 7.march,
+      );
     } else {
-      row.remove();
-      addPlayerToGame();
+      //row.remove();
+      addPlayerToGame(player);
     }
   };
   actionCell.appendChild(actionButton);
@@ -144,6 +217,6 @@ function createPlayerRow(playerKey, playerName, isInGame) {
 }
 
 // Display the team information
-displayTeamInfo(currentTeam);
+displayTeamInfo();
 /******/ })()
 ;

@@ -23,6 +23,7 @@
         "tailwindcss": "^3.1.0"
     },
     "dependencies": {
-        "concurrently": "^8.2.2"
+        "concurrently": "^8.2.2",
+        "daisyui": "^4.7.2"
     }
 }
