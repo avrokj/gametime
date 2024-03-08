@@ -1,6 +1,13 @@
 import { HomeGameBoard, AwayGameBoard } from "./src/GameBoard.js";
 import { Number } from "./src/Number.js";
-
+import basketballTeam from "./teams.js";
+//import inGameListBody from "./hometeam.js";
+console.log(sessionStorage);
+//console.log(inGameListBody);
+let x = document.cookie;
+console.log(x)
+//import  inGameListBody  from "./hometeam.js";
+//console.log(inGameListBody);
 const boardSizeX = 7;
 const boardSizeY = 5;
 
