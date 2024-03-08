@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApiTable extends Migration
+class CreateApisTable extends Migration
 {
     public function up()
     {
-        Schema::create('api', function (Blueprint $table) {
+        Schema::create('apis', function (Blueprint $table) {
 
             $table->integer('id',);
             $table->integer('sb_id',);
@@ -21,6 +21,6 @@ class CreateApiTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('api');
+        Schema::dropIfExists('apis');
     }
 }

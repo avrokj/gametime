@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoulTable extends Migration
+class CreateFoulsTable extends Migration
 {
     public function up()
     {
-        Schema::create('foul', function (Blueprint $table) {
+        Schema::create('fouls', function (Blueprint $table) {
 
             $table->integer('id',);
             $table->integer('game_id',);
@@ -16,12 +16,12 @@ class CreateFoulTable extends Migration
             $table->integer('player_team_id',);
             $table->timestamp('timestamp')->nullable();
             $table->primary(['id', 'game_id', 'player_id1', 'player_team_id']);
-            $table->foreign('game_id')->references('id')->on('game');
+            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('foul');
+        Schema::dropIfExists('fouls');
     }
 }

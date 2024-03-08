@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeamTable extends Migration
+class CreateTeamsTable extends Migration
 {
     public function up()
     {
-        Schema::create('team', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
 
             $table->integer('id',);
             $table->string('team_name', 100)->nullable();
@@ -16,13 +16,13 @@ class CreateTeamTable extends Migration
             $table->integer('sport_id',);
             $table->integer('coach_id',);
             $table->primary(['id', 'sport_id', 'coach_id']);
-            $table->foreign('sport_id')->references('id')->on('sport');
-            $table->foreign('coach_id')->references('id')->on('coach');
+            $table->foreign('sport_id')->references('id')->on('sports');
+            $table->foreign('coach_id')->references('id')->on('coaches');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('team');
+        Schema::dropIfExists('teams');
     }
 }
