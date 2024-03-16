@@ -12,6 +12,7 @@ class CreateSportsTable extends Migration
 
             $table->integer('id',);
             $table->string('sports_name', 45)->nullable();
+            $table->timestamps();
             $table->primary('id');
         });
     }
