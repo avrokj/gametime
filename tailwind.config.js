@@ -18,9 +18,28 @@ export default {
     },
 
     daisyui: {
-        themes: ["light", "dracula"],
+        themes: [
+            {
+                light: {
+                    ...require("daisyui/src/theming/themes")["light"],
+                    primary: "#ed8600",
+                    secondary: "#3b82f6",
+                    // accent: "#37cdbe",
+                    // neutral: "#3d4451",
+                    "base-100": "#eeeeee",
+                },
+                dracula: {
+                    ...require("daisyui/src/theming/themes")["dracula"],
+                    primary: "#ed8600",
+                    secondary: "#3b82f6",
+                    // accent: "#37cdbe",
+                    // neutral: "#3d4451",
+                    // "base-100": "#eeeeee",
+                },
+            },
+        ],
     },
 
     /** plugins: [forms], [require('daisyui')], */
-    plugins: [require("@tailwindcss/forms"), require("daisyui")],
+    plugins: [require("daisyui"), require("@tailwindcss/forms")],
 };

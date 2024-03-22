@@ -35,5 +35,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
 Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
 Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
+Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
+Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
 require __DIR__ . '/auth.php';

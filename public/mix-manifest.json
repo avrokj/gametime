@@ -5,5 +5,19 @@
     "/js/hometeam.js": "/js/hometeam.js",
     "/js/guestteam.js": "/js/guestteam.js",
     "/js/spaghetti.js": "/js/spaghetti.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/assets/ametikool-logo-oranz.jpg": "/assets/ametikool-logo-oranz.jpg",
+    "/assets/ametikooli-logo_1.jpg": "/assets/ametikooli-logo_1.jpg",
+    "/assets/player1.jpg": "/assets/player1.jpg",
+    "/assets/player10.jpg": "/assets/player10.jpg",
+    "/assets/player11.jpg": "/assets/player11.jpg",
+    "/assets/player12.jpg": "/assets/player12.jpg",
+    "/assets/player2.jpg": "/assets/player2.jpg",
+    "/assets/player3.jpg": "/assets/player3.jpg",
+    "/assets/player4.jpg": "/assets/player4.jpg",
+    "/assets/player5.jpg": "/assets/player5.jpg",
+    "/assets/player6.jpg": "/assets/player6.jpg",
+    "/assets/player7.jpg": "/assets/player7.jpg",
+    "/assets/player8.jpg": "/assets/player8.jpg",
+    "/assets/player9.jpg": "/assets/player9.jpg"
 }
