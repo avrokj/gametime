@@ -5,13 +5,20 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "^2.3",
+        "blade-ui-kit/blade-icons": "^1.6",
+        "blade-ui-kit/blade-zondicons": "^1.5",
+        "brunocfalcao/blade-feather-icons": "^4.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
-        "robsontenorio/mary": "^1.25"
+        "owenvoke/blade-fontawesome": "^2.6",
+        "robsontenorio/mary": "^1.25",
+        "spatie/laravel-ignition": "^2.4.2",
+        "themesberg/flowbite-blade-icons": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -56,6 +63,9 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "8.2.4"
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
