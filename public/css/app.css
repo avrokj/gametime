@@ -1125,7 +1125,7 @@ select {
     --glass-opacity: 25%;
     --glass-border-opacity: 15%;
   }
-
+  
   .btn-ghost:hover {
     border-color: transparent;
   }
@@ -1724,6 +1724,7 @@ input.tab:checked + .tab-content,
   --glass-opacity: 25%;
   --glass-border-opacity: 15%;
 }
+
 .btn-ghost {
   border-width: 1px;
   border-color: transparent;
@@ -1737,7 +1738,7 @@ input.tab:checked + .tab-content,
 .btn-ghost.btn-active {
   border-color: transparent;
   background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
-}
+
 .btn-outline.btn-primary {
   --tw-text-opacity: 1;
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
