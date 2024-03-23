@@ -18,6 +18,7 @@
         "owenvoke/blade-fontawesome": "^2.6",
         "robsontenorio/mary": "^1.25",
         "spatie/laravel-ignition": "^2.4.2",
+        "spatie/laravel-permission": "^6.4",
         "themesberg/flowbite-blade-icons": "^1.0"
     },
     "require-dev": {

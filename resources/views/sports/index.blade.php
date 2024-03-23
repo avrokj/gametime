@@ -18,7 +18,7 @@
         </x-primary-button>
 
         <dialog id="my_modal_add" class="modal modal-bottom sm:modal-middle">
-          <div class="modal-box">
+          <div class="modal-box !w-auto">
             <h3 class="font-bold text-lg">{{ __('Add Sport') }}</h3>
             <!-- <p class="py-4">Press ESC key or click the button below to close</p> -->
             <div class="modal-action justify-start">
@@ -64,7 +64,7 @@
                     <x-edit-button onclick="document.getElementById('my_modal_edit{{ $sport->id }}').showModal()">                      
                     </x-edit-button>
                     <dialog id="my_modal_edit{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
-                      <div class="modal-box">
+                      <div class="modal-box !w-auto">
                         <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
                         <!-- <p class="py-4">Press ESC key or click the button below to close</p> -->
                         <div class="modal-action justify-start">                          
@@ -83,6 +83,7 @@
                         </div>
                       </div>
                     </dialog>
+                    
                   <form method="POST" action="{{ route('sports.destroy', $sport) }}">
                     @csrf
                     @method('delete')
