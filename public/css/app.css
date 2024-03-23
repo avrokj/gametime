@@ -966,6 +966,12 @@ select {
   .btn:disabled {
   pointer-events: none;
 }
+.btn-circle {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+  padding: 0px;
+}
 :where(.btn:is(input[type="checkbox"])),
 :where(.btn:is(input[type="radio"])) {
   width: auto;
@@ -1118,6 +1124,17 @@ select {
   .btn.glass:hover {
     --glass-opacity: 25%;
     --glass-border-opacity: 15%;
+  }
+  
+  .btn-ghost:hover {
+    border-color: transparent;
+  }
+
+  @supports (color: oklch(0 0 0)) {
+
+    .btn-ghost:hover {
+      background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+    }
   }
 
   .btn-outline.btn-primary:hover {
@@ -1707,6 +1724,21 @@ input.tab:checked + .tab-content,
   --glass-opacity: 25%;
   --glass-border-opacity: 15%;
 }
+
+.btn-ghost {
+  border-width: 1px;
+  border-color: transparent;
+  background-color: transparent;
+  color: currentColor;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  outline-color: currentColor;
+}
+.btn-ghost.btn-active {
+  border-color: transparent;
+  background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+
 .btn-outline.btn-primary {
   --tw-text-opacity: 1;
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
@@ -2070,6 +2102,15 @@ input.tab:checked + .tab-content,
   background-color: #0006;
   animation: modal-pop 0.2s ease-out;
 }
+.modal-backdrop {
+  z-index: -1;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  display: grid;
+  align-self: stretch;
+  justify-self: stretch;
+  color: transparent;
+}
 .modal-open .modal-box,
 .modal-toggle:checked + .modal .modal-box,
 .modal:target .modal-box,
@@ -2419,9 +2460,27 @@ input.tab:checked + .tab-content,
   width: 2rem;
   padding: 0px;
 }
+.btn-circle:where(.btn-xs) {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 9999px;
+  padding: 0px;
+}
 .btn-circle:where(.btn-sm) {
   height: 2rem;
   width: 2rem;
+  border-radius: 9999px;
+  padding: 0px;
+}
+.btn-circle:where(.btn-md) {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+  padding: 0px;
+}
+.btn-circle:where(.btn-lg) {
+  height: 4rem;
+  width: 4rem;
   border-radius: 9999px;
   padding: 0px;
 }
@@ -2537,11 +2596,17 @@ input.tab:checked + .tab-content,
 .right-0 {
   right: 0px;
 }
+.right-2 {
+  right: 0.5rem;
+}
 .start-0 {
   inset-inline-start: 0px;
 }
 .top-0 {
   top: 0px;
+}
+.top-2 {
+  top: 0.5rem;
 }
 .z-0 {
   z-index: 0;
@@ -2860,6 +2925,9 @@ input.tab:checked + .tab-content,
 .rounded {
   border-radius: 0.25rem;
 }
+.rounded-box {
+  border-radius: var(--rounded-box, 1rem);
+}
 .rounded-full {
   border-radius: 9999px;
 }
@@ -2979,15 +3047,6 @@ input.tab:checked + .tab-content,
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.from-gray-700\/50 {
-  --tw-gradient-from: rgb(55 65 81 / 0.5) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(55 65 81 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-.via-transparent {
-  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 .bg-center {
   background-position: center;
@@ -3285,10 +3344,6 @@ input.tab:checked + .tab-content,
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-gray-500\/20 {
-  --tw-shadow-color: rgb(107 114 128 / 0.2);
-  --tw-shadow: var(--tw-shadow-colored);
 }
 .outline {
   outline-style: solid;
@@ -3763,10 +3818,6 @@ input.tab:checked + .tab-content,
     background-color: rgb(31 41 55 / var(--tw-bg-opacity));
   }
 
-  .dark\:bg-gray-800\/50 {
-    background-color: rgb(31 41 55 / 0.5);
-  }
-
   .dark\:bg-gray-900 {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
@@ -3774,10 +3825,6 @@ input.tab:checked + .tab-content,
 
   .dark\:bg-red-800\/20 {
     background-color: rgb(153 27 27 / 0.2);
-  }
-
-  .dark\:bg-gradient-to-bl {
-    background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
   }
 
   .dark\:text-gray-300 {
@@ -3798,17 +3845,6 @@ input.tab:checked + .tab-content,
   .dark\:text-orange-400 {
     --tw-text-opacity: 1;
     color: rgb(251 146 60 / var(--tw-text-opacity));
-  }
-
-  .dark\:text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-  }
-
-  .dark\:shadow-none {
-    --tw-shadow: 0 0 #0000;
-    --tw-shadow-colored: 0 0 #0000;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 
   .dark\:ring-1 {
