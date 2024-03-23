@@ -1,13 +1,8 @@
 <svg version="1.1" id="gametime_x5F_logo" xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 115.6 116.4" width="60"
-    height="60" style="enable-background:new 0 0 115.6 116.4; fill:#ed8600;" xml:space="preserve">
+    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 115.6 116.4" class="fill-amber-500 h-auto w-auto" style="enable-background:new 0 0 115.6 116.4;" xml:space="preserve">
     <style type="text/css">
         .st0 {
             clip-path: url(#SVGID_2_);
-
-        .st1 {
-            fill: #ed8600;
-        }
     </style>
     <g id="GAME_TIME">
         <defs>
@@ -62,7 +57,7 @@
         </g>
     </g>
     <g id="ring">
-        <path class="st1" d="M111.2,58.2h-1c0,6.9-1.3,13.5-3.8,19.6c-3.5,8.9-9.4,16.5-16.9,22.2l0,0l0,0c-0.7,0.5-1.4,1.1-2.1,1.6l0,0
+        <path class="fill-amber-500" d="M111.2,58.2h-1c0,6.9-1.3,13.5-3.8,19.6c-3.5,8.9-9.4,16.5-16.9,22.2l0,0l0,0c-0.7,0.5-1.4,1.1-2.1,1.6l0,0
             l0,0c-1.7,1.2-3.5,2.2-5.3,3.2l0,0c-2.9,1.5-6,2.8-9.2,3.7l0,0c-1.5,0.5-3,0.8-4.6,1.2l0,0c-2.6,0.5-5.3,0.9-8.1,1l0,0l0,0
             c-0.8,0-1.6,0.1-2.5,0.1c-1.1,0-2.3,0-3.4-0.1l0,0l0,0c-1.1-0.1-2.2-0.2-3.3-0.3c-2.1-0.3-4.1-0.7-6.2-1.2l0,0
             c-4-1-7.7-2.4-11.3-4.3l-0.2-0.1h-0.3v1l0.5-0.9c-2.4-1.2-4.6-2.6-6.8-4.2C19,95,12.7,87.1,9,77.9l0,0c-1-2.5-1.8-5.1-2.5-7.8l0,0
