@@ -1125,7 +1125,7 @@ select {
     --glass-opacity: 25%;
     --glass-border-opacity: 15%;
   }
-  
+
   .btn-ghost:hover {
     border-color: transparent;
   }
@@ -1724,7 +1724,6 @@ input.tab:checked + .tab-content,
   --glass-opacity: 25%;
   --glass-border-opacity: 15%;
 }
-
 .btn-ghost {
   border-width: 1px;
   border-color: transparent;
@@ -1738,7 +1737,7 @@ input.tab:checked + .tab-content,
 .btn-ghost.btn-active {
   border-color: transparent;
   background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
-
+}
 .btn-outline.btn-primary {
   --tw-text-opacity: 1;
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
@@ -2101,15 +2100,6 @@ input.tab:checked + .tab-content,
   .modal::backdrop {
   background-color: #0006;
   animation: modal-pop 0.2s ease-out;
-}
-.modal-backdrop {
-  z-index: -1;
-  grid-column-start: 1;
-  grid-row-start: 1;
-  display: grid;
-  align-self: stretch;
-  justify-self: stretch;
-  color: transparent;
 }
 .modal-open .modal-box,
 .modal-toggle:checked + .modal .modal-box,
@@ -3318,11 +3308,6 @@ input.tab:checked + .tab-content,
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-2xl {
-  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-lg {
