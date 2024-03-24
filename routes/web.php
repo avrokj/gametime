@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
@@ -20,6 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('roles', RoleController::class);
+Route::resource('permissions', PermissionController::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,7 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('sports', SportController::class);
-    Route::get('searchsports', [SportController::class, 'searchsports'])->name('searchsports');
+    Route::get('/sports/search', [SportController::class, 'search'])->name('sports.search');
+    // Route::get('searchsports', [SportController::class, 'searchsports'])->name('searchsports');
 });
 
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
