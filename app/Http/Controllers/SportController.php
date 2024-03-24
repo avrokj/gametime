@@ -26,19 +26,15 @@ class SportController extends Controller
      * Search.
      */
     // https://www.educative.io/answers/how-to-implement-search-in-laravel
-
-    public function searchsports(Request $request)
+    public function search(Request $request)
     {
-        // Get the search value from the request
-        $searchsports = $request->input('searchsports');
+        $query = $request->input('search');
 
-        // Search in the title and body columns from the posts table
-        $sports = Sport::query()
-            ->where('sports_name', 'LIKE', "%{$searchsports}%")
-            ->get();
+        // Perform search query using your Sport model
+        $results = Sport::where('sports_name', 'LIKE', "%{$query}%")->get();
 
-        // Return the search view with the resluts compacted
-        return view('sports.search', compact('sports'));
+        // Pass the search results to the view
+        return view('sports.index', ['results' => $results]);
     }
 
     /**
