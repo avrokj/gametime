@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">                        
-                        <div class="w-16">
+                        <div class="w-16 hover:animate-spin">
                             <x-application-logo class="block h-9 fill-current" />
                         </div>
                     </a>

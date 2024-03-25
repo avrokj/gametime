@@ -64,10 +64,14 @@
                     <table class="table min-w-full rounded-md">            
                         <thead class="text-base uppercase bg-base-100">
                         <tr class="text-left py-4">
-                            <th class="border-b-2 border-base-300">{{ __('Name') }}</th>
-                            <th class="text-right border-b-2 border-base-300">{{ __('Permissions') }}
+                            <th class="border-b-2 border-base-300">
+                                {{ __('Name') }}</th>
+                            <th class="border-b-2 border-base-300">
+                                {{ __('Permissions') }}
                             </th>
-                            <th class="border-b-2 border-base-300" scope="col"></th>
+                            <th class="border-b-2 border-base-300 text-right" scope="col">
+                                {{ __('Actions') }}
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
@@ -79,65 +83,64 @@
                                 <td class="border-b-2 border-base-300">
                                     {{ $role->permissions_count }}
                                 </td>
-                                <td class="border-b-2 border-base-300 text-right">
+                                <td class="border-b-2 border-base-300 text-right">                                    
+                                    <div class="flex justify-end">
+                                        <!-- Open the modal using ID.showModal() method -->
+                                        <x-edit-button onclick="document.getElementById('edit_role{{ $role->id }}').showModal()">                      
+                                        </x-edit-button>
 
-                                    <!-- Open the modal using ID.showModal() method -->
-                                    <x-edit-button onclick="document.getElementById('edit_role{{ $role->id }}').showModal()">                      
-                                    </x-edit-button>
-
-                                    <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
-                                    <div class="modal-box !w-auto">
-                                        <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
-                                        <div class="modal-action justify-start">                          
-                                            @if ($errors->any())
-                                                <div class="text-red-500 text-sm mb-4">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                    
-                                            <form action="{{ route('roles.update', $role) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div>
-                                                    <x-input-label for="name" :value="__('Name')" />
-                                                    <x-text-input name="name" id="name" value="{{ $role->name ?? old('name') }}" />
-                                                </div>
-                    
-                                                @if ($roles->count())
-                                                <div class="mt-4">
-                                                    <x-input-label :value="__('Roles')" />
-                    
-                                                    @foreach ($permissions as $id => $name)
-                                                        <input type="checkbox" name="roles[]" id="role-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('role', [])) || $permission->roles->contains($id)) />
-                                                        <input type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
-                                                        <label class="text-sm font-medium text-gray-700" for="permission-{{ $id }}">{{ $name }}</label>
-                                                        <br />
-                                                    @endforeach
-                                                </div>
+                                        <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
+                                        <div class="modal-box !w-auto">
+                                            <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
+                                            <div class="modal-action justify-start">                          
+                                                @if ($errors->any())
+                                                    <div class="text-red-500 text-sm mb-4">
+                                                        <ul>
+                                                            @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 @endif
+                        
+                                                <form action="{{ route('roles.update', $role) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div>
+                                                        <x-input-label for="name" :value="__('Name')" />
+                                                        <x-text-input name="name" id="name" value="{{ $role->name ?? old('name') }}" />
+                                                    </div>
+                        
+                                                    @if ($roles->count())
+                                                    <div class="mt-4">
+                                                        <x-input-label :value="__('Roles')" />
+                        
+                                                        @foreach ($permissions as $id => $name)
+                                                            <input type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
+                                                            <label class="text-sm font-medium text-gray-700" for="permission-{{ $id }}">{{ $name }}</label>
+                                                            <br />
+                                                        @endforeach
+                                                    </div>
+                                                    @endif
 
-                                                <div class="mt-4 space-x-2">
-                                                    <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
-                                                </div>
-                                            </form>
+                                                    <div class="mt-4 space-x-2">
+                                                        <x-save-button> {{ __('Save') }}</x-save-button>
+                                                        <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
+                                                            {{ __('Cancel') }}
+                                                        </x-cancel-button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                    </dialog>
+                                        </dialog>
 
-                                    <form method="POST" action="{{ route('roles.destroy', $role) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                            <x-heroicon-s-trash class="w-6 text-white" />
-                                        </x-delete-button>
-                                    </form>
+                                        <form method="POST" action="{{ route('roles.destroy', $role) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
+                                            </x-delete-button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

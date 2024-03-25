@@ -57,7 +57,8 @@
                 </thead>
                 <tbody class="sm:rounded-lg">
                     @if(isset($results))
-                        @foreach($results as $result)
+                        @if(count($results) > 0)
+                        @foreach($results as $sport)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $sport->sports_name }} 
@@ -90,13 +91,20 @@
                                     @csrf
                                     @method('delete')
                                     <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                    <x-heroicon-s-trash class="w-6 text-white" />
                                     </x-delete-button>
                                 </form>
                                 </div>
                                 </td>
                             </tr>
                         @endforeach
+                        @else                            
+                            <tr>
+                                <td class="pt-4 col-span-2">
+                                    {{ __('No results found.') }}
+                                </td>
+                            </tr>
+                        @endif
+
                     @else 
                         @foreach ($sports as $sport)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
@@ -104,46 +112,45 @@
                                     {{ $sport->sports_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                <div class="flex justify-end">                    
-                                    <!-- Open the modal using ID.showModal() method -->
-                                    <x-edit-button onclick="document.getElementById('my_modal_edit{{ $sport->id }}').showModal()">                      
-                                    </x-edit-button>
-                                    <dialog id="my_modal_edit{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
-                                    <div class="modal-box !w-auto">
-                                        <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
-                                        <div class="modal-action justify-start">                          
-                                        <form method="POST" action="{{ route('sports.update', $sport) }}">
-                                            @csrf
-                                            @method('patch')
-                                            <x-text-input name="sports_name" value="{{ old('sports_name', $sport->sports_name) }}" />
-                                            <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                                            <div class="mt-4 space-x-2">
-                                            <x-save-button> {{ __('Save') }}</x-save-button>
-                                            <x-cancel-button onclick="window.location='{{ route('sports.index') }}'">
-                                                {{ __('Cancel') }}
-                                            </x-cancel-button>
+                                    <div class="flex justify-end">                    
+                                        <!-- Open the modal using ID.showModal() method -->
+                                        <x-edit-button onclick="document.getElementById('my_modal_edit{{ $sport->id }}').showModal()">                      
+                                        </x-edit-button>
+                                        <dialog id="my_modal_edit{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
+                                        <div class="modal-box !w-auto">
+                                            <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
+                                            <div class="modal-action justify-start">                          
+                                            <form method="POST" action="{{ route('sports.update', $sport) }}">
+                                                @csrf
+                                                @method('patch')
+                                                <x-text-input name="sports_name" value="{{ old('sports_name', $sport->sports_name) }}" />
+                                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                                <div class="mt-4 space-x-2">
+                                                <x-save-button> {{ __('Save') }}</x-save-button>
+                                                <x-cancel-button onclick="window.location='{{ route('sports.index') }}'">
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                                </div>
+                                            </form>
                                             </div>
-                                        </form>
                                         </div>
+                                        </dialog>
+                                            
+                                        <form method="POST" action="{{ route('sports.destroy', $sport) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
+                                            </x-delete-button>
+                                        </form>
                                     </div>
-                                    </dialog>
-                                    
-                                <form method="POST" action="{{ route('sports.destroy', $sport) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                    <x-heroicon-s-trash class="w-6 text-white" />
-                                    </x-delete-button>
-                                </form>
-                                </div>
                                 </td>
                             </tr>
                         @endforeach
                     @endif           
                 </tbody>
             </table>
-            <div class="pt-4">
-            {{ $sports->links() }}
+            <div class="pt-4 col-span-2">
+                {{ $sports->links('pagination::tailwind') }}
             </div>
             </div>
         </div>

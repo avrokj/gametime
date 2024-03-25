@@ -132,7 +132,6 @@
                                         @csrf
                                         @method('DELETE')
                                         <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                            <x-heroicon-s-trash class="w-6 text-white" />
                                         </x-delete-button>
                                     </form>
                                 </td>

@@ -9,32 +9,19 @@ use Illuminate\View\View;
 
 class SportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //return view('sports.index');
-        return view('sports.index', [
-            /* 'sports' => Sport::all() */
-            'sports' => Sport::orderBy('sports_name')->paginate(20)
-            /* 'sports' => DB::table('sports')->orderBy('first_name')->paginate(20) */
-        ]);
+        $sports = Sport::orderBy('sports_name')->paginate(20);
+
+        return view('sports.index', compact('sports'));
     }
 
-    /**
-     * Search.
-     */
-    // https://www.educative.io/answers/how-to-implement-search-in-laravel
     public function search(Request $request)
     {
-        $query = $request->input('search');
+        $term = $request->input('search');
+        $sports = Sport::where('sports_name', 'like', "%$term%")->orderBy('sports_name')->paginate(20);
 
-        // Perform search query using your Sport model
-        $results = Sport::where('sports_name', 'LIKE', "%{$query}%")->get();
-
-        // Pass the search results to the view
-        return view('sports.index', ['results' => $results]);
+        return view('sports.index', compact('sports'));
     }
 
     /**
@@ -99,7 +86,7 @@ class SportController extends Controller
 
         $sport->update($validated);
 
-        return redirect(route('sports.index'));
+        return redirect()->route('sports.index')->with('success', 'Sport updated successfully.');
     }
 
     /**
@@ -108,6 +95,7 @@ class SportController extends Controller
     public function destroy(Sport $sport)
     {
         $sport->delete();
-        return redirect('/sports');
+
+        return redirect()->route('sports.index')->with('success', 'Sport deleted successfully.');
     }
 }
