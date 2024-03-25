@@ -38,4 +38,7 @@ Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name(
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
+Route::get('/segment/score', [SegmentController::class, 'score'])->name('segment.score');
+Route::post('/segment/score', [SegmentController::class, 'updateScore']);
+
 require __DIR__ . '/auth.php';
