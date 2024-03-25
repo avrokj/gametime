@@ -7,6 +7,23 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script>
+            function toggleModal(modalId) {
+                // Get all dialogs
+                const dialogs = document.querySelectorAll('dialog');
+        
+                // Loop through each dialog
+                dialogs.forEach(dialog => {
+                    // Close all dialogs except the one with the specified modalId
+                    if (dialog.id !== modalId) {
+                        dialog.close();
+                    }
+                });
+        
+                // Open the dialog associated with the clicked button
+                document.getElementById(modalId).showModal();
+            }
+        </script>
     </head>
     <body>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center dark:bg-dots-lighter selection:bg-red-500 selection:text-white">
@@ -15,9 +32,9 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
-                        <button class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="document.getElementById('login').showModal()">Log in</button>
+                        <button class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('login')">Log in</button>
                         <dialog id="login" class="modal">
-                        <div class="modal-box w-auto">
+                        <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <form method="dialog">
                                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             </form>
@@ -30,20 +47,22 @@
                             
                                     <!-- Email Address -->
                                     <div>
-                                        <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                                        <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                            <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                        </label>
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
                             
                                     <!-- Password -->
                                     <div class="mt-4">
-                                        <x-input-label for="password" :value="__('Password')" />
-                            
-                                        <x-text-input id="password" class="block mt-1 w-full"
+                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
+                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
                                                         type="password"
                                                         name="password"
                                                         required autocomplete="current-password" />
-                            
+                                        </label>                            
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                             
@@ -57,9 +76,9 @@
                             
                                     <div class="flex items-center justify-end mt-4">
                                         @if (Route::has('password.request'))
-                                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                                            <button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('forgot')">
                                                 {{ __('Forgot your password?') }}
-                                            </a>
+                                            </button>
                                         @endif
                             
                                         <x-primary-button class="ms-3">
@@ -71,13 +90,53 @@
                         </div>
                         </dialog>
 
+                        
+                        @if (Route::has('password.request'))
+                        <dialog id="forgot" class="modal">
+                            <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                <form method="dialog">
+                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>                                
+                                <div class="mb-4 text-sm text-left">
+                                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                                </div>
+                                <div class="modal-action justify-start text-left">
+                                
+                                    <!-- Session Status -->
+                                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                                
+                                    <form method="POST" action="{{ route('password.email') }}">
+                                        @csrf
+                                
+                                        <!-- Email Address -->
+                                        <div>
+                                            <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                                <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="email"  type="email" name="email" :value="old('email')" required autofocus class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                            </label>
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                        </div>
+                                
+                                        <div class="flex items-center justify-end mt-4">
+                                            <x-primary-button>
+                                                {{ __('Email Password Reset Link') }}
+                                            </x-primary-button>
+                                        </div>
+                                    </form>    
+                                </div>
+                            </div>
+                        </dialog>                            
+                        @endif
 
 
 
                         @if (Route::has('register'))                            
-                        <button class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="document.getElementById('register').showModal()">Register</button>
+                        <button class="ml-4 font-semibold  hover:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('register')">
+                            {{ __('Register') }}
+                        </button>
+
                         <dialog id="register" class="modal">
-                        <div class="modal-box w-auto">
+                        <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <form method="dialog">
                                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             </form>
@@ -88,46 +147,50 @@
                             
                                     <!-- Name -->
                                     <div>
-                                        <x-input-label for="name" :value="__('Name')" />
-                                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                                        <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                            <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                                        </label>
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                             
                                     <!-- Email Address -->
                                     <div class="mt-4">
-                                        <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                                        <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                            <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="email" type="email" name="email" :value="old('email')" required autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                        </label>
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
                             
                                     <!-- Password -->
                                     <div class="mt-4">
-                                        <x-input-label for="password" :value="__('Password')" />
-                            
-                                        <x-text-input id="password" class="block mt-1 w-full"
+                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
+                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
                                                         type="password"
                                                         name="password"
-                                                        required autocomplete="new-password" />
-                            
+                                                        required autocomplete="current-password" />
+                                        </label>
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                             
                                     <!-- Confirm Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                            
-                                        <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                                    <div class="mt-4">                                        
+                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
+                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
                                                         type="password"
                                                         name="password_confirmation" required autocomplete="new-password" />
-                            
+                                        </label>                            
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div>
                             
-                                    <div class="flex items-center justify-end mt-4">
-                                        <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                                    <div class="flex items-center justify-end mt-4">                                                                    
+                                        <button class="underline text-sm hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('login')">
                                             {{ __('Already registered?') }}
-                                        </a>
-                            
+                                        </button>
+
                                         <x-primary-button class="ms-4">
                                             {{ __('Register') }}
                                         </x-primary-button>
@@ -148,100 +211,17 @@
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center">
-                    <svg version="1.1" id="gametime_x5F_logo" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 115.6 116.4" width="200"
-                        height="200" style="enable-background:new 0 0 115.6 116.4; fill:#ed8600;" xml:space="preserve">
-                        <style type="text/css">
-                            .st0 {
-                                clip-path: url(#SVGID_2_);
-                            }
-
-                            .st1 {
-                                fill: #ed8600;
-                            }
-                        </style>
-                        <g id="GAME_TIME">
-                            <defs>
-                                <path id="SVGID_1_" d="M107.7,58.2c0,6.6-1.3,12.9-3.6,18.6c-3.4,8.4-9,15.7-16.1,21.2c-0.7,0.5-1.3,1-2,1.5
-                                    c-1.6,1.1-3.3,2.1-5.1,3.1c-2.8,1.5-5.7,2.7-8.8,3.6c-1.4,0.4-2.9,0.8-4.4,1.1c-2.5,0.5-5.1,0.8-7.7,1c-0.8,0-1.6,0.1-2.3,0.1
-                                    c-1.1,0-2.2,0-3.2-0.1c-1-0.1-2.1-0.2-3.1-0.3c-2-0.3-3.9-0.6-5.9-1.1c-3.8-1-7.4-2.3-10.7-4.1h0c-2.3-1.2-4.4-2.5-6.4-4
-                                    c-7.5-5.5-13.5-13-17-21.8c-1-2.4-1.8-4.9-2.3-7.4c-0.1-0.3-0.1-0.6-0.2-0.9c-0.2-0.9-0.4-1.7-0.5-2.6c-0.3-2-0.5-3.9-0.6-5.9
-                                    c0-0.6,0-1.2,0-1.8c0-0.8,0-1.6,0.1-2.4c0.7-14.5,7.6-27.5,18.1-36.2c2.1-1.7,4.3-3.3,6.6-4.6c2.1-1.3,4.3-2.3,6.6-3.3
-                                    c3.4-1.4,7-2.4,10.7-3c2.6-0.4,5.2-0.6,7.9-0.6c0.5,0,0.9,0,1.4,0c5,0.1,9.8,1,14.3,2.5c1.6,0.5,3.3,1.2,4.8,1.9c1,0.5,2,1,3,1.5
-                                    c8.7,4.6,15.8,11.7,20.4,20.3c1.6,3,2.9,6.1,3.9,9.4c0.4,1.4,0.8,2.9,1.1,4.3c0.2,0.8,0.3,1.7,0.5,2.6c0,0.3,0.1,0.5,0.1,0.8
-                                    c0.3,2,0.4,3.9,0.4,6v0C107.7,57.8,107.7,58,107.7,58.2z" />
-                            </defs>
-                            <clipPath id="SVGID_2_">
-                                <use xlink:href="#SVGID_1_" style="overflow:visible;" />
-                            </clipPath>
-                            <g class="st0">
-                                <path d="M7.8,67.9c1.9-1.3,4.3-2.9,7.1-4.4c3.5-1.9,7.6-3.8,12.2-5.4c-1.1-8.1-0.4-12.7-1.6-21c-2.5,1.9-6,5-8.4,7.3
-                                    c-1.3,1.2-1.9,2.7-1.7,4.4c0.2,1.7,0.3,3.3,0.5,5c1.7-1,3.3-2,5.1-3c0.2,1.8,0.5,2.6,0.7,4.5c-2.4,1-4.8,2-7.2,3.1
-                                    c-1,0.4-1.5,0.1-1.6-1.1c-0.3-3.8-0.5-6.6-0.8-10.4c-0.1-1.1,0.3-2.1,1-3.1c2.8-3.5,8.7-9.8,11.8-12.8c1.4-1.3,1.8-3.7,1.4-7.3
-                                    c-0.1-0.7-0.2-2.3-0.3-4C15.4,28.4,8.5,41.3,7.8,55.9c0,1.4,0,2.8,0,4.2c0,0.6,0,1.2,0,1.8c0,1.4-1.6,2.5-0.6,3.5
-                                    C7.4,65.5,7.6,66.9,7.8,67.9z" />
-                                <path d="M29.7,57.4c1.8-0.5,3.7-0.9,5.6-1.3c0.9-10.6,1.6-19.5,2.2-32.3c2.4,5.8,3.9,9.9,6.4,16.2c-2.1,0.6-3.2,1.3-5.3,2
-                                    c-0.3,3.8-0.5,6.5-0.8,10.2c3.7-0.9,5.5-1.8,9.2-2.6c0.6,1.4,1.8,3.8,2.9,6c2.4,0.3,4.9,0.7,7.4,1.4
-                                    c-5.9-14.8-11.7-29.5-17.1-42.9c-0.3-0.8-0.6-1.5-1-2.1c-2.3,0.9-4.5,2-6.6,3.3c-0.8,14.7-1.8,25.2-3.1,37.5
-                                    c-0.2,1.3-0.2,2.5,0,3.6C29.4,56.6,29.5,57,29.7,57.4z" />
-                                <path d="M59.5,56.8c0.2,0.4,0.3,0.7,0.5,0.9c2.6,0.8,5.2,1.3,7.6,1.6c-1.6-8.7-5.9-19.2-7.4-27.8c2.7,6.4,5.4,12.7,8,18.9
-                                    c1.7,4.4,3.4,6.3,4.9,6.1c1.4-0.2,2.3-1.9,2.6-4.8c0.7-8,1.3-15.4,2.1-22.1c1.3,6.8,1.5,16.7,2.8,23.6c0.2,1.3,0-0.7,0.1,0.3
-                                    c0.3,2.6,1.3,4.2,1.9,4.9c2.1-0.5,4.2-1.2,6.2-1.9c-2.1-11.2-5.3-25.2-7.5-36.1c-0.3-1.5-0.6-2.8-1-4.1c-0.7-2.1-1.8-3.6-3.1-4.3
-                                    c-0.9-0.5-1.7-1-2.6-1.4c-0.6-0.3-1.1-0.2-1.3,0.5c-0.3,0.7-0.4,1.6-0.6,2.7c-0.8,7.9-1.6,16.9-2.3,26.6
-                                    c-4.1-9.6-6.3-19.8-10.5-30.1c-1.3-3.5-2.7-5.3-4.1-5.3c-1.2,0-5.5,0.1-6.7,0.2c2.7,15.7,6.3,31.4,8.9,47.1
-                                    C58.5,54.1,58.9,55.6,59.5,56.8z" />
-                                <path d="M91.6,55.2c2.6-1.1,4.9-2.4,7-3.7c4-2.5,7-5,8.8-6.6c-0.7-0.7-1.7-1.2-3-1.3c-3.4-0.3-7.9,1.4-11.3,1.2
-                                    c-0.4-1.8-0.8-3.5-1.1-5.3c3.3,0.7,6.6,1.4,9.9,2.3c-0.5-1.9-1.1-3.7-1.6-5.6c-3.3-1.7-6.6-3.3-10-4.6c-0.4-1.7-0.8-3.4-1.1-5.1
-                                    c4.6,2.5,9.1,5.4,13.5,8.6c-0.3-0.8-0.5-1.5-0.8-2.3c-0.6-1.6-1.8-3.4-3.6-5.2c-5.4-5.1-12-13.6-17.7-17.2c2.4,11.4,6.7,29,9,40.6
-                                    C90,53.4,90.7,54.8,91.6,55.2z" />
-                                <path d="M34.5,74.9c-0.6-2.1-2.1-7.3-2.7-9.4C31.2,63,29.6,62,27,62.4c-3.6,1.3-7,2.8-9.8,4.4c-3.5,1.9-6.3,3.8-8.3,5.3
-                                    c0.2,1.3,0.3,2.6,0.7,3.4c0.6,1.2,2,1.9,4.2,1.9c1.5,0,4-1,5.6-1c2.6,6.9,5.3,12.9,8,20c1.1,3,2.5,4.9,4,5.7
-                                    c1.3,0.7,2.6,1.3,3.9,1.9c-3-9.7-6-19.3-9-28.7C29,75.2,31.7,75.1,34.5,74.9z" />
-                                <path d="M37.6,59.7c-1.7,0.3-3.4,0.6-5,1c3.2,12.7,8.3,29.4,11.4,42.2c0.8,3.1,1.9,4.8,3.3,5.2c1.4,0.3,2.9,0.6,4.3,0.8
-                                    c-2.8-13-7.7-29-10.5-42C40.3,63.1,39.1,60.4,37.6,59.7z" />
-                                <path
-                                    d="M82.7,67.7c-0.1-1.6-0.4-3-0.6-4.3c-0.1-0.3-0.2-0.6-0.3-0.8c-2.7,0.5-5.4,0.9-8.3,0.9c-0.3,0.9-0.6,1.9-0.9,3.1
-                                    c-1.9,9.7-3.5,15.8-4.8,25.7c-4.3-8.7-9.9-19.7-14.7-28.5c-0.8-1.5-1.8-3.2-3-4.3c-1.8-0.2-3.6-0.3-5.4-0.3c-0.8,0-1.6,0-2.4,0.1
-                                    c2.9,13.5,7.6,30.8,10.4,44.2c0.3,1.5,0.8,2.9,1.5,4c0.1,0.2,0.3,0.5,0.4,0.6c1.1,0.1,2.1,0.1,3.2,0.1c0.8,0,1.6,0,2.3-0.1
-                                    c-1.4-7.6-2.8-15.1-4.3-22.7c3,5.7,6,11.4,8.9,17.1c1.1,2.3,2.1,3.9,3.1,4.7c0.8,0.7,1.5,0.9,2.3,0.7c0.9-0.2,1.6-0.8,2.1-1.8
-                                    c0.5-0.9,0.8-2,1-3.5c1.1-8.4,2.5-16.8,4-25c0.9,7.1,1.7,14.3,2.6,21.4c0.2,1.4,0.5,2.4,1,3.2c0,0.1,0.1,0.2,0.2,0.2
-                                    c0.4,0.6,0.9,0.8,1.3,0.5c1.3-0.7,2.6-1.5,3.9-2.4c0-0.4-0.1-0.8-0.1-1.2C84.9,87.8,83.8,79.6,82.7,67.7z" />
-                                <path d="M101,54.7c-4.5,2.8-10.3,5.7-17,7.4c1,11.6,2,20.2,3.1,32.4c0.3,3.5,1.2,4.7,2.6,3.6c5.4-4.2,10.4-9.5,14.7-15.4
-                                    c0.1-1.2,0.3-2.3,0.4-3.5c0.3-2.6-0.4-3-2.3-1.3c-3.2,2.9-6.6,5.6-10.1,8c-0.1-2.1-0.2-4.2-0.3-6.3c3.5-2,7-4.2,10.3-6.6
-                                    c0.2-2.6,0.4-5.2,0.5-7.8c-3.7,1.8-7.4,3.4-11.2,5c-0.1-2-0.2-2-0.3-4c5.4-1.7,10.8-5.5,16-7.4c0.2-1.1,0.3-2.2,0.5-3.4
-                                    c0.3-1.9,1-4.9,0-5.8C106.2,51.2,103.9,52.9,101,54.7z" />
-                            </g>
-                        </g>
-                        <g id="ring">
-                            <path class="st1" d="M111.2,58.2h-1c0,6.9-1.3,13.5-3.8,19.6c-3.5,8.9-9.4,16.5-16.9,22.2l0,0l0,0c-0.7,0.5-1.4,1.1-2.1,1.6l0,0
-                                l0,0c-1.7,1.2-3.5,2.2-5.3,3.2l0,0c-2.9,1.5-6,2.8-9.2,3.7l0,0c-1.5,0.5-3,0.8-4.6,1.2l0,0c-2.6,0.5-5.3,0.9-8.1,1l0,0l0,0
-                                c-0.8,0-1.6,0.1-2.5,0.1c-1.1,0-2.3,0-3.4-0.1l0,0l0,0c-1.1-0.1-2.2-0.2-3.3-0.3c-2.1-0.3-4.1-0.7-6.2-1.2l0,0
-                                c-4-1-7.7-2.4-11.3-4.3l-0.2-0.1h-0.3v1l0.5-0.9c-2.4-1.2-4.6-2.6-6.8-4.2C19,95,12.7,87.1,9,77.9l0,0c-1-2.5-1.8-5.1-2.5-7.8l0,0
-                                l0,0c-0.1-0.3-0.1-0.6-0.2-0.9l0,0l0,0c-0.2-0.9-0.4-1.8-0.5-2.7l0,0l0,0c-0.3-2-0.5-4.1-0.6-6.2l0,0l0,0c0-0.6,0-1.2,0-1.9
-                                c0-0.8,0-1.7,0.1-2.5l0,0c0.7-15.3,8-28.9,19-38l0,0c2.2-1.8,4.5-3.4,6.9-4.8l0,0c2.2-1.3,4.5-2.4,6.9-3.4
-                                c3.6-1.4,7.3-2.5,11.3-3.1l0,0c2.7-0.4,5.5-0.7,8.3-0.7c0.5,0,1,0,1.5,0l0,0c5.2,0.1,10.2,1,15,2.6l0,0c1.7,0.6,3.4,1.2,5.1,2l0,0
-                                l0,0c1.1,0.5,2.1,1,3.2,1.6l0,0c9.1,4.9,16.6,12.3,21.5,21.3c1.7,3.1,3.1,6.4,4.1,9.9l0,0c0.5,1.5,0.8,3,1.1,4.5l0,0l0,0
-                                c0.2,0.9,0.3,1.8,0.5,2.7l0,0l0,0c0.1,0.3,0.1,0.5,0.1,0.8l0,0l0,0c0.3,2.1,0.4,4.1,0.5,6.3l0,0v0v0l0,0c0,0.2,0,0.5,0,0.7H111.2h1
-                                c0-0.3,0-0.5,0-0.8l-1,0h1v0v0l0,0c0-2.2-0.2-4.4-0.5-6.5l-1,0.1l1-0.1c0-0.3-0.1-0.6-0.1-0.9l-1,0.2l1-0.1
-                                c-0.1-0.9-0.3-1.9-0.5-2.8l0,0c-0.3-1.6-0.7-3.2-1.2-4.7l0,0c-1.1-3.6-2.5-7-4.3-10.2c-5.1-9.4-12.8-17.1-22.3-22.2l0,0
-                                c-1.1-0.6-2.2-1.1-3.3-1.6l0,0c-1.7-0.8-3.5-1.5-5.3-2.1l0,0c-4.9-1.6-10.1-2.6-15.5-2.7l0,0c-0.5,0-1,0-1.5,0
-                                c-2.9,0-5.8,0.2-8.6,0.7l0,0l0,0c-4.1,0.6-8,1.7-11.7,3.2c-2.5,1-4.9,2.2-7.2,3.5l0,0c-2.5,1.5-4.9,3.2-7.2,5l0,0
-                                c-11.5,9.5-19,23.6-19.8,39.4l0,0c0,0.9-0.1,1.7-0.1,2.6c0,0.7,0,1.3,0,2l1,0l-1,0c0.1,2.2,0.3,4.4,0.6,6.5l1-0.2l-1,0.1
-                                c0.1,1,0.3,1.9,0.5,2.9l1-0.2l-1,0.2c0.1,0.3,0.1,0.7,0.2,1l1-0.2l-1,0.2c0.6,2.8,1.5,5.5,2.6,8.1l0,0c3.8,9.5,10.3,17.8,18.5,23.7
-                                c2.2,1.6,4.6,3.1,7,4.3l0.2,0.1h0.3v-1l-0.5,0.9c3.7,1.9,7.6,3.4,11.7,4.4l0,0c2.1,0.5,4.2,0.9,6.4,1.2c1.1,0.1,2.3,0.3,3.4,0.3
-                                l0.1-1l-0.1,1c1.2,0.1,2.3,0.1,3.5,0.1c0.9,0,1.7,0,2.6-0.1l0,0c2.9-0.1,5.7-0.5,8.4-1l0,0c1.6-0.3,3.2-0.7,4.8-1.2l0,0
-                                c3.3-1,6.5-2.3,9.5-3.9l0,0c1.9-1,3.8-2.1,5.5-3.3l-0.6-0.8l0.6,0.8c0.8-0.5,1.5-1.1,2.2-1.6l0,0c7.8-5.9,13.9-13.9,17.6-23.1
-                                c2.5-6.3,3.9-13.1,3.9-20.3H111.2z" />
-                        </g>
-                    </svg>
+                    <div class="w-52 hover:animate-ping">
+                        <x-application-logo class="block h-9 fill-current" />
+                    </div>
                 </div>
 
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                        <a href="https://laravel.com/docs" class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                                     </svg>
                                 </div>
@@ -253,15 +233,15 @@
                                 </p>
                             </div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-amber-500 w-6 h-6 mx-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                             </svg>
                         </a>
 
-                        <a href="https://test.gametime.ee/memory" class="scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                        <a href="https://test.gametime.ee/memory" class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
                                         <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
                                     </svg>
                                 </div>
@@ -273,15 +253,15 @@
                                 </p>
                             </div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-amber-500 w-6 h-6 mx-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                             </svg>
                         </a>
 
-                        <a href="https://laravel-news.com" class="scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                        <a href="https://laravel-news.com" class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
                                     </svg>
                                 </div>
@@ -293,15 +273,15 @@
                                 </p>
                             </div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-amber-500 w-6 h-6 mx-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                             </svg>
                         </a>
 
-                        <div class="scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                        <div class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
                                     </svg>
                                 </div>

@@ -11,8 +11,10 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            <label class="input input-bordered flex items-center gap-2" for="email" :value="{{__('Email')}}" >
+                <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                <x-text-input id="email"  type="text" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+            </label>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

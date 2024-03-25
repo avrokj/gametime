@@ -5,8 +5,10 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current" />
+                    <a href="{{ route('dashboard') }}">                        
+                        <div class="w-16 hover:animate-spin">
+                            <x-application-logo class="block h-9 fill-current" />
+                        </div>
                     </a>
                 </div>
 
@@ -45,6 +47,22 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        <!-- Roles -->
+                        <x-dropdown-link :href="route('roles.index')"
+                           class="
+                           @if (request()->routeIs('permission-editor.roles.*')) border-indigo-500 text-gray-900
+                           @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+                           @endif"> {{ __('Roles') }}
+                        </x-dropdown-link>
+
+                        <!-- Permissions -->
+                        <x-dropdown-link :href="route('permissions.index')"
+                           class="
+                           @if (request()->routeIs('permissions.*')) border-indigo-500 text-gray-900
+                           @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+                           @endif"> {{ __('Permissions') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -55,6 +73,9 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+
+
+
                     </x-slot>
                 </x-dropdown>                
                 <label class="swap swap-rotate px-2">
