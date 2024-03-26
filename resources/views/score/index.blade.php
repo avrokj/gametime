@@ -167,7 +167,8 @@
         },
         data: {
             gameId: {{ $game->id }},
-            awayScore: aScore
+            awayScore: aScore,
+            homeScore: hScore,
         },
         success: function(response) {
             console.log(response);
@@ -178,9 +179,9 @@
     });
 };
 
-var handleHomeScore = function(amount2) {
+var handleHomeScore = function(amount) {
     // Increment or decrement the away score by the specified amount
-    hScore += amount2;
+    hScore += amount;
     
     // Ensure the score doesn't go below 0
     if (hScore < 0) {
@@ -200,6 +201,7 @@ var handleHomeScore = function(amount2) {
         },
         data: {
             gameId: {{ $game->id }},
+            awayScore: aScore,
             homeScore: hScore,
         },
         success: function(response) {
