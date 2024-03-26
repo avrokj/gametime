@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
+use App\Http\Controllers\ScoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name(
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
-Route::get('/segment/score', [SegmentController::class, 'score'])->name('segment.score');
-Route::post('/segment/score', [SegmentController::class, 'updateScore'])->name('segment.score');
+Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
+Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
 
 require __DIR__ . '/auth.php';
