@@ -19,6 +19,7 @@
         "robsontenorio/mary": "^1.25",
         "spatie/laravel-ignition": "^2.4.2",
         "spatie/laravel-permission": "^6.4",
+        "stidges/laravel-country-flags": "^2.0",
         "themesberg/flowbite-blade-icons": "^1.0"
     },
     "require-dev": {

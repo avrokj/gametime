@@ -29,7 +29,7 @@ class SportController extends Controller
      */
     public function create()
     {
-        return view('sports.add');
+        //
     }
 
     /**
@@ -65,12 +65,9 @@ class SportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sport $sport): View
+    public function edit(Sport $sport)
     {
-
-        return view('sports.edit', [
-            'sport' => $sport,
-        ]);
+        //
     }
 
     /**

@@ -12,8 +12,9 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::with('roles:name')->get();
+        $roles = Role::pluck('name', 'id');
 
-        return view('permissions.index', compact('permissions'));
+        return view('permissions.index', compact('permissions', 'roles'));
     }
 
     public function create()
