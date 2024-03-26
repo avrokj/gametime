@@ -145,6 +145,7 @@
     awayScore.innerHTML = aScore;
 
     var handleAwayScore = function(amount) {
+        
     // Increment or decrement the away score by the specified amount
     aScore += amount;
     
@@ -177,9 +178,9 @@
     });
 };
 
-var handleHomeScore = function(amount) {
+var handleHomeScore = function(amount2) {
     // Increment or decrement the away score by the specified amount
-    hScore += amount;
+    hScore += amount2;
     
     // Ensure the score doesn't go below 0
     if (hScore < 0) {

@@ -41,5 +41,4 @@ Route::get('/segment/player', [SegmentController::class, 'player'])->name('segme
 
 Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
 Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
-
 require __DIR__ . '/auth.php';
