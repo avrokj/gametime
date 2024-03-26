@@ -22,7 +22,7 @@
                 </x-primary-button>
 
                 <dialog id="add_sport" class="modal modal-bottom sm:modal-middle">
-                <div class="modal-box !w-auto">
+                <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                     <h3 class="font-bold text-lg text-left">{{ __('Add Sport') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('sports.store') }}">
@@ -47,8 +47,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
-            <div class="p-6 flex-grow overflow-auto rounded-md">
-            <table class="table min-w-full rounded-md">            
+            <div class="p-6 flex-grow overflow-auto">
+            <table class="table min-w-full">            
                 <thead class="text-base uppercase bg-base-100">
                 <tr class="text-left py-4">
                     <th class="border-b-2 border-base-300">{{ __('Sport') }}</th>
@@ -68,7 +68,7 @@
                                     <x-edit-button onclick="document.getElementById('edit_sport{{ $sport->id }}').showModal()">                      
                                     </x-edit-button>
                                     <dialog id="edit_sport{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
-                                    <div class="modal-box !w-auto">
+                                    <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                         <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('sports.update', $sport) }}">
@@ -117,7 +117,7 @@
                                         <x-edit-button onclick="document.getElementById('my_modal_edit{{ $sport->id }}').showModal()">                      
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
-                                        <div class="modal-box !w-auto">
+                                        <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                             <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('sports.update', $sport) }}">

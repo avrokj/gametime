@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -22,9 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('roles', RoleController::class);
-Route::resource('permissions', PermissionController::class);
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -46,7 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/sports/{sport}', [SportController::class, 'update'])->name('sports.update');
     Route::delete('/sports/{sport}', [SportController::class, 'destroy'])->name('sports.destroy');
     Route::get('/sports/search', [SportController::class, 'search'])->name('sports.search');
+
+    Route::get('/countries', [CountryController::class, 'index'])->name('index');
+    Route::post('/countries', [CountryController::class, 'store'])->name('store');
+    Route::patch('/countries/{id}', [CountryController::class, 'update'])->name('update');
+    Route::delete('/countries/{id}', [CountryController::class, 'destroy'])->name('destroy');
+    Route::get('/countries/search', [CountryController::class, 'search'])->name('search');
 });
+
 
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
 Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
