@@ -14,7 +14,7 @@
                 <dialog id="add_role" class="modal modal-bottom sm:modal-middle">
                     <div class="modal-box !w-auto">
                         <h3 class="font-bold text-lg">{{ __('Add Role') }}</h3>
-                        <div class="modal-action justify-start">
+                        <div class="modal-action flex flex-col justify-start">
                             @if ($errors->any())
                                 <div class="text-red-500 text-sm mb-4">
                                     <ul>
@@ -60,12 +60,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
-                <div class="p-6 flex-grow overflow-auto rounded-md">
-                    <table class="table min-w-full rounded-md">            
+                <div class="p-6 flex-grow overflow-auto">
+                    <table class="table min-w-full">            
                         <thead class="text-base uppercase bg-base-100">
                         <tr class="text-left py-4">
                             <th class="border-b-2 border-base-300">
-                                {{ __('Name') }}</th>
+                                {{ __('Role') }}</th>
                             <th class="border-b-2 border-base-300">
                                 {{ __('Permissions') }}
                             </th>
@@ -90,9 +90,9 @@
                                         </x-edit-button>
 
                                         <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
-                                        <div class="modal-box !w-auto">
+                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                             <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
-                                            <div class="modal-action justify-start">                          
+                                            <div class="modal-action flex flex-col justify-start text-left">                          
                                                 @if ($errors->any())
                                                     <div class="text-red-500 text-sm mb-4">
                                                         <ul>
@@ -107,17 +107,17 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div>
-                                                        <x-input-label for="name" :value="__('Name')" />
+                                                        <x-input-label for="name" :value="__('Role')" />
                                                         <x-text-input name="name" id="name" value="{{ $role->name ?? old('name') }}" />
                                                     </div>
                         
-                                                    @if ($roles->count())
+                                                    @if ($permissions->count())
                                                     <div class="mt-4">
-                                                        <x-input-label :value="__('Roles')" />
+                                                        <x-input-label :value="__('Permissions')" />
                         
                                                         @foreach ($permissions as $id => $name)
                                                             <input type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
-                                                            <label class="text-sm font-medium text-gray-700" for="permission-{{ $id }}">{{ $name }}</label>
+                                                            <label class="text-sm font-medium" for="permission-{{ $id }}">{{ $name }}</label>
                                                             <br />
                                                         @endforeach
                                                     </div>
