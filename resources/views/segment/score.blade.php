@@ -1,4 +1,6 @@
 <x-app-layout>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class="container mx-auto">
         <div class="md:columns-2 sm:columns-1 border-dashed border-2 border-sky-200">
 
@@ -142,7 +144,9 @@
         </div>
     </div>
     <!-- <script type="module" src="{{ asset('js/app.js') }}"></script> -->
-    <script>/******/ (() => { // webpackBootstrap
+    <script>
+    
+    /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 /*!*************************************!*\
   !*** ./resources/js/segment/app.js ***!
@@ -387,8 +391,7 @@ var boardSizeY = 5;
 var number = new _Number();
 var homeGameBoard = new HomeGameBoard(boardSizeX, boardSizeY);
 var awayGameBoard = new AwayGameBoard(boardSizeX, boardSizeY);
-homeGameBoard.draw(number.getCoordinates(0));
-awayGameBoard.draw(number.getCoordinates(0));
+
 var homeMinus1 = document.getElementById("homeMinus1");
 var homePlus1 = document.getElementById("homePlus1");
 var homePlus2 = document.getElementById("homePlus2");
@@ -399,10 +402,15 @@ var awayPlus1 = document.getElementById("awayPlus1");
 var awayPlus2 = document.getElementById("awayPlus2");
 var awayPlus3 = document.getElementById("awayPlus3");
 var awayScore = document.getElementById("awayScore");
+
+// getting home and away score from database, calculating coordinates for screen;
 var hScore = {{ $game->home_score}};
 var aScore = {{ $game->away_score}};
 homeScore.innerHTML = hScore;
 awayScore.innerHTML = aScore;
+homeGameBoard.draw(number.getCoordinates(hScore));
+awayGameBoard.draw(number.getCoordinates(aScore));
+
 var handleHomeScoreMinus = function handleHomeScoreMinus() {
   hScore--;
   if (hScore < 0) {
@@ -439,9 +447,13 @@ var handleAwayScorePlus = function handleAwayScorePlus() {
   $.ajax({
         url: '/segment/score', // Assuming this is the route you've defined in your Laravel routes file
         method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {
             gameId: {{ $game->id }},
-            awayScore: aScore
+            awayScore: aScore,
+            homeScore: hScore
         },
         success: function(response) {
             console.log(response);
