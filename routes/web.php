@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
@@ -58,5 +60,10 @@ Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('s
 Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
+
+Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
+Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
+
+Route::post('/apis', [ApiController::class, 'updateApi'])->name('score.index');
 
 require __DIR__ . '/auth.php';

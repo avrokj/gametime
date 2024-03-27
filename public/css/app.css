@@ -3237,6 +3237,9 @@ input.tab:checked + .tab-content,
   font-size: 3.75rem;
   line-height: 1;
 }
+.text-\[240px\] {
+  font-size: 240px;
+}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;

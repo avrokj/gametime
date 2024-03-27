@@ -17,6 +17,9 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/seven-segment');
+    </style>
 </head>
 
 <body class="font-sans antialiased">
