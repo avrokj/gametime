@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,6 @@ Route::get('/segment/player', [SegmentController::class, 'player'])->name('segme
 
 Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
 Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
+
+Route::post('/apis', [ApiController::class, 'updateApi'])->name('score.index');
 require __DIR__ . '/auth.php';

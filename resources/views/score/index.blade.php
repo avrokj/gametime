@@ -182,6 +182,25 @@
             console.error(error);
         }
     });
+
+    $.ajax({
+        url: 'apis', // Endpoint for API route
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            sb_id: 241002, // Provide sb_id here
+            awayScore: aScore,
+            homeScore: hScore
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
 };
 
 var handleHomeScore = function(amount) {
@@ -210,6 +229,25 @@ var handleHomeScore = function(amount) {
             gameId: {{ $game->id }},
             awayScore: aScore,
             homeScore: hScore,
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+    $.ajax({
+        url: 'apis', // Endpoint for API route
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            sb_id: 241002, // Provide sb_id here
+            awayScore: aScore,
+            homeScore: hScore
         },
         success: function(response) {
             console.log(response);

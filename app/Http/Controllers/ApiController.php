@@ -21,4 +21,17 @@ class ApiController extends Controller
             return response()->json(['error' => 'No data found for given scoreboard'], 404);
         }
     }
+    
+    public function updateApi(Request $request)   
+    {
+        $apiData = Api::find(1);
+        if ($apiData) {
+            $apiData->away_score = $request->input('awayScore');
+            $apiData->home_score = $request->input('homeScore');
+            $apiData->save();
+            return response()->json(['success' => true]);
+        }
+    return response()->json(['success' => false, 'message' => 'Device not found']);
+    }
+
 }
