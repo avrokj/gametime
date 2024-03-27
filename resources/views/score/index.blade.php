@@ -6,7 +6,7 @@
                         <a href="{{ Route('segment.hometeam') }}">{{ $game->home_team }}</a>
                     </h1>
                 </div>
-                <p id="homeScore" style="font-family: 'Seven Segment', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                 <div id="buttons" class="flex justify-start flex-row p-4 gap-8 border-dashed border-2 border-sky-100">
                     <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg">
                         <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
@@ -74,7 +74,7 @@
                     </h1>
                 </div>
                 
-                <p id="awayScore" style="font-family: 'Seven Segment', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                 <div id="buttons" class="flex justify-end flex-row p-4 gap-8 border-dashed border-2 border-red-100">
                     <svg type="button" class="select-none" onclick="handleAwayScore(-1)" xmlns="http://www.w3.org/2000/svg">
                         <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
@@ -141,8 +141,11 @@
 <script>
     let aScore = {{ $game->away_score }};
     let hScore = {{ $game->home_score }};
-    homeScore.innerHTML = hScore;
-    awayScore.innerHTML = aScore;
+    var formattedHomeScore = hScore < 10 ? '0' + hScore : hScore;
+    homeScore.innerHTML = formattedHomeScore;
+    var formattedAwayScore = aScore < 10 ? '0' + aScore : aScore;
+    awayScore.innerHTML = formattedAwayScore;
+    
 
     var handleAwayScore = function(amount) {
         
@@ -157,8 +160,10 @@
     else if (aScore > 99) {
         aScore = 99;
     }
-    awayScore.innerHTML = aScore;
-    // Make an AJAX request to update the away score in the database
+    // rewrite score to screen
+    var formattedAwayScore = aScore < 10 ? '0' + aScore : aScore;
+    awayScore.innerHTML = formattedAwayScore;
+
     $.ajax({
         url: 'score', // Assuming this is the route you've defined in your Laravel routes file
         method: 'POST',
@@ -191,7 +196,9 @@ var handleHomeScore = function(amount) {
     else if (hScore > 99) {
         hScore = 99;
     }
-    homeScore.innerHTML = hScore;
+    // rewrite score to screen
+    var formattedHomeScore = hScore < 10 ? '0' + hScore : hScore;
+    homeScore.innerHTML = formattedHomeScore;
     // Make an AJAX request to update the away score in the database
     $.ajax({
         url: 'score', // Assuming this is the route you've defined in your Laravel routes file
@@ -211,5 +218,13 @@ var handleHomeScore = function(amount) {
             console.error(error);
         }
     });
+
 };
 </script>
+<style>
+    @font-face {
+    font-family: 'CustomFont';
+    src: url('/fonts/fs-sevegment.woff2') format('woff2');
+    /* Add additional font properties if needed */
+}
+    </style>
