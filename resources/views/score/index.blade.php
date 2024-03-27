@@ -1,5 +1,18 @@
 <x-app-layout>
-    <div class="container mx-auto">
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <div>
+                <h2 class="font-semibold text-xl leading-tight">
+                    {{ __('Scoreboard') }}
+                </h2> 
+            </div>
+        </div>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
+                <div class="p-6 flex-grow overflow-auto">
         <div class="md:columns-2 sm:columns-1 border-dashed border-2 border-sky-200">
                 <div id="container" class="flex justify-center border-dashed border-2 border-sky-100">
                     <h1 class="mb-8 text-6xl font-extrabold">
