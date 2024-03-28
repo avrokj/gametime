@@ -7,7 +7,7 @@
                 </h2> 
             </div>
             <div class="w-full sm:w-auto order-3 mt-2 sm:mt-0 sm:order-2">   
-                <form action="{{ route('search') }}" method="GET">
+                <form action="{{ route('countries.search') }}" method="GET">
                     <div style="position: relative;">
                         <x-text-input type="text" name="search" placeholder="Search countries here..." value="{{ request('search') }}" required class="!max-w-full !w-full"/>
                         <button type="submit" class="absolute right-2 top-0 h-full">
@@ -25,7 +25,7 @@
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                     <h3 class="font-bold text-lg text-left">{{ __('Add Country') }}</h3>
                     <div class="modal-action justify-start">
-                    <form method="POST" action="{{ route('store') }}">
+                    <form method="POST" action="{{ route('countries.store') }}">
                         @csrf
                         @method('post')
                         <!-- Country Name -->
@@ -48,7 +48,7 @@
 
                         <div class="mt-4 space-x-2">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('index') }}'">
+                            <x-cancel-button onclick="window.location='{{ route('countries.index') }}'">
                                 {{ __('Cancel') }}
                             </x-cancel-button>
                         </div>
@@ -95,7 +95,7 @@
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                         <h3 class="font-bold text-lg">{{ __('Edit Country') }}</h3>
                                         <div class="modal-action justify-start">                          
-                                        <form method="POST" action="{{ route('update', $country) }}">
+                                        <form method="POST" action="{{ route('countries.update', $country) }}">
                                             @csrf
                                             @method('patch')
                                             <!-- Country Name -->
@@ -127,7 +127,7 @@
                                     </div>
                                     </dialog>
                                     
-                                <form method="POST" action="{{ route('destroy', $country) }}">
+                                <form method="POST" action="{{ route('countries.destroy', $country) }}">
                                     @csrf
                                     @method('delete')
                                     <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
@@ -166,7 +166,7 @@
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                             <h3 class="font-bold text-lg">{{ __('Edit Country') }}</h3>
                                             <div class="modal-action justify-start">                          
-                                            <form method="POST" action="{{ route('update', $country) }}">
+                                            <form method="POST" action="{{ route('countries.update', $country) }}">
                                                 @csrf
                                                 @method('patch')
                                                 <!-- Country Name -->
@@ -188,7 +188,7 @@
                                                 </div>
                                                 <div class="mt-4 space-x-2">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('index') }}'">
+                                                <x-cancel-button onclick="window.location='{{ route('countries.index') }}'">
                                                     {{ __('Cancel') }}
                                                 </x-cancel-button>
                                                 </div>
@@ -197,7 +197,7 @@
                                         </div>
                                         </dialog>
                                             
-                                        <form method="POST" action="{{ route('destroy', $country) }}">
+                                        <form method="POST" action="{{ route('countries.destroy', $country) }}">
                                             @csrf
                                             @method('delete')
                                             <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -47,11 +48,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/sports/{sport}', [SportController::class, 'destroy'])->name('sports.destroy');
     Route::get('/sports/search', [SportController::class, 'search'])->name('sports.search');
 
-    Route::get('/countries', [CountryController::class, 'index'])->name('index');
-    Route::post('/countries', [CountryController::class, 'store'])->name('store');
-    Route::patch('/countries/{id}', [CountryController::class, 'update'])->name('update');
-    Route::delete('/countries/{id}', [CountryController::class, 'destroy'])->name('destroy');
-    Route::get('/countries/search', [CountryController::class, 'search'])->name('search');
+    Route::get('/countries', [CountryController::class, 'index'])->name('countries.index');
+    Route::post('/countries', [CountryController::class, 'store'])->name('countries.store');
+    Route::patch('/countries/{id}', [CountryController::class, 'update'])->name('countries.update');
+    Route::delete('/countries/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
+    Route::get('/countries/search', [CountryController::class, 'search'])->name('countries.search');
+
+    Route::get('/arenas', [ArenaController::class, 'index'])->name('arenas.index');
+    Route::post('/arenas', [ArenaController::class, 'store'])->name('arenas.store');
+    Route::patch('/arenas/{sport}', [ArenaController::class, 'update'])->name('arenas.update');
+    Route::delete('/arenas/{sport}', [ArenaController::class, 'destroy'])->name('arenas.destroy');
+    Route::get('/arenas/search', [ArenaController::class, 'search'])->name('arenas.search');
 });
 
 

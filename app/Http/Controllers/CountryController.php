@@ -11,7 +11,7 @@ class CountryController extends Controller
     {
         $countries = Country::orderBy('country_name')->paginate(20);
 
-        return view('countries', compact('countries'));
+        return view('countries.index', compact('countries'));
     }
 
     public function search(Request $request)
@@ -19,7 +19,7 @@ class CountryController extends Controller
         $term = $request->input('search');
         $countries = Country::where('country_name', 'like', "%$term%")->orderBy('country_name')->paginate(20);
 
-        return view('index', compact('countries'));
+        return view('countries.index', compact('countries'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CountryController extends Controller
             'code' => $request->input('code'),
         ]);
 
-        return redirect()->route('index')->with('success', 'Country added successfully.');
+        return redirect()->route('countries.index')->with('success', 'Country added successfully.');
     }
 
     /**
@@ -86,7 +86,7 @@ class CountryController extends Controller
             'code' => $request->input('code'),
         ]);
 
-        return redirect()->route('index')->with('success', 'Country updated successfully.');
+        return redirect()->route('countries.index')->with('success', 'Country updated successfully.');
     }
 
     /**
@@ -96,6 +96,6 @@ class CountryController extends Controller
     {
         $country->delete();
 
-        return redirect()->route('index')->with('success', 'Country deleted successfully.');
+        return redirect()->route('countries.index')->with('success', 'Country deleted successfully.');
     }
 }

@@ -12,139 +12,189 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
-                <div class="p-6 flex-grow overflow-auto">
-        <div class="md:columns-2 sm:columns-1 border-dashed border-2 border-sky-200">
-                <div id="container" class="flex justify-center border-dashed border-2 border-sky-100">
-                    <h1 class="mb-8 text-6xl font-extrabold">
-                        <a href="{{ Route('segment.hometeam') }}">{{ $game->home_team }}</a>
-                    </h1>
-                </div>
-                <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
-                <div id="buttons" class="flex justify-start flex-row p-4 gap-8 border-dashed border-2 border-sky-100">
-                    <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="12" y="40"
-                            style="
-                                fill: pink;
-                                font-weight: bold;
-                                stroke: red;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            -1
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleHomeScore(1)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="9" y="40"
-                            style="
-                                fill: greenyellow;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +1
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleHomeScore(2)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="8" y="40"
-                            style="
-                                fill: lightgreen;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +2
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleHomeScore(3)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="8" y="40"
-                            style="
-                                fill: green;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +3
-                        </text>
-                    </svg>
-                </div>
-            </div>
+                <div class="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
+                    <div class="bg-base-200 rounded-lg">
+                        <div id="container" class="flex justify-center">
+                            <h1 class="mb-8 text-6xl font-extrabold">
+                                <a href="{{ Route('segment.hometeam') }}">{{ $game->home_team }}</a>
+                            </h1>
+                        </div>
+                        <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                        <div id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="12" y="40"
+                                        style="
+                                            fill: #f00;
+                                            font-weight: bold;
+                                            stroke: #C70039 ;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        -1
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleHomeScore(0)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="20" y="40"
+                                        style="
+                                            fill: #666;
+                                            font-weight: bold;
+                                            stroke: #555;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        0
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleHomeScore(1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px lightgreen);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="9" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +1
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleHomeScore(2)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="8" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +2
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleHomeScore(3)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="8" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +3
+                                    </text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-base-200 rounded-lg">
+                        <div id="container" class="flex justify-center">
+                            <h1 class="mb-8 text-6xl font-extrabold">
+                                <a href="{{ Route('segment.guestteam') }}">{{ $game->away_team }}</a>
+                            </h1>
+                        </div>
 
-            <div>
-                <div id="container" class="flex justify-center border-dashed border-2 border-red-100">
-                    <h1 class="mb-8 text-6xl font-extrabold">
-                        <a href="{{ Route('segment.guestteam') }}">{{ $game->away_team }}</a>
-                    </h1>
-                </div>
-
-                <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
-                <div id="buttons" class="flex justify-end flex-row p-4 gap-8 border-dashed border-2 border-red-100">
-                    <svg type="button" class="select-none" onclick="handleAwayScore(-1)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="12" y="40"
-                            style="
-                                fill: pink;
-                                font-weight: bold;
-                                stroke: red;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            -1
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleAwayScore(1)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="9" y="40"
-                            style="
-                                fill: greenyellow;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +1
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleAwayScore(2)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="8" y="40"
-                            style="
-                                fill: lightgreen;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +2
-                        </text>
-                    </svg>
-                    <svg type="button" onclick="handleAwayScore(3)" xmlns="http://www.w3.org/2000/svg">
-                        <circle r="27" cx="30" cy="30" fill="lightgray" stroke="black"
-                            stroke-width="2" opacity="0.8" />
-                        <text x="8" y="40"
-                            style="
-                                fill: green;
-                                font-weight: bold;
-                                stroke: green;
-                                stroke-width: 1;
-                                font-size: xx-large;
-                            ">
-                            +3
-                        </text>
-                    </svg>
+                        <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                        <div id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleAwayScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="12" y="40"
+                                        style="
+                                            fill: red;
+                                            font-weight: bold;
+                                            stroke: darkred;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        -1
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleAwayScore(0)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="20" y="40"
+                                        style="
+                                            fill: #666;
+                                            font-weight: bold;
+                                            stroke: #555;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        0
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleAwayScore(1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px lightgreen);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="9" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +1
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleAwayScore(2)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="8" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +2
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <svg type="button" onclick="handleAwayScore(3)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                        opacity="0.8" />
+                                    <text x="8" y="40"
+                                        style="
+                                            fill: green;
+                                            font-weight: bold;
+                                            stroke: darkgreen;
+                                            stroke-width: 1;
+                                            font-size: xx-large;
+                                        ">
+                                        +3
+                                    </text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('sports.index')" :active="request()->routeIs('sports.index')">
                         {{ __('Sports') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('score.index')" :active="request()->routeIs('score.index')">
+                        {{ __('Scoreboard') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('segment.index')" :active="request()->routeIs('segment.index')">
                         {{ __('7 Segment') }}
                     </x-nav-link>
@@ -29,6 +32,29 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md  focus:outline-none transition ease-in-out duration-150">
+                            <div><x-feathericon-settings /></div>
+
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <x-dropdown-link :href="route('countries.index')">
+                            {{ __('Countries') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('arenas.index')">
+                            {{ __('Arenas') }}
+                        </x-dropdown-link>
+                    </x-slot>
+                </x-dropdown>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md  focus:outline-none transition ease-in-out duration-150">

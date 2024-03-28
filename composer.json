@@ -17,6 +17,7 @@
         "livewire/livewire": "^3.4",
         "owenvoke/blade-fontawesome": "^2.6",
         "robsontenorio/mary": "^1.25",
+        "ryangjchandler/blade-tabler-icons": "^2.3",
         "spatie/laravel-ignition": "^2.4.2",
         "spatie/laravel-permission": "^6.4",
         "stidges/laravel-country-flags": "^2.0",
