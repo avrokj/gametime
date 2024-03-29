@@ -12,16 +12,17 @@ class ArenaController extends Controller
     public function index()
     {
         $arenas = Arena::orderBy('arena_name')->paginate(20);
-
-        return view('arenas.index', compact('arenas'));
+        $countries = Country::all(); // Retrieve countries data
+        return view('arenas.index', compact('arenas', 'countries'));
     }
 
     public function search(Request $request)
     {
         $term = $request->input('search');
         $arenas = Arena::where('arena_name', 'like', "%$term%")->orderBy('arena_name')->paginate(20);
+        $countries = Country::all(); // Retrieve countries data
 
-        return view('arenas.index', compact('arenas'));
+        return view('arenas.index', compact('arenas', 'countries'));
     }
 
     /**
@@ -29,8 +30,8 @@ class ArenaController extends Controller
      */
     public function create()
     {
-        $countries = Country::all();
-        return view('arenas.create', compact('countries'));
+        // $countries = Country::all();
+        // return view('arenas.create', compact('countries'));
     }
 
     /**
@@ -39,11 +40,16 @@ class ArenaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'arena_name' => 'required|string|max:45',
+            'arena_name' => 'required|string|max:45|unique:arenas',
             'country_id' => 'required|exists:countries,id',
+            'address' => 'required|string|max:45',
         ]);
 
-        Arena::create($request->all());
+        Arena::create([
+            'arena_name' => $request->input('arena_name'),
+            'country_id' => $request->input('country_id'),
+            'address' => $request->input('address'),
+        ]);
 
         return view('arenas.index', [
             'arenas' => Arena::orderBy('arena_name')->paginate(20)
@@ -76,6 +82,7 @@ class ArenaController extends Controller
         $request->validate([
             'arena_name' => 'required|string|max:45',
             'country_id' => 'required|exists:countries,id',
+            'address' => 'required|string|max:45',
         ]);
 
         $arena->update($request->all());

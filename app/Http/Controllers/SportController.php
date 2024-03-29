@@ -40,7 +40,7 @@ class SportController extends Controller
         // $this->sportize('update', $sport);
         $validated = $request->validate(
             [
-                'sports_name' => 'required|string|max:255'
+                'sports_name' => 'required|string|max:255|unique:sports'
             ],
             [
                 'sports_name.required' => 'The Sport name filed is required.'

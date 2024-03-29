@@ -36,8 +36,8 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'country_name' => 'required|max:45',
-            'code' => 'required|max:2',
+            'country_name' => 'required|max:45|unique:countries',
+            'code' => 'required|max:2|unique:countries',
         ]);
 
         // Create a new country record
@@ -74,7 +74,7 @@ class CountryController extends Controller
         // Validate input data
         $request->validate([
             'country_name' => 'required|string|max:255',
-            'code' => 'required|string|max:10|unique:countries,code,' . $id,
+            'code' => 'required|string|max:2|unique:countries,code,' . $id,
         ]);
 
         // Find the country record

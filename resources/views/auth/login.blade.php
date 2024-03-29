@@ -7,14 +7,14 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="w-full">
         @csrf
 
         <!-- Email Address -->
-        <div>           
+        <div>
             <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
                 <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
-                <x-text-input id="email"  type="text" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
             </label>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
@@ -27,7 +27,7 @@
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
-            </label>
+            </label>                            
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -41,9 +41,9 @@
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('forgot')">
                     {{ __('Forgot your password?') }}
-                </a>
+                </button>
             @endif
 
             <x-primary-button class="ms-3">

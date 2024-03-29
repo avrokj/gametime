@@ -31,7 +31,7 @@
                         <!-- Arena Name -->
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="{{__('Arena Name')}}" >
-                                <x-heroicon-s-home class="w-4 h-4 opacity-70" />
+                                <x-iconpark-arena class="w-4 h-4 opacity-70" />
                                 <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Arena Name')}}" type="text" name="arena_name" :value="old('arena_name')" required autofocus autocomplete="arena_name" />
                             </label>
                             <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
@@ -41,8 +41,18 @@
                         <div class="mt-4">
                             <x-select name="country_id">
                                 <option disabled selected value="">{{ __('Select Country') }}</option>
-                                
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ country_flag($country->code) }} {{ $country->country_name }}</option>
+                                @endforeach                                
                             </x-select>
+                        </div>
+                        <!-- Address -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="address" :value="{{__('Address')}}" >
+                                <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
+                                <x-text-input id="address" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Address')}}" type="text" name="address" :value="old('aaddress')" required autofocus autocomplete="address" />
+                            </label>
+                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
                         <div class="mt-4 space-x-2">
                             <x-save-button> {{ __('Save') }}</x-save-button>
@@ -67,6 +77,7 @@
                 <tr class="text-left py-4">
                     <th class="border-b-2 border-base-300">{{ __('Arena') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Country') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Address') }}</th>
                     <th class="text-right border-b-2 border-base-300">{{ __('Action') }}</th>
                 </tr>
                 </thead>
@@ -79,7 +90,10 @@
                                     {{ $arena->arena_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $arena->country->name }}
+                                    {{ country_flag($arena->country->code) }} {{ $arena->country->country_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $arena->address }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -92,13 +106,40 @@
                                         <form method="POST" action="{{ route('arenas.update', $arena) }}">
                                             @csrf
                                             @method('patch')
-                                            <x-text-input name="arena_name" value="{{ old('arena_name', $arena->arena_name) }}" />
-                                            <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                            <!-- Arena name -->
+                                            <div>
+                                                <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
+                                                    <x-iconpark-arena class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
+                                            </div>                                                 
+        
+                                            <!-- Country name -->
+                                            <div class="mt-4">
+                                                <x-select name="country_id">
+                                                    <option disabled value="">{{ __('Select Country') }}</option>
+                                                    @foreach ($countries as $country)
+                                                        <option value="{{ $country->id }}" {{ (old('country_id', $arena->country_id) == $country->id) ? 'selected' : '' }}>
+                                                            {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                        </option>
+                                                    @endforeach                               
+                                                </x-select>
+                                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                            </div>
+                                            <!-- Address -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
+                                                    <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                            </div>
                                             <div class="mt-4 space-x-2">
-                                            <x-save-button> {{ __('Save') }}</x-save-button>
-                                            <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
-                                                {{ __('Cancel') }}
-                                            </x-cancel-button>
+                                                <x-save-button> {{ __('Save') }}</x-save-button>
+                                                <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
                                             </div>
                                         </form>
                                         </div>
@@ -130,6 +171,12 @@
                                     {{ $arena->arena_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
+                                    {{ country_flag($arena->country->code) }} {{ $arena->country->country_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $arena->address }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
                                         <!-- Open the modal using ID.showModal() method -->
                                         <x-edit-button onclick="document.getElementById('my_modal_edit{{ $arena->id }}').showModal()">                      
@@ -141,13 +188,40 @@
                                             <form method="POST" action="{{ route('arenas.update', $arena) }}">
                                                 @csrf
                                                 @method('patch')
-                                                <x-text-input name="arena_name" value="{{ old('arena_name', $arena->arena_name) }}" />
-                                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                                <!-- Arena name -->
+                                                <div>
+                                                    <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
+                                                        <x-iconpark-arena class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
+                                                </div>                                                 
+            
+                                                <!-- Country name -->
+                                                <div class="mt-4">
+                                                    <x-select name="country_id">
+                                                        <option disabled value="">{{ __('Select Country') }}</option>
+                                                        @foreach ($countries as $country)
+                                                            <option value="{{ $country->id }}" {{ (old('country_id', $arena->country_id) == $country->id) ? 'selected' : '' }}>
+                                                                {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                            </option>
+                                                        @endforeach                               
+                                                    </x-select>
+                                                    <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                                </div>
+                                                <!-- Address -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
+                                                        <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                                </div>
                                                 <div class="mt-4 space-x-2">
-                                                <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
+                                                    <x-save-button> {{ __('Save') }}</x-save-button>
+                                                    <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
                                                 </div>
                                             </form>
                                             </div>
