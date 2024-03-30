@@ -13,4 +13,9 @@ class Country extends Model
         'country_name',
         'code',
     ];
+
+    public function coaches()
+    {
+        return $this->hasMany(Coach::class);
+    }
 }

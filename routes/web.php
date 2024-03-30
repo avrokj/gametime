@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ArenaController;
+use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -59,6 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/arenas/{sport}', [ArenaController::class, 'update'])->name('arenas.update');
     Route::delete('/arenas/{sport}', [ArenaController::class, 'destroy'])->name('arenas.destroy');
     Route::get('/arenas/search', [ArenaController::class, 'search'])->name('arenas.search');
+
+    Route::get('/coaches', [CoachController::class, 'index'])->name('coaches.index');
+    Route::post('/coaches', [CoachController::class, 'store'])->name('coaches.store');
+    Route::patch('/coaches/{sport}', [CoachController::class, 'update'])->name('coaches.update');
+    Route::delete('/coaches/{sport}', [CoachController::class, 'destroy'])->name('coaches.destroy');
+    Route::get('/coaches/search', [CoachController::class, 'search'])->name('coaches.search');
 });
 
 

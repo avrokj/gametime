@@ -80,7 +80,7 @@ class ArenaController extends Controller
         $arena = Arena::findOrFail($id);
 
         $request->validate([
-            'arena_name' => 'required|string|max:45',
+            'arena_name' => 'required|string|max:45|unique:arenas',
             'country_id' => 'required|exists:countries,id',
             'address' => 'required|string|max:45',
         ]);

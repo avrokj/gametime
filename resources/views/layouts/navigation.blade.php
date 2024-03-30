@@ -52,6 +52,9 @@
                         <x-dropdown-link :href="route('arenas.index')">
                             {{ __('Arenas') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('coaches.index')">
+                            {{ __('Coaches') }}
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
 

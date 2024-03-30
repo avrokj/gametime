@@ -10,7 +10,7 @@ class Arena extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['arena_name', 'country_id', 'address',];
+    protected $fillable = ['coach_name', 'image', 'country_id'];
 
     public function country()
     {
