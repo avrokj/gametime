@@ -2724,6 +2724,9 @@ input.tab:checked + .tab-content,
 .block {
   display: block;
 }
+.inline-block {
+  display: inline-block;
+}
 .flex {
   display: flex;
 }
@@ -3125,6 +3128,10 @@ input.tab:checked + .tab-content,
 .border-red-100 {
   --tw-border-opacity: 1;
   border-color: rgb(254 226 226 / var(--tw-border-opacity));
+}
+.border-red-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity));
 }
 .border-sky-100 {
   --tw-border-opacity: 1;
