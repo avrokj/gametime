@@ -3254,8 +3254,14 @@ input.tab:checked + .tab-content,
 .pe-4 {
   padding-inline-end: 1rem;
 }
+.pl-1 {
+  padding-left: 0.25rem;
+}
 .pl-4 {
   padding-left: 1rem;
+}
+.pr-1 {
+  padding-right: 0.25rem;
 }
 .pr-3 {
   padding-right: 0.75rem;

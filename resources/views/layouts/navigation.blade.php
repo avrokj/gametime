@@ -47,16 +47,19 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('countries.index')">
-                            {{ __('Countries') }}
+                            <x-heroicon-c-flag class="w-5 h-5 opacity-70 pr-1" /> {{ __('Countries') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('arenas.index')">
-                            {{ __('Arenas') }}
+                            <x-iconpark-arena class="w-5 h-5 opacity-70 pr-1" /> {{ __('Arenas') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('coaches.index')">
-                            {{ __('Coaches') }}
+                            <x-iconpark-whistling-o class="w-5 h-5 opacity-70 pr-1" /> {{ __('Coaches') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('teams.index')">
-                            {{ __('Teams') }}
+                            <x-heroicon-c-user-group class="w-5 h-5 opacity-70 pr-1" /> {{ __('Teams') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('positions.index')">
+                            <x-heroicon-c-cube-transparent class="w-5 h-5 opacity-70 pr-1" /> {{ __('Positions') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>

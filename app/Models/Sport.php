@@ -14,8 +14,4 @@ class Sport extends Model
 
     protected $guarded = []; // tühi jada, ehk siis saame kõike muuta
 
-    public function books(): BelongsToMany
-    {
-        // return $this->belongsToMany(Book::class, 'book_authors');
-    }
 }
