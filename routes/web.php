@@ -11,6 +11,7 @@ use App\Http\Controllers\ScoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/coaches/{sport}', [CoachController::class, 'update'])->name('coaches.update');
     Route::delete('/coaches/{sport}', [CoachController::class, 'destroy'])->name('coaches.destroy');
     Route::get('/coaches/search', [CoachController::class, 'search'])->name('coaches.search');
+
+    Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+    Route::patch('/teams/{sport}', [TeamController::class, 'update'])->name('teams.update');
+    Route::delete('/teams/{sport}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::get('/teams/search', [TeamController::class, 'search'])->name('teams.search');
 });
 
 

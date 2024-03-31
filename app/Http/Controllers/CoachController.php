@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Coach;
 use App\Models\Country;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CoachController extends Controller
@@ -82,7 +81,7 @@ class CoachController extends Controller
     {
         $request->validate([
             'coach_name' => 'required|string|max:45|unique:coaches',
-            'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
+            'new_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // 2MB max
             'country_id' => 'required|exists:countries,id'
         ]);
 
@@ -90,7 +89,7 @@ class CoachController extends Controller
 
         if ($request->hasFile('new_image')) {
             $imageName = time() . '.' . $request->new_image->extension();
-            $request->new_image->move(public_path('images'), $imageName);
+            $request->new_image->move(public_path('images/coaches'), $imageName);
             $coach->image = $imageName;
         }
 
@@ -109,6 +108,6 @@ class CoachController extends Controller
         $coach = Coach::findOrFail($id);
         $coach->delete();
 
-        return redirect()->route('coachs.index')->with('success', 'Coach deleted successfully.');
+        return redirect()->route('coaches.index')->with('success', 'Coach deleted successfully.');
     }
 }

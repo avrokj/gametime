@@ -88,7 +88,7 @@
                         @foreach($results as $coach)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
-                                    <img src="{{ asset('images/' . $coach->image) }}" alt="Coach Image"> 
+                                    <img src="{{ asset('images/coaches/' . $coach->image) }}" alt="Coach Image"> 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $coach->coach_name }} 
