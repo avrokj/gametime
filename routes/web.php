@@ -72,14 +72,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
     Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
-    Route::patch('/teams/{id}', [TeamController::class, 'update'])->name('teams.update');
-    Route::delete('/teams/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::patch('/teams/{sport}', [TeamController::class, 'update'])->name('teams.update');
+    Route::delete('/teams/{sport}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('/teams/search', [TeamController::class, 'search'])->name('teams.search');
 
     Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
     Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
-    Route::patch('/positions/{id}', [PositionController::class, 'update'])->name('positions.update');
-    Route::delete('/positions/{id}', [PositionController::class, 'destroy'])->name('positions.destroy');
+    Route::patch('/positions/{sport}', [PositionController::class, 'update'])->name('positions.update');
+    Route::delete('/positions/{sport}', [PositionController::class, 'destroy'])->name('positions.destroy');
     Route::get('/positions/search', [PositionController::class, 'search'])->name('positions.search');
 });
 

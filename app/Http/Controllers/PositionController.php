@@ -38,15 +38,16 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(
-            [
-                'position_name' => 'required|string|max:45|unique:positions',
-                'sport_id' => 'required|exists:sports,id'
-            ]
-        );
+        $request->validate([
+            'position_name' => 'required|string|max:45|unique:positions',
+            'sport_id' => 'required|exists:sports,id'
+        ]);
 
         // dd($request->all());
-        Position::create($validated);
+        Position::create([
+            'position_name' => $request->input('position_name'),
+            'sport_id' => $request->input('sport_id')
+        ]);
 
         return view('positions.index', [
             'positions' => Position::orderBy('position_name')->paginate(20)
