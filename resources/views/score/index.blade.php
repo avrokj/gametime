@@ -21,21 +21,29 @@
                         </div>
                         <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                         <div id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="12" y="40"
-                                        style="
+                            <div class="dropdown dropdown-top">
+                                <div tabindex="0" role="button"  class="flex items-center justify-center btn m-1">
+                                    <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
+                                        <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2" opacity="0.8" />
+                                        <text x="12" y="40"
+                                            style="
                                             fill: #f00;
                                             font-weight: bold;
                                             stroke: #C70039 ;
                                             stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        -1
-                                    </text>
-                                </svg>
+                                            ">
+                                            -1
+                                        </text>
+                                    </svg>
+                                </div>
+                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li onClick="useOnClickOutside(ref, () => setOpen(false))"><a class="btn btn-ghost rounded-btn">Player 1</a></li>
+                                    <li><a class="btn btn-ghost rounded-btn">Player 2</a></li>
+                                    <li><a class="btn btn-ghost rounded-btn">Player 3</a></li>
+                                    <li><a class="btn btn-ghost rounded-btn">Player 4</a></li>
+                                    <li><a class="btn btn-ghost rounded-btn">Player 5</a></li>
+                                </ul>
                             </div>
                             <div class="flex items-center justify-center">
                                 <svg type="button" onclick="handleHomeScore(0)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
