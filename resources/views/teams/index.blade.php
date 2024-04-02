@@ -98,8 +98,12 @@
                         @if(count($results) > 0)
                         @foreach($results as $team)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
-                                <td class="border-b-2 border-base-300">
-                                    <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image"> 
+                                <td class="border-b-2 border-base-300">                                    
+                                    <div class="btn btn-ghost btn-circle avatar">
+                                        <div class="w-10 rounded-full">
+                                            <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 

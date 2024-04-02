@@ -5,6 +5,8 @@ use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScoreController;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\TeamController;
+use App\Models\Position;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +76,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/teams/{sport}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/{sport}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('/teams/search', [TeamController::class, 'search'])->name('teams.search');
+
+    Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
+    Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
+    Route::patch('/positions/{sport}', [PositionController::class, 'update'])->name('positions.update');
+    Route::delete('/positions/{sport}', [PositionController::class, 'destroy'])->name('positions.destroy');
+    Route::get('/positions/search', [PositionController::class, 'search'])->name('positions.search');
+
+    Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
+    Route::post('/players', [PlayerController::class, 'store'])->name('players.store');
+    Route::patch('/players/{sport}', [PlayerController::class, 'update'])->name('players.update');
+    Route::delete('/players/{sport}', [PlayerController::class, 'destroy'])->name('players.destroy');
+    Route::get('/players/search', [PlayerController::class, 'search'])->name('players.search');
+
+    Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
+    Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
 });
 
 
@@ -82,9 +100,7 @@ Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name(
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
-Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
-Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
+Route::post('/apis', [ApiController::class, 'updateApi']);
 
-//Route::post('/apis', [ApiController::class, 'updateApi'])->name('score.index');
 
 require __DIR__ . '/auth.php';
