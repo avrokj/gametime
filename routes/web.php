@@ -102,4 +102,5 @@ Route::get('/segment/player', [SegmentController::class, 'player'])->name('segme
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 
+
 require __DIR__ . '/auth.php';
