@@ -31,34 +31,36 @@
                         <!-- Player Name -->
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Name')}}" >
-                                <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
                                 <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Name')}}" type="text" name="player_name" :value="old('player_name')" required autofocus autocomplete="player_name" />
                             </label>
                             <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                         </div>
+
                         <!-- Player No -->
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Number')}}" >
-                                <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
                                 <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" type="text" name="player_no" :value="old('player_no')" required autofocus autocomplete="player_no" />
                             </label>
                             <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
                         </div>
+
                         <!-- Birthday -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Birthday')}}" >
-                                <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                <x-text-input id="birthday" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Birthday')}}" type="text" name="birthday" :value="old('player_no')" required autofocus autocomplete="birthday" />
+                            <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth')}}" >
+                                <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
+                                <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" type="text" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
                             </label>
-                            <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                         </div>
                 
                         <!-- Teams name -->
                         <div class="mt-4">
                             <x-select name="team_id" class="!max-w-full">
-                                <option disabled selected value="">{{ __('Select teams') }}</option>
+                                <option disabled selected value="">{{ __('Select team') }}</option>
                                 @foreach ($teams as $team)
-                                    <option value="{{ $team->id }}">{{ $team->teams_name }}</option>
+                                    <option value="{{ $team->id }}">{{ $team->team_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>
@@ -72,11 +74,22 @@
                                 @endforeach                                
                             </x-select>
                         </div>
-                        <!-- Logo -->
+
+                        <!-- Country name -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="logo" :value="{{__('Player logo')}}" >
+                            <x-select name="country_id" class="!max-w-full">
+                                <option disabled selected value="">{{ __('Select Country') }}</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ country_flag($country->code) }} {{ $country->country_name }}</option>
+                                @endforeach                                
+                            </x-select>
+                        </div>
+
+                        <!-- Image -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="logo" :value="{{__('Player image')}}" >
                                 <x-feathericon-image class="w-4 h-4 opacity-70" />
-                                <input type="file" name="logo" id="logo">
+                                <input type="file" name="image" id="image">
                             </label>
                             <x-input-error :messages="$errors->get('message')" class="mt-2" />
                         </div>
@@ -117,17 +130,30 @@
                         @if(count($results) > 0)
                         @foreach($results as $player)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                                <td class="border-b-2 border-base-300">                                    
+                                    <div class="btn btn-ghost btn-circle avatar">
+                                        <div class="w-10 rounded-full">
+                                            <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image">
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="border-b-2 border-base-300">
-                                    <img src="{{ asset('images/players/' . $player->logo) }}" alt="Player Image"> 
+                                    {{ $player->player_no }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $player->player_name }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->format('d.m.Y') }} ({{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->diffInYears(\Carbon\Carbon::now()) }}) 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $player->team->teams_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $player->position->position_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ country_flag($player->country->code) }} {{ $player->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -219,18 +245,29 @@
                                 <td class="border-b-2 border-base-300">                                    
                                     <div class="btn btn-ghost btn-circle avatar">
                                         <div class="w-10 rounded-full">
-                                            <img src="{{ asset('images/players/' . $player->logo) }}" alt="Player Image">
+                                            <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image">
                                         </div>
                                     </div>
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $player->player_no }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $player->player_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $player->team->teams_name }}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->format('d.m.Y') }} ({{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->diffInYears(\Carbon\Carbon::now()) }}) 
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    <div class="w-10 rounded-full">
+                                        <img src="{{ asset('images/logos/' . $player->team->logo) }}" alt="{{ $player->player_name }} image"> {{ $player->team->team_name }}
+                                    </div>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $player->position->position_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ country_flag($player->country->code) }} {{ $player->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
@@ -252,6 +289,24 @@
                                                     </label>
                                                     <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                                                 </div>
+
+                                                <!-- Player No -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_no', $player->player_no)" >
+                                                        <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" type="text" name="player_no" :value="old('player_no', $player->player_no)" required autofocus autocomplete="player_no" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
+                                                </div>
+                        
+                                                <!-- Birthday -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="dob" :value="old('player_no', $player->dob)" >
+                                                        <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" type="text" name="dob" :value="old('dob', $player->dob)" required autofocus autocomplete="dob" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('dob')" class="mt-2" />
+                                                </div>
                                         
                                                 <!-- Teams name -->
                                                 <div class="mt-4">
@@ -259,7 +314,7 @@
                                                         <option disabled selected value="">{{ __('Select Teams') }}</option>
                                                         @foreach ($teams as $team)
                                                             <option value="{{ $team->id }}" {{ (old('team_id', $player->team_id) == $team->id) ? 'selected' : '' }}>
-                                                                {{ $team->teams_name }}
+                                                                {{ $team->team_name }}
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
@@ -275,13 +330,26 @@
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
+                                                </div>                                               
+            
+                                                <!-- Country name -->
+                                                <div class="mt-4">
+                                                    <x-select name="country_id" class="!max-w-full">
+                                                        <option disabled value="">{{ __('Select Country') }}</option>
+                                                        @foreach ($countries as $country)
+                                                            <option value="{{ $country->id }}" {{ (old('country_id', $player->country_id) == $country->id) ? 'selected' : '' }}>
+                                                                {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                            </option>
+                                                        @endforeach                               
+                                                    </x-select>
+                                                    <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                                 </div>
 
                                                 <!-- Image -->
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Player Image')}}" >
                                                         <div class="rounded-full">
-                                                            <img src="{{ asset('images/players/' . $player->logo) }}" alt="Current player image" class="w-10 rounded-full">
+                                                            <img src="{{ asset('images/players/' . $player->image) }}" alt="Current player image" class="w-10 rounded-full">
                                                         </div>
                                                         <input type="file" name="new_image" id="new_image">
                                                     </label>

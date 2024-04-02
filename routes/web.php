@@ -100,6 +100,6 @@ Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name(
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
-Route::post('/apis', [ApiController::class, 'updateApi'])->name('score.index');
+Route::post('/apis', [ApiController::class, 'updateApi']);
 
 require __DIR__ . '/auth.php';

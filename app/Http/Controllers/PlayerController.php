@@ -47,8 +47,8 @@ class PlayerController extends Controller
         $request->validate([
             'player_name' => 'required|string|max:45|unique:players',
             'player_no' => 'required|string|max:45',
-            'birthdate' => 'required|date',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
+            'dob' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'team_id' => 'required|exists:teams,id',
             'position_id' => 'required|exists:positions,id'
         ]);
@@ -60,14 +60,14 @@ class PlayerController extends Controller
         $player = new Player();
         $player->player_name = $request->player_name;
         $player->player_no = $request->player_no;
-        $player->birthdate = $request->birthdate;
+        $player->dob = $request->dob;
         $player->image = $imageName;
         $player->team_id = $request->team_id;
         $player->position_id = $request->position_id;
         $player->country_id = $request->country_id;
         $player->save();
 
-        return redirect()->route('teams.players.index')
+        return redirect()->route('players.index')
             ->with('success', 'Player added successfully.');
     }
 
@@ -93,9 +93,9 @@ class PlayerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'player_name' => 'required|string|max:45|unique:players',
+            'player_name' => 'required|string|max:45',
             'player_no' => 'required|string|max:45',
-            'birthdate' => 'required|date',
+            'dob' => 'required|date',
             'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'team_id' => 'required|exists:teams,id',
             'position_id' => 'required|exists:positions,id'
@@ -111,13 +111,13 @@ class PlayerController extends Controller
 
         $player->player_name = $request->player_name;
         $player->player_no = $request->player_no;
-        $player->birthdate = $request->birthdate;
+        $player->dob = $request->dob;
         $player->team_id = $request->team_id;
         $player->position_id = $request->position_id;
         $player->country_id = $request->country_id;
         $player->save();
 
-        return redirect()->route('teams.players.index')->with('success', 'Player updated successfully.');
+        return redirect()->route('players.index')->with('success', 'Player updated successfully.');
     }
 
     /**
@@ -128,6 +128,6 @@ class PlayerController extends Controller
         $player = Player::findOrFail($id);
         $player->delete();
 
-        return redirect()->route('teams.players.index')->with('success', 'Player deleted successfully.');
+        return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
     }
 }
