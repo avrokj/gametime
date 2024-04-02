@@ -16,7 +16,7 @@ class PlayerController extends Controller
         $teams = Team::all(); // Retrieve teams data
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
-        return view('players.index', compact('players', 'teams', 'positions', 'countries'));
+        return view('teams.players.index', compact('players', 'teams', 'positions', 'countries'));
     }
 
     public function search(Request $request)
@@ -27,7 +27,7 @@ class PlayerController extends Controller
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
 
-        return view('players.index', compact('players', 'teams', 'positions', 'countries'));
+        return view('teams.players.index', compact('players', 'teams', 'positions', 'countries'));
     }
 
     /**
@@ -36,7 +36,7 @@ class PlayerController extends Controller
     public function create()
     {
         // $teams = Team::all();
-        // return view('players.create', compact('teams'));
+        // return view('teams.players.create', compact('teams'));
     }
 
     /**
@@ -55,7 +55,7 @@ class PlayerController extends Controller
 
         $imageName = time() . '.' . $request->image->extension();
 
-        $request->image->move(public_path('images/images'), $imageName);
+        $request->image->move(public_path('images/players'), $imageName);
 
         $player = new Player();
         $player->player_name = $request->player_name;
@@ -67,7 +67,7 @@ class PlayerController extends Controller
         $player->country_id = $request->country_id;
         $player->save();
 
-        return redirect()->route('players.index')
+        return redirect()->route('teams.players.index')
             ->with('success', 'Player added successfully.');
     }
 
@@ -105,7 +105,7 @@ class PlayerController extends Controller
 
         if ($request->hasFile('new_image')) {
             $imageName = time() . '.' . $request->new_image->extension();
-            $request->new_image->move(public_path('images/images'), $imageName);
+            $request->new_image->move(public_path('images/players'), $imageName);
             $player->image = $imageName;
         }
 
@@ -117,7 +117,7 @@ class PlayerController extends Controller
         $player->country_id = $request->country_id;
         $player->save();
 
-        return redirect()->route('players.index')->with('success', 'Player updated successfully.');
+        return redirect()->route('teams.players.index')->with('success', 'Player updated successfully.');
     }
 
     /**
@@ -128,6 +128,6 @@ class PlayerController extends Controller
         $player = Player::findOrFail($id);
         $player->delete();
 
-        return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
+        return redirect()->route('teams.players.index')->with('success', 'Player deleted successfully.');
     }
 }
