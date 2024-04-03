@@ -3083,6 +3083,9 @@ input.tab:checked + .tab-content,
 .rounded-box {
   border-radius: var(--rounded-box, 1rem);
 }
+.rounded-btn {
+  border-radius: var(--rounded-btn, 0.5rem);
+}
 .rounded-full {
   border-radius: 9999px;
 }
