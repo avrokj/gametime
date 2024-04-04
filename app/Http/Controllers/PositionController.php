@@ -78,7 +78,7 @@ class PositionController extends Controller
         $position = Position::findOrFail($id);
 
         $request->validate([
-            'position_name' => 'required|string|max:45|unique:positions',
+            'position_name' => 'required|string|max:45',
             'sport_id' => 'required|exists:sports,id',
         ]);
 
