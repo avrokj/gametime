@@ -225,8 +225,7 @@
 </x-app-layout>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    let lastHomePoints = 0;
-    let lastAwayPoints = 0;
+
     let aScore = {{ $game->away_score }};
     let hScore = {{ $game->home_score }};
     var formattedHomeScore = hScore < 10 ? '0' + hScore : hScore;
@@ -287,7 +286,9 @@
             console.error(error);
         }
     });
+    //return lastAwayPoints;
 };
+
 var handleHomeScore = function(amount) {
     // Increment or decrement the away score by the specified amount
     hScore += amount;
@@ -341,16 +342,21 @@ var handleHomeScore = function(amount) {
             console.error(error);
         }
     });
+    //return lastHomePoints;
 };
-var lastHomePointsBy = function(playerNr){
-    //writing lastHomePoint and who scored it to game log
-    console.log(playerNr);
-    console.log(lastHomePoints);
-};
-var lastHomePointsBy = function(playerNr){
+
+var lastAwayPointsBy = function(playerNr){
+    //var lastAwayPoints = handleAwayScore();
     //writing lastHomePoint and who scored it to game log
     console.log(playerNr);
     console.log(lastAwayPoints);
+};
+
+var lastHomePointsBy = function(playerNr){
+    //var lastHomePoints = handleHomeScore();
+    //writing lastHomePoint and who scored it to game log
+    console.log(playerNr);
+    console.log(lastHomePoints);
 };
 
 </script>
