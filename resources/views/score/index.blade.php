@@ -112,16 +112,18 @@
 </div>
 <div  x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2" 
+                                <svg type="button" onclick="" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
+                                    <rect rx="15" ry="15" x="0" y="0" width="60" height="60" fill="white" stroke="black" stroke-width="2" 
                                         opacity="0.8" />
-                                    <text x="12" y="40"
+                                    <text x="22" y="40"
                                             style="
                                             fill: #f00;
                                             font-weight: bold;
                                             stroke: #C70039 ;
                                             stroke-width: 1;
                                             font-size: xx-large;
+                                            font-family: monospace;
+                                            font-family: sans-serif;
                                             ">
                                             1
                                     </text>
@@ -129,33 +131,37 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(0)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                <svg type="button" onclick="" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
+                                <rect rx="15" ry="15" x="0" y="0" width="60" height="60" fill="white" stroke="black" stroke-width="2" 
                                         opacity="0.8" />
-                                    <text x="20" y="40"
+                                    <text x="12" y="40"
                                         style="
                                             fill: #666;
                                             font-weight: bold;
                                             stroke: #555;
                                             stroke-width: 1;
                                             font-size: xx-large;
+                                            font-family: monospace;
+                                            font-family: sans-serif;
                                         ">
-                                        2
+                                        21
                                     </text>
                                 </svg>
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px lightgreen);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                <svg type="button" onclick="" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px lightgreen);">
+                                <rect rx="15" ry="15" x="0" y="0" width="60" height="60" fill="white" stroke="black" stroke-width="2" 
                                         opacity="0.8" />
-                                    <text x="9" y="40"
+                                    <text x="22" y="40"
                                         style="
                                             fill: green;
                                             font-weight: bold;
                                             stroke: darkgreen;
                                             stroke-width: 1;
                                             font-size: xx-large;
+                                            font-family: monospace;
+                                            font-family: sans-serif;
                                         ">
                                         3
                                     </text>
@@ -163,16 +169,18 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(2)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                <svg type="button" onclick="" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                <rect rx="15" ry="15" x="0" y="0" width="60" height="60" fill="white" stroke="black" stroke-width="2" 
                                         opacity="0.8" />
-                                    <text x="8" y="40"
+                                    <text x="22" y="40"
                                         style="
                                             fill: green;
                                             font-weight: bold;
                                             stroke: darkgreen;
                                             stroke-width: 1;
                                             font-size: xx-large;
+                                            font-family: monospace;
+                                            font-family: sans-serif;
                                         ">
                                         4
                                     </text>
@@ -180,16 +188,18 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleHomeScore(3)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
+                                <svg type="button" onclick="" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
+                                <rect rx="15" ry="15" x="0" y="0" width="60" height="60" fill="white" stroke="black" stroke-width="2" 
                                         opacity="0.8" />
-                                    <text x="8" y="40"
+                                    <text x="22" y="40"
                                         style="
                                             fill: green;
                                             font-weight: bold;
                                             stroke: darkgreen;
                                             stroke-width: 1;
                                             font-size: xx-large;
+                                            font-family: monospace;
+                                            font-family: sans-serif;
                                         ">
                                         5
                                     </text>
