@@ -222,84 +222,49 @@
                         <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                         <div id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleAwayScore(-1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px red);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="12" y="40"
-                                        style="
-                                            fill: red;
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(1)" >
+                                    <p style="
+                                            color: #bf0915;
                                             font-weight: bold;
-                                            stroke: darkred;
-                                            stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        -1
-                                    </text>
-                                </svg>
+                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                        ">-1</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleAwayScore(0)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px orange);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="20" y="40"
-                                        style="
-                                            fill: #666;
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(1)" >
+                                    <p style="
+                                            color: #555555;
                                             font-weight: bold;
-                                            stroke: #555;
-                                            stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        0
-                                    </text>
-                                </svg>
+                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                        ">0</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleAwayScore(1)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px lightgreen);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="9" y="40"
-                                        style="
-                                            fill: green;
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(1)" >
+                                    <p style="
+                                            color: #08680b;
                                             font-weight: bold;
-                                            stroke: darkgreen;
-                                            stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        +1
-                                    </text>
-                                </svg>
+                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                        ">+1</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleAwayScore(2)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="8" y="40"
-                                        style="
-                                            fill: green;
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(2)" >
+                                    <p style="
+                                            color: #08680b;
                                             font-weight: bold;
-                                            stroke: darkgreen;
-                                            stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        +2
-                                    </text>
-                                </svg>
+                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                        ">+2</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                                <svg type="button" onclick="handleAwayScore(3)" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px green);">
-                                    <circle r="27" cx="30" cy="30" fill="white" stroke="black" stroke-width="2"
-                                        opacity="0.8" />
-                                    <text x="8" y="40"
-                                        style="
-                                            fill: green;
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(3)" >
+                                    <p style="
+                                            color: #08660d;
                                             font-weight: bold;
-                                            stroke: darkgreen;
-                                            stroke-width: 1;
                                             font-size: xx-large;
-                                        ">
-                                        +3
-                                    </text>
-                                </svg>
+                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                        ">+3</p></button>
                             </div>
                         </div>
                     </div>
@@ -310,6 +275,8 @@
 </x-app-layout>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let lastHomePoints = 0;
+    let lastAwayPoints = 0;
     let aScore = {{ $game->away_score }};
     let hScore = {{ $game->home_score }};
     var formattedHomeScore = hScore < 10 ? '0' + hScore : hScore;
@@ -321,7 +288,8 @@
         
     // Increment or decrement the away score by the specified amount
     aScore += amount;
-    
+    lastAwayPoints = amount;
+    console.log(lastAwayPoints);
     // Ensure the score doesn't go below 0
     if (aScore < 0) {
         aScore = 0;
@@ -373,7 +341,8 @@
 var handleHomeScore = function(amount) {
     // Increment or decrement the away score by the specified amount
     hScore += amount;
-    
+    lastHomePoints = amount;
+    console.log(lastHomePoints);
     // Ensure the score doesn't go below 0
     if (hScore < 0) {
         hScore = 0;
@@ -423,6 +392,13 @@ var handleHomeScore = function(amount) {
         }
     });
 };
+var lastHomePointsBy = function(playerNr){
+    //writing lastHomePoint and who scored it to game log
+};
+var lastHomePointsBy = function(playerNr){
+    //writing lastHomePoint and who scored it to game log
+};
+
 </script>
 <style>
     @font-face {
