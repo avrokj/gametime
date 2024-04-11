@@ -1,0 +1,29 @@
+name: deploy
+
+on: push
+
+# It is important to specify "concurrency" for the workflow,
+# to prevent concurrency between different deploys.
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Deploy
+        uses: deployphp/action@v1
+        with:
+          dep: deploy
+          private-key: ${{ secrets.PRIVATE_KEY }}
+shop
