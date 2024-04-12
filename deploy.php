@@ -6,15 +6,15 @@ require 'recipe/laravel.php';
 
 // Veebimajutus ühendus
 set('application', 'gametime');
-set('remote_user', 'vhost122307');
-set('http_user', 'vhost122307');
+set('remote_user', 'vhost122307ssh');
+set('http_user', 'vhost122307ssh');
 set('keep_releases', 2);
 
 host('gametime.ee')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
-    ->set('http_user', 'vhost122307')
-    ->set('deploy_path', '~/htdocs')
+    ->set('http_user', 'vhost122307ssh')
+    ->set('deploy_path', '~/domains/www.gametime.ee/htdocs')
     ->set('branch', 'main');
 
 // set('repository', 'git@github.com:avrokj/gametime.git');
