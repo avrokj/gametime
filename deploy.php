@@ -16,7 +16,7 @@ host('ta22korva.itmajakas.ee')
     ->set('deploy_path', '~/domeenid/www.ta22korva.itmajakas.ee/gametime')
     ->set('branch', 'main');
 
-set('repository', 'git@github.com:avrokj/ralf.git');
+set('repository', 'git@github.com:avrokj/gametime.git');
 
 // Tasks
 task('opcache:clear', function () {
