@@ -4,19 +4,22 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 
-// Zone ühendus
-set('application', 'ralf');
-set('remote_user', 'virt118413');
-set('http_user', 'virt118413');
+// Veebimajutus ühendus
+set('application', 'gametime');
+set('remote_user', 'vhost122307ssh');
+set('http_user', 'vhost122307ssh');
 set('keep_releases', 2);
 
-host('ta22korva.itmajakas.ee')
-    ->setHostname('ta22korva.itmajakas.ee')
-    ->set('http_user', 'virt118413')
-    ->set('deploy_path', '~/domeenid/www.ta22korva.itmajakas.ee/gametime')
+host('gametime.ee')
+    ->setHostname('gametime.ee')
+    ->set('port', '1022')
+    ->set('http_user', 'vhost122307ssh')
+    ->set('deploy_path', '~/htdocs')
     ->set('branch', 'main');
 
-set('repository', 'git@github.com:avrokj/gametime.git');
+// set('repository', 'git@github.com:avrokj/gametime.git');
+set('repository', 'https://github.com/avrokj/gametime.git');
+
 
 // Tasks
 task('opcache:clear', function () {
@@ -26,7 +29,7 @@ task('opcache:clear', function () {
 task('build:node', function () {
     cd('{{release_path}}');
     run('npm i');
-    run('npx vite build');
+    // run('npx vite build');
     run('rm -rf node_modules');
 });
 
