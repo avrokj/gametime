@@ -25,5 +25,10 @@
     },
     "dependencies": {
         "concurrently": "^8.2.2"
-    }
+    },
+    "pnpm": {
+        "overrides": {
+          "rollup": "npm:@rollup/wasm-node"
+        }
+      }
 }
