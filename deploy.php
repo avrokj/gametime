@@ -17,7 +17,9 @@ host('gametime.ee')
     ->set('deploy_path', '~/htdocs')
     ->set('branch', 'main');
 
-set('repository', 'git@github.com:avrokj/gametime.git');
+// set('repository', 'git@github.com:avrokj/gametime.git');
+set('repository', 'https://github.com/avrokj/gametime.git');
+
 
 // Tasks
 task('opcache:clear', function () {
