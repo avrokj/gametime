@@ -14,7 +14,7 @@ host('gametime.ee')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
     ->set('http_user', 'vhost122307')
-    ->set('deploy_path', '~/htdocs')
+    ->set('deploy_path', '/www/apache/domains/www.gametime.ee/htdocs')
     ->set('branch', 'main');
 
 // set('repository', 'git@github.com:avrokj/gametime.git');
