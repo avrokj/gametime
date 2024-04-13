@@ -14,7 +14,7 @@ host('gametime.ee')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
     ->set('http_user', 'vhost122307')
-    ->set('deploy_path', '/www/apache/domains/www.gametime.ee/htdocs')
+    ->set('deploy_path', '~/htdocs')
     ->set('branch', 'main');
 
 // set('repository', 'git@github.com:avrokj/gametime.git');
@@ -23,7 +23,7 @@ set('repository', 'https://github.com/avrokj/gametime.git');
 
 // Tasks
 task('opcache:clear', function () {
-    run('killall php82-cgi || true');
+    run('killall php83-cgi || true');
 })->desc('Clear opcache');
 
 task('build:node', function () {
@@ -47,5 +47,4 @@ task('deploy', [
 
 
 // Hooks
-
 after('deploy:failed', 'deploy:unlock');
