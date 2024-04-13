@@ -11,6 +11,7 @@ set('http_user', 'vhost122307');
 set('keep_releases', 2);
 
 host('gametime.ee')
+    ->stage('production')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
     ->set('http_user', 'vhost122307')
@@ -46,5 +47,9 @@ task('deploy', [
 ]);
 
 
+task('reload:php-fpm', function () {
+    run('sudo /usr/sbin/service php8-fpm reload');
+});
+
 // Hooks
-after('deploy:failed', 'deploy:unlock');
+after('deploy:failed', 'deploy:unlock', 'reload:php-fpm');
