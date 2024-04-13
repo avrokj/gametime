@@ -27,7 +27,7 @@ task('opcache:clear', function () {
 })->desc('Clear opcache');
 
 task('build:node', function () {
-    cd('~/htdocs');
+    cd('{{release_path}}');
     run('npm i');
     // run('npx vite build');
     run('rm -rf node_modules');
