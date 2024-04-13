@@ -10,8 +10,8 @@ set('remote_user', 'vhost122307ssh');
 set('http_user', 'vhost122307');
 set('keep_releases', 2);
 
-host('gametime.ee')
-    ->setHostname('gametime.ee')
+host('gametime.ee.klient.veebimajutus.ee')
+    ->setHostname('gametime.ee.klient.veebimajutus.ee')
     ->set('port', '1022')
     ->set('http_user', 'vhost122307')
     ->set('deploy_path', '~/htdocs')
@@ -45,10 +45,5 @@ task('deploy', [
     'artisan:cache:clear'
 ]);
 
-
-task('reload:php-fpm', function () {
-    run('sudo /usr/sbin/service php8-fpm reload');
-});
-
 // Hooks
-after('deploy:failed', 'deploy:unlock', 'reload:php-fpm');
+after('deploy:failed', 'deploy:unlock');
