@@ -7,13 +7,13 @@ require 'recipe/laravel.php';
 // Veebimajutus ühendus
 set('application', 'gametime');
 set('remote_user', 'vhost122307ssh');
-set('http_user', 'vhost122307ssh');
+set('http_user', 'vhost122307');
 set('keep_releases', 2);
 
 host('gametime.ee')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
-    ->set('http_user', 'vhost122307ssh')
+    ->set('http_user', 'vhost122307')
     ->set('deploy_path', '~/htdocs')
     ->set('branch', 'main');
 
