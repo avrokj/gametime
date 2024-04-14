@@ -16,6 +16,7 @@ class CreateCoachesTable extends Migration
             $table->integer('country_id',);
             $table->primary(['id', 'country_id']);
             $table->foreign('country_id')->references('id')->on('countries');
+            $table->timestamps();
         });
     }
 

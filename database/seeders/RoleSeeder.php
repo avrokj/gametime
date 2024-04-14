@@ -2,19 +2,34 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        $adminRole = Role::create(['name' => 'admin']);
-        $moderatorRole = Role::create(['name' => 'moderator']);
-        $editorRole = Role::create(['name' => 'editor']);
-        $userRole = Role::create(['name' => 'user']);
+        Role::create(['name' => 'Super Admin']);
+        $admin = Role::create(['name' => 'Admin']);
+        $gameManager = Role::create(['name' => 'Game Manager']);
 
-        $adminRole->givePermissionTo('all');
+        $admin->givePermissionTo([
+            'create-user',
+            'edit-user',
+            'delete-user',
+            'create-game',
+            'edit-game',
+            'delete-game'
+        ]);
+
+        $gameManager->givePermissionTo([
+            'create-game',
+            'edit-game',
+            'delete-game'
+        ]);
     }
 }
