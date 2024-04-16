@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,8 +30,24 @@ class UserController extends Controller
      */
     public function index(): View
     {
+        $roles = Role::all();
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            if ($user->roles->count() > 0) {
+                // Retrieve the roles associated with the user
+                $userRoles = $user->roles;
+            } else {
+                // If the user has no roles, initialize an empty collection
+                $userRoles = collect();
+            }
+        } else {
+            $userRoles = collect();
+        }
         return view('users.index', [
-            'users' => User::latest('id')->paginate(3)
+            'users' => User::latest('id')->paginate(3),
+            'roles' => $roles,
+            'userRoles' => $userRoles
         ]);
     }
 

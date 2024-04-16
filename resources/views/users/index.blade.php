@@ -8,7 +8,100 @@
             </div>
             <div>       
                 @can('create-user')
-                    <a href="{{ route('users.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New User</a>
+                    <x-primary-button onclick="document.getElementById('add_user').showModal()">
+                        <x-heroicon-c-plus-circle class="w-6"/> {{ __('Add New User') }}
+                    </x-primary-button>
+                    <!-- Open the modal using ID.showModal() method -->
+                        <dialog id="add_user" class="modal modal-bottom sm:modal-middle">
+                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                            <h3 class="font-bold text-lg">{{ __('Edit User') }}</h3>
+                            <div class="modal-action flex flex-col justify-start text-left">                          
+                                <form action="{{ route('users.store') }}" method="post">
+                                    @csrf
+                                    <!-- Name -->
+                                    <div>
+                                        <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                            <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                                        </label>
+                                        @if ($errors->has('name'))
+                                            <x-input-error messages="$errors->get('name')" class="mt-2" />
+                                        @endif
+                                    </div>
+                                    
+                                    <!-- Email Address -->
+                                    <div class="mt-4">
+                                        <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                            <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                        </label>
+                                        @if ($errors->has('email'))
+                                            <x-input-error messages="{{ $errors->first('email') }}" class="mt-2" />
+                                        @endif
+                                    </div>
+                                            
+                                    <!-- Password -->
+                                    <div class="mt-4">
+                                        <label class="input input-bordered flex items-center gap-2" for="password" value="__('Password')" >
+                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
+                                                        type="password"
+                                                        name="password"
+                                                        autocomplete="current-password" />
+                                        </label> 
+                                        @if ($errors->has('password'))                           
+                                            <x-input-error messages="{{ $errors->first('password') }}" class="mt-2" />
+                                        @endif
+                                    </div>
+                                            
+                                    <!-- Confirm Password -->
+                                    <div class="mt-4">                                        
+                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
+                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                            <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
+                                                        type="password"
+                                                        name="password_confirmation" autocomplete="new-password" />
+                                        </label>                            
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
+                                        <div class="col-md-6">           
+                                            <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
+                                                @forelse ($roles as $role)
+
+                                                    @if ($role->name != 'Super Admin')
+                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
+                                                    @else
+                                                        @if (Auth::user()->hasRole('Super Admin'))   
+                                                        <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                            {{ $role->name }}
+                                                        </option>
+                                                        @endif
+                                                    @endif
+
+                                                @empty
+
+                                                @endforelse
+                                            </select>
+                                            @if ($errors->has('roles'))
+                                                <span class="text-danger">{{ $errors->first('roles') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>                                                                    
+                                    <div class="mt-4 space-x-2">
+                                        <x-save-button> {{ __('Create User') }}</x-save-button>
+                                        <x-cancel-button onclick="window.location='{{ route('users.index') }}'">
+                                            {{ __('Cancel') }}
+                                        </x-cancel-button>
+                                    </div>                
+                                </form>
+                            </div>
+                        </div>
+                        </dialog>
                 @endcan
             </div>
         </div>
@@ -64,106 +157,197 @@
                                             @if (in_array('Super Admin', $user->getRoleNames()->toArray() ?? []) )
                                                 @if (Auth::user()->hasRole('Super Admin'))
                                                     <!-- Open the modal using ID.showModal() method -->
-                                                    {{-- <x-edit-button onclick="document.getElementById('edit_user{{ $user->id }}').showModal()">                      
+                                                    <x-edit-button onclick="document.getElementById('edit_user{{ $user->id }}').showModal()">                      
                                                     </x-edit-button>
 
                                                     <dialog id="edit_user{{ $user->id }}" class="modal modal-bottom sm:modal-middle">
                                                     <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                                         <h3 class="font-bold text-lg">{{ __('Edit User') }}</h3>
                                                         <div class="modal-action flex flex-col justify-start text-left">                          
-                                                            @if ($errors->any())
-                                                                <div class="text-red-500 text-sm mb-4">
-                                                                    <ul>
-                                                                        @foreach ($errors->all() as $error)
-                                                                            <li>{{ $error }}</li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            @endif
                                                             <form action="{{ route('users.update', $user->id) }}" method="post">
                                                                 @csrf
                                                                 @method("PUT")
-
+                                                                <!-- Name -->
                                                                 <div>
-                                                                    <x-input-label for="name" :value="__('Name')" />
-                                                                    <x-text-input name="name" id="name" value="{{ $user->name ?? old('name') }}" />
-                                                                        @if ($errors->has('name'))
-                                                                            <span class="text-red-500 text-sm mb-4">{{ $errors->first('name') }}</span>
-                                                                        @endif
+                                                                    <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                                                        <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ $user->name }}" required autofocus autocomplete="name" />
+                                                                    </label>
+                                                                    @if ($errors->has('name'))
+                                                                        <x-input-error messages="$errors->get('name')" class="mt-2" />
+                                                                    @endif
                                                                 </div>
-                                            
-                                                                <div class="mb-3 row">
-                                                                    <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email Address</label>
-                                                                    <div class="col-md-6">
-                                                                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $user->email }}">
-                                                                        @if ($errors->has('email'))
-                                                                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                                                                        @endif
-                                                                    </div>
+                                                                
+                                                                <!-- Email Address -->
+                                                                <div class="mt-4">
+                                                                    <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                                                        <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="email" type="email" name="email" value="{{ $user->email }}" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                                                    </label>
+                                                                    @if ($errors->has('email'))
+                                                                        <x-input-error messages="{{ $errors->first('email') }}" class="mt-2" />
+                                                                    @endif
                                                                 </div>
-                                            
-                                                                <div class="mb-3 row">
-                                                                    <label for="password" class="col-md-4 col-form-label text-md-end text-start">Password</label>
-                                                                    <div class="col-md-6">
-                                                                      <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                                                                        @if ($errors->has('password'))
-                                                                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                                        @endif
-                                                                    </div>
+                                                                        
+                                                                <!-- Password -->
+                                                                <div class="mt-4">
+                                                                    <label class="input input-bordered flex items-center gap-2" for="password" value="__('Password')" >
+                                                                        <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
+                                                                                    type="password"
+                                                                                    name="password"
+                                                                                    autocomplete="current-password" />
+                                                                    </label> 
+                                                                    @if ($errors->has('password'))                           
+                                                                        <x-input-error messages="{{ $errors->first('password') }}" class="mt-2" />
+                                                                    @endif
                                                                 </div>
-                                            
-                                                                <div class="mb-3 row">
-                                                                    <label for="password_confirmation" class="col-md-4 col-form-label text-md-end text-start">Confirm Password</label>
-                                                                    <div class="col-md-6">
-                                                                      <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-                                                                    </div>
+                                                                        
+                                                                <!-- Confirm Password -->
+                                                                <div class="mt-4">                                        
+                                                                    <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
+                                                                        <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
+                                                                                    type="password"
+                                                                                    name="password_confirmation" autocomplete="new-password" />
+                                                                    </label>                            
+                                                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                                                 </div>
-                                            
-                                                                <div class="mb-3 row">
-                                                                    <label for="roles" class="col-md-4 col-form-label text-md-end text-start">Roles</label>
+
+                                                                <div class="mb-4">
+                                                                    <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
                                                                     <div class="col-md-6">           
-                                                                        <select class="form-select @error('roles') is-invalid @enderror" multiple aria-label="Roles" id="roles" name="roles[]">
+                                                                        <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
                                                                             @forelse ($roles as $role)
-                                            
-                                                                                @if ($role!='Super Admin')
-                                                                                <option value="{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'selected' : '' }}>
-                                                                                    {{ $role }}
+
+                                                                                @if ($role->name != 'Super Admin')
+                                                                                <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                                                    {{ $role->name }}
                                                                                 </option>
                                                                                 @else
                                                                                     @if (Auth::user()->hasRole('Super Admin'))   
-                                                                                    <option value="{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'selected' : '' }}>
-                                                                                        {{ $role }}
+                                                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                                                        {{ $role->name }}
                                                                                     </option>
                                                                                     @endif
                                                                                 @endif
-                                            
+
                                                                             @empty
-                                            
+
                                                                             @endforelse
                                                                         </select>
                                                                         @if ($errors->has('roles'))
                                                                             <span class="text-danger">{{ $errors->first('roles') }}</span>
                                                                         @endif
                                                                     </div>
-                                                                </div>
-                                                                
+                                                                </div>                                                                    
                                                                 <div class="mt-4 space-x-2">
-                                                                    <x-save-button> {{ __('Save') }}</x-save-button>
-                                                                    <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
+                                                                    <x-save-button> {{ __('Update User') }}</x-save-button>
+                                                                    <x-cancel-button onclick="window.location='{{ route('users.index') }}'">
                                                                         {{ __('Cancel') }}
                                                                     </x-cancel-button>
-                                                                </div>                                                                
+                                                                </div>                
                                                             </form>
                                                         </div>
                                                     </div>
-                                                    </dialog> --}}
-
-                                                    
-                                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                                    </dialog>
                                                 @endif
                                             @else
                                                 @can('edit-user')
-                                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a> 
+                                                <!-- Open the modal using ID.showModal() method -->
+                                                <x-edit-button onclick="document.getElementById('edit_user{{ $user->id }}').showModal()">                      
+                                                </x-edit-button>
+                                                    <dialog id="edit_user{{ $user->id }}" class="modal modal-bottom sm:modal-middle">
+                                                    <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                                        <h3 class="font-bold text-lg">{{ __('Edit User') }}</h3>
+                                                        <div class="modal-action flex flex-col justify-start text-left">                          
+                                                            <form action="{{ route('users.update', $user->id) }}" method="post">
+                                                                @csrf
+                                                                @method("PUT")
+                                                                <!-- Name -->
+                                                                <div>
+                                                                    <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                                                        <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ $user->name }}" required autofocus autocomplete="name" />
+                                                                    </label>
+                                                                    @if ($errors->has('name'))
+                                                                        <x-input-error messages="$errors->get('name')" class="mt-2" />
+                                                                    @endif
+                                                                </div>
+                                                                
+                                                                <!-- Email Address -->
+                                                                <div class="mt-4">
+                                                                    <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                                                        <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="email" type="email" name="email" value="{{ $user->email }}" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                                                    </label>
+                                                                    @if ($errors->has('email'))
+                                                                        <x-input-error messages="{{ $errors->first('email') }}" class="mt-2" />
+                                                                    @endif
+                                                                </div>
+                                                                        
+                                                                <!-- Password -->
+                                                                <div class="mt-4">
+                                                                    <label class="input input-bordered flex items-center gap-2" for="password" value="__('Password')" >
+                                                                        <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
+                                                                                    type="password"
+                                                                                    name="password"
+                                                                                    autocomplete="current-password" />
+                                                                    </label> 
+                                                                    @if ($errors->has('password'))                           
+                                                                        <x-input-error messages="{{ $errors->first('password') }}" class="mt-2" />
+                                                                    @endif
+                                                                </div>
+                                                                        
+                                                                <!-- Confirm Password -->
+                                                                <div class="mt-4">                                        
+                                                                    <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
+                                                                        <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                                        <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
+                                                                                    type="password"
+                                                                                    name="password_confirmation" autocomplete="new-password" />
+                                                                    </label>                            
+                                                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                                                </div>
+
+                                                                <div class="mb-4">
+                                                                    <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
+                                                                    <div class="col-md-6">           
+                                                                        <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
+                                                                            @forelse ($roles as $role)
+
+                                                                                @if ($role->name != 'Super Admin')
+                                                                                <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                                                    {{ $role->name }}
+                                                                                </option>
+                                                                                @else
+                                                                                    @if (Auth::user()->hasRole('Super Admin'))   
+                                                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
+                                                                                        {{ $role->name }}
+                                                                                    </option>
+                                                                                    @endif
+                                                                                @endif
+
+                                                                            @empty
+
+                                                                            @endforelse
+                                                                        </select>
+                                                                        @if ($errors->has('roles'))
+                                                                            <span class="text-danger">{{ $errors->first('roles') }}</span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>                                                                    
+                                                                <div class="mt-4 space-x-2">
+                                                                    <x-save-button> {{ __('Update User') }}</x-save-button>
+                                                                    <x-cancel-button onclick="window.location='{{ route('users.index') }}'">
+                                                                        {{ __('Cancel') }}
+                                                                    </x-cancel-button>
+                                                                </div>                
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    </dialog> 
                                                 @endcan
 
                                                 @can('delete-user')
