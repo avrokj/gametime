@@ -23,10 +23,17 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Role $role): View
     {
+        $permissions = Permission::all();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_id", $role->id)
+            ->pluck('permission_id')
+            ->all();
+
         return view('roles.index', [
-            'roles' => Role::orderBy('id', 'DESC')->paginate(3)
+            'roles' => Role::orderBy('id', 'DESC')->paginate(20),
+            'permissions' => $permissions,
+            'rolePermissions' => $rolePermissions
         ]);
     }
 

@@ -27,187 +27,189 @@
     </head>
     <body>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center dark:bg-dots-lighter selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                    @else
-                        <button class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('login')">Log in</button>
-                        <dialog id="login" class="modal">
-                        <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                            <form method="dialog">
-                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            </form>
-                            <h3 class="font-bold text-lg text-left">{{ __('Log in') }}</h3>
-                            <div class="modal-action justify-start text-left">
-                                <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                                <form method="POST" action="{{ route('login') }}" class="w-full">
-                                    @csrf
-                            
-                                    <!-- Email Address -->
-                                    <div>
-                                        <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
-                                            <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
-                                        </label>
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
-                            
-                                    <!-- Password -->
-                                    <div class="mt-4">
-                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
-                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
-                                                        type="password"
-                                                        name="password"
-                                                        required autocomplete="current-password" />
-                                        </label>                            
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                    </div>
-                            
-                                    <!-- Remember Me -->
-                                    <div class="block mt-4">
-                                        <label for="remember_me" class="inline-flex items-center">
-                                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                                            <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                                        </label>
-                                    </div>
-                            
-                                    <div class="flex items-center justify-end mt-4">
-                                        @if (Route::has('password.request'))
-                                            <button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('forgot')">
-                                                {{ __('Forgot your password?') }}
-                                            </button>
-                                        @endif
-                            
-                                        <x-primary-button class="ms-3">
-                                            {{ __('Log in') }}
-                                        </x-primary-button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        </dialog>
-
-                        
-                        @if (Route::has('password.request'))
-                        <dialog id="forgot" class="modal">
+            @guest
+                @if (Route::has('login'))
+                    <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        @else
+                            <button class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('login')">Log in</button>
+                            <dialog id="login" class="modal">
                             <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                 <form method="dialog">
                                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                </form>                                
-                                <div class="mb-4 text-sm text-left">
-                                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-                                </div>
+                                </form>
+                                <h3 class="font-bold text-lg text-left">{{ __('Log in') }}</h3>
                                 <div class="modal-action justify-start text-left">
-                                
-                                    <!-- Session Status -->
                                     <x-auth-session-status class="mb-4" :status="session('status')" />
-                                
-                                    <form method="POST" action="{{ route('password.email') }}">
+
+                                    <form method="POST" action="{{ route('login') }}" class="w-full">
                                         @csrf
                                 
                                         <!-- Email Address -->
                                         <div>
                                             <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
                                                 <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
-                                                <x-text-input id="email"  type="email" name="email" :value="old('email')" required autofocus class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
                                             </label>
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
                                 
+                                        <!-- Password -->
+                                        <div class="mt-4">
+                                            <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
+                                                <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
+                                                            type="password"
+                                                            name="password"
+                                                            required autocomplete="current-password" />
+                                            </label>                            
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+                                
+                                        <!-- Remember Me -->
+                                        <div class="block mt-4">
+                                            <label for="remember_me" class="inline-flex items-center">
+                                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                                                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                                            </label>
+                                        </div>
+                                
                                         <div class="flex items-center justify-end mt-4">
-                                            <x-primary-button>
-                                                {{ __('Email Password Reset Link') }}
+                                            @if (Route::has('password.request'))
+                                                <button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('forgot')">
+                                                    {{ __('Forgot your password?') }}
+                                                </button>
+                                            @endif
+                                
+                                            <x-primary-button class="ms-3">
+                                                {{ __('Log in') }}
                                             </x-primary-button>
                                         </div>
-                                    </form>    
+                                    </form>
                                 </div>
                             </div>
-                        </dialog>                            
-                        @endif
+                            </dialog>
+
+                            
+                            @if (Route::has('password.request'))
+                            <dialog id="forgot" class="modal">
+                                <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                    <form method="dialog">
+                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>                                
+                                    <div class="mb-4 text-sm text-left">
+                                        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                                    </div>
+                                    <div class="modal-action justify-start text-left">
+                                    
+                                        <!-- Session Status -->
+                                        <x-auth-session-status class="mb-4" :status="session('status')" />
+                                    
+                                        <form method="POST" action="{{ route('password.email') }}">
+                                            @csrf
+                                    
+                                            <!-- Email Address -->
+                                            <div>
+                                                <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                                    <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="email"  type="email" name="email" :value="old('email')" required autofocus class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            </div>
+                                    
+                                            <div class="flex items-center justify-end mt-4">
+                                                <x-primary-button>
+                                                    {{ __('Email Password Reset Link') }}
+                                                </x-primary-button>
+                                            </div>
+                                        </form>    
+                                    </div>
+                                </div>
+                            </dialog>                            
+                            @endif
 
 
 
-                        @if (Route::has('register'))                            
-                        <button class="ml-4 font-semibold  hover:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('register')">
-                            {{ __('Register') }}
-                        </button>
+                            @if (Route::has('register'))                            
+                            <button class="ml-4 font-semibold  hover:text-gray-900 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" onclick="toggleModal('register')">
+                                {{ __('Register') }}
+                            </button>
 
-                        <dialog id="register" class="modal">
-                        <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                            <form method="dialog">
-                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            </form>
-                            <h3 class="font-bold text-lg text-left">{{ __('Register') }}</h3>
-                            <div class="modal-action justify-start text-left">
-                                <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-                            
-                                    <!-- Name -->
-                                    <div>
-                                        <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
-                                            <x-heroicon-s-user class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                                        </label>
-                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                    </div>
-                            
-                                    <!-- Email Address -->
-                                    <div class="mt-4">
-                                        <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
-                                            <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="email" type="email" name="email" :value="old('email')" required autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
-                                        </label>
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
-                            
-                                    <!-- Password -->
-                                    <div class="mt-4">
-                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
-                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
-                                                        type="password"
-                                                        name="password"
-                                                        required autocomplete="current-password" />
-                                        </label>
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                    </div>
-                            
-                                    <!-- Confirm Password -->
-                                    <div class="mt-4">                                        
-                                        <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
-                                            <x-heroicon-s-key class="w-4 h-4 opacity-70" />
-                                            <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
-                                                        type="password"
-                                                        name="password_confirmation" required autocomplete="new-password" />
-                                        </label>                            
-                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                    </div>
-                            
-                                    <div class="flex items-center justify-end mt-4">                                                                    
-                                        <button class="underline text-sm hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('login')">
-                                            {{ __('Already registered?') }}
-                                        </button>
-
-                                        <x-primary-button class="ms-4">
-                                            {{ __('Register') }}
-                                        </x-primary-button>
-                                    </div>
+                            <dialog id="register" class="modal">
+                            <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                <form method="dialog">
+                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
+                                <h3 class="font-bold text-lg text-left">{{ __('Register') }}</h3>
+                                <div class="modal-action justify-start text-left">
+                                    <form method="POST" action="{{ route('register') }}">
+                                        @csrf
+                                
+                                        <!-- Name -->
+                                        <div>
+                                            <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                                <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                                            </label>
+                                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                        </div>
+                                
+                                        <!-- Email Address -->
+                                        <div class="mt-4">
+                                            <label class="input input-bordered flex items-center gap-2" for="email" :value="__('Email')" >
+                                                <x-heroicon-c-envelope class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="email" type="email" name="email" :value="old('email')" required autocomplete="username" class="grow border-none focus:outline-none" placeholder="{{__('Email')}}" />
+                                            </label>
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                        </div>
+                                
+                                        <!-- Password -->
+                                        <div class="mt-4">
+                                            <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Password')" >
+                                                <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="password" class="grow border-none focus:outline-none" placeholder="{{__('Password')}}" 
+                                                            type="password"
+                                                            name="password"
+                                                            required autocomplete="current-password" />
+                                            </label>
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+                                
+                                        <!-- Confirm Password -->
+                                        <div class="mt-4">                                        
+                                            <label class="input input-bordered flex items-center gap-2" for="password" :value="__('Confirm Password')" >
+                                                <x-heroicon-s-key class="w-4 h-4 opacity-70" />
+                                                <x-text-input id="password_confirmation" class="grow border-none focus:outline-none" placeholder="{{__('Confirm Password')}}" 
+                                                            type="password"
+                                                            name="password_confirmation" required autocomplete="new-password" />
+                                            </label>                            
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
+                                
+                                        <div class="flex items-center justify-end mt-4">                                                                    
+                                            <button class="underline text-sm hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleModal('login')">
+                                                {{ __('Already registered?') }}
+                                            </button>
+
+                                            <x-primary-button class="ms-4">
+                                                {{ __('Register') }}
+                                            </x-primary-button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        </dialog>
-                        @endif
-                    @endauth                
-                    <label class="swap swap-rotate px-2">
-                        <input type="checkbox" id="darkModeCheckbox" class="hidden"/>
-                        <svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
-                        <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
-                    </label>
-                </div>
-            @endif
+                            </dialog>
+                            @endif
+                        @endauth                
+                        <label class="swap swap-rotate px-2">
+                            <input type="checkbox" id="darkModeCheckbox" class="hidden"/>
+                            <svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+                            <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+                        </label>
+                    </div>
+                @endif            
+            @endguest
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center">
