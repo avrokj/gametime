@@ -24,7 +24,8 @@ class ApiController extends Controller
 
     public function updateApi(Request $request)
     {
-        $apiData = Api::find(1);
+        $apiData = Api::where('sb_id', '=', $request->sb_id)->first();
+        //dd ($apiData);
         if ($apiData) {
             $apiData->away_score = $request->input('awayScore');
             $apiData->home_score = $request->input('homeScore');
