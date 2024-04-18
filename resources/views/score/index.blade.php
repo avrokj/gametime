@@ -13,7 +13,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div  id="myDiv" class="bg-base-300 overflow-hidden shadow-md rounded-md">
-            <button>Toggle full Screen</button>
+            <button id="toggle">Toggle full Screen</button>
                 <divclass="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
 
                 
@@ -436,7 +436,7 @@ var lastHomePointsBy = function(playerNr){
     console.log(playerNr);
     console.log(lastHomePoints);
 };
-$('button').click(function(e) {
+$('#toggle').click(function(e) {
   $('#myDiv').toggleClass('fullscreen');
 });
 
