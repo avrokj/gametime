@@ -27,25 +27,20 @@
                                     @if ($errors->has('name'))
                                         <x-input-error messages="$errors->get('name')" class="mt-2" />
                                     @endif
-                                </div>                               
+                                </div>
 
-                                <div class="mt-4 space-x-2">
-                                    <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permissions</label>
-                                    <div class="col-md-6">           
-                                        <select class="form-select @error('permissions') is-invalid @enderror" multiple aria-label="Permissions" id="permissions" name="permissions[]" style="height: 210px;">
-                                            @forelse ($permissions as $permission)
-                                                <option value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions') ?? []) ? 'selected' : '' }}>
-                                                    {{ $permission->name }}
-                                                </option>
-                                            @empty
-
-                                            @endforelse
-                                        </select>
-                                        @if ($errors->has('permissions'))
-                                            <span class="text-danger">{{ $errors->first('permissions') }}</span>
-                                        @endif
+                                @can('edit-role')
+                                <div class="mt-4">
+                                    <x-input-label :value="__('Permissions')" />
+                                    <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                    @foreach ($permissions as $id => $name)
+                                        <input type="checkbox" name="permissions[]" id="permission-{{ $name['id'] }}" value="{{ $name['id'] }}" @checked(in_array($name['id'], old('permissions', [])))>
+                                        <label class="text-sm font-medium" for="permission-{{ $name['id'] }}">{{ $name['name'] }}</label>
+                                        <br />
+                                    @endforeach
                                     </div>
                                 </div>
+                                @endcan
 
                                 <div class="mt-4 space-x-2">
                                     <x-save-button> {{ __('Save') }}</x-save-button>
@@ -105,23 +100,37 @@
                                                         <x-text-input name="name" id="name" value="{{ $role->name }}" />
                                                     </div>
 
-                                                    @if ($role->name!='Super Admin')
+                                                    {{-- @if ($role->name!='Super Admin')
                                                         @can('edit-role')
                                                         <div class="mb-3 row">
                                                             <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permissions</label>
                                                             <div class="col-md-6">           
-                                                                <select class="form-select @error('permissions') is-invalid @enderror" multiple aria-label="Permissions" id="permissions" name="permissions[]" style="height: 210px;">
-                                                                    @forelse ($permissions as $permission)
-                                                                        <option value="{{ $permission->id }}" {{ in_array($permission->id, $rolePermissions ?? []) ? 'selected' : '' }}>
+                                                                <select name="permissions[]" id="permissions" multiple>
+                                                                    @foreach ($permissions as $permission)
+                                                                        <option value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions', [])) || $role->permissions->contains($permission->id) ? 'selected' : '' }}>
                                                                             {{ $permission->name }}
                                                                         </option>
-                                                                    @empty
-                                    
-                                                                    @endforelse
+                                                                    @endforeach
                                                                 </select>
                                                                 @if ($errors->has('permissions'))
                                                                     <span class="text-red-500 text-sm mb-4">{{ $errors->first('permissions') }}</span>
                                                                 @endif
+                                                            </div>
+                                                        </div>
+                                                        @endcan
+                                                    @endif --}}
+
+                                                    @if ($role->name!='Super Admin')
+                                                        @can('edit-role')
+                                                        <div class="mt-4">
+                                                            <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                                            <x-input-label :value="__('Permissions')" />
+                            
+                                                            @foreach ($permissions as $id => $name)
+                                                                <input type="checkbox" name="permissions[]" id="permission-{{ $name['id'] }}" value="{{ $name['id'] }}" @checked(in_array($name['id'], old('permissions', [])) || $role->permissions->contains($name['id']))>
+                                                                <label class="text-sm font-medium" for="permission-{{ $name['id'] }}">{{ $name['name'] }}</label>
+                                                                <br />
+                                                            @endforeach
                                                             </div>
                                                         </div>
                                                         @endcan

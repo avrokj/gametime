@@ -42,9 +42,8 @@ class RoleController extends Controller
      */
     public function create(): View
     {
-        return view('roles.create', [
-            'permissions' => Permission::get()
-        ]);
+        $permissions = Permission::pluck('name', 'id');
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -80,7 +79,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role): View
+    public function edit(Role $role)
     {
         if ($role->name == 'Super Admin') {
             abort(403, 'SUPER ADMIN ROLE CAN NOT BE EDITED');

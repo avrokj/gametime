@@ -40,7 +40,7 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        $roles = Role::pluck('name', 'id');
+        $roles = Role::all(); // Fetch all roles as a collection of objects
 
         return view('permissions.edit', compact('permission', 'roles'));
     }
