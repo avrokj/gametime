@@ -26,7 +26,7 @@
 
 <div  x-show="!open" @click="open = ! open" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 75% ;" onclick="handleHomeScore(-1)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleHomeScore(-1)" >
                                     <p style="
                                             color: #bf0915;
                                             font-weight: bold;
@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% 25% 25%;" onclick="handleHomeScore(0)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleHomeScore(0)" >
                                     <p style="
                                             color: #555555;
                                             font-weight: bold;
@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 30% 30% / 80% 80% ;" onclick="handleHomeScore(1)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleHomeScore(1)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% 25% / 50% 50% ;" onclick="handleHomeScore(2)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleHomeScore(2)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 25% ;" onclick="handleHomeScore(3)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleHomeScore(3)" >
                                     <p style="
                                             color: #08660d;
                                             font-weight: bold;
@@ -144,7 +144,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% 50% ;" onclick="lastHomePointsBy(15)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastHomePointsBy(15)" >
                                     <p style="
                                             color: #08660d;
                                             font-weight: bold;
@@ -176,7 +176,7 @@
 <div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% / 10% 10% ;" onclick="handleAwayScore(-1)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(-1)" >
                                     <p style="
                                             color: #bf0915;
                                             font-weight: bold;
@@ -185,7 +185,7 @@
                                         ">-1</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% / 20% 20% ;" onclick="handleAwayScore(0)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(0)" >
                                     <p style="
                                             color: #555555;
                                             font-weight: bold;
@@ -194,7 +194,7 @@
                                         ">0</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 50%;" onclick="handleAwayScore(1)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(1)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -203,7 +203,7 @@
                                         ">+1</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 20% 20% /50% 50% ;" onclick="handleAwayScore(2)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(2)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -212,7 +212,7 @@
                                         ">+2</p></button>
                             </div>
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 10% 10% / 50% 50% ;" onclick="handleAwayScore(3)" >
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% ;" onclick="handleAwayScore(3)" >
                                     <p style="
                                             color: #08660d;
                                             font-weight: bold;
