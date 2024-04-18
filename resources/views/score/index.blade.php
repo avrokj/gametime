@@ -6,13 +6,18 @@
                     {{ __('Scoreboard') }}
                 </h2> 
             </div>
+            
         </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
-                <div class="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
+            <div  id="myDiv" class="bg-base-300 overflow-hidden shadow-md rounded-md">
+            <button>Toggle full Screen</button>
+                <divclass="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
+
+                
+
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
                             <h1 class="mb-8 text-6xl font-extrabold">
@@ -431,6 +436,9 @@ var lastHomePointsBy = function(playerNr){
     console.log(playerNr);
     console.log(lastHomePoints);
 };
+$('button').click(function(e) {
+  $('#myDiv').toggleClass('fullscreen');
+});
 
 </script>
 <style>
@@ -439,4 +447,14 @@ var lastHomePointsBy = function(playerNr){
     src: url('/fonts/fs-sevegment.woff2') format('woff2');
     /* Add additional font properties if needed */
 }
+#myDiv.fullscreen{
+    z-index: 9999; 
+    width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+ }
+
+
 </style>
