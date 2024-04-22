@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/teams/{sport}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/{sport}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('/teams/search', [TeamController::class, 'search'])->name('teams.search');
+    Route::get('/teams/{teamId}/players', [TeamController::class, 'players'])->name('teams.players');
 
     Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
     Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
