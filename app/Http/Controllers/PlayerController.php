@@ -12,7 +12,9 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        $players = Player::orderBy('player_name')->paginate(20);
+        $players = Player::orderByRaw('CAST(player_no AS UNSIGNED) ASC')
+            ->orderBy('team_id')
+            ->paginate(20);
         $teams = Team::all(); // Retrieve teams data
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
