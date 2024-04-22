@@ -45,15 +45,14 @@ class ArenaController extends Controller
             'address' => 'required|string|max:45',
         ]);
 
-        Arena::create([
-            'arena_name' => $request->input('arena_name'),
-            'country_id' => $request->input('country_id'),
-            'address' => $request->input('address'),
-        ]);
+        $arena = new Arena();
+        $arena->arena_name = $request->arena_name;
+        $arena->country_id = $request->country_id;
+        $arena->address = $request->address;
+        $arena->save();
 
-        return view('arenas.index', [
-            'arenas' => Arena::orderBy('arena_name')->paginate(20)
-        ]);
+        return redirect()->route('arenas.index')
+            ->with('success', 'Arena added successfully.');
     }
 
     /**
@@ -77,15 +76,18 @@ class ArenaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $arena = Arena::findOrFail($id);
-
         $request->validate([
             'arena_name' => 'required|string|max:45|unique:arenas',
             'country_id' => 'required|exists:countries,id',
-            'address' => 'required|string|max:45',
+            'address' => 'required|string|max:45'
         ]);
 
-        $arena->update($request->all());
+        $arena = Arena::findOrFail($id);
+
+        $arena->arena_name = $request->arena_name;
+        $arena->country_id = $request->country_id;
+        $arena->address = $request->address;
+        $arena->save();
 
         return redirect()->route('arenas.index')->with('success', 'Arena updated successfully.');
     }
