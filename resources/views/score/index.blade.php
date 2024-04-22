@@ -11,7 +11,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
+            <div id="myDiv" class="bg-base-300 overflow-hidden shadow-md rounded-md">                                
+                <label class="flex swap swap-rotate px-2 justify-end pt-2 pr-2 mb-[-20px]">
+                    <input type="checkbox" id="screen-toggle" class="hidden" placeholder="Toggle full Screen"/>
+                    <x-iconpark-fullscreenone-o class="swap-off w-6 h-6 font-bold" />
+                    <x-iconpark-offscreenone-o class="swap-on w-6 h-6 font-bold" />
+                </label>
                 <div class="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
@@ -432,11 +437,16 @@ var lastHomePointsBy = function(playerNr){
     console.log(lastHomePoints);
 };
 
+// Toggle full Screen
+$('#screen-toggle').click(function(e) {
+  $('#myDiv').toggleClass('w-full h-full fixed top-0 left-0 z-50');
+});
+
 </script>
+
 <style>
     @font-face {
-    font-family: 'CustomFont';
-    src: url('/fonts/fs-sevegment.woff2') format('woff2');
-    /* Add additional font properties if needed */
-}
+        font-family: 'CustomFont';
+        src: url('/fonts/fs-sevegment.woff2') format('woff2');
+    }
 </style>
