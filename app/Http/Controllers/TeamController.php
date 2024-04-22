@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coach;
+use App\Models\Country;
+use App\Models\Player;
+use App\Models\Position;
 use App\Models\Team;
 use App\Models\Sport;
 use Illuminate\Http\Request;
@@ -25,6 +28,18 @@ class TeamController extends Controller
         $coaches = Coach::all(); // Retrieve coaches data
 
         return view('teams.index', compact('teams', 'sports', 'coaches'));
+    }
+
+
+    public function players(Request $request, $teamId)
+    {
+        // dd($request);
+        $team = Team::findOrFail($teamId); // Retrieve the team by ID
+        $players = $team->players; // Fetch players associated with the team        
+        $positions = Position::all(); // Retrieve positions data
+        $countries = Country::all(); // Retrieve countries data
+
+        return view('teams.players', compact('team', 'players', 'positions', 'countries'));
     }
 
     /**
@@ -105,6 +120,21 @@ class TeamController extends Controller
         $team->save();
 
         return redirect()->route('teams.index')->with('success', 'Team updated successfully.');
+    }
+
+    /**
+     * Players by team.
+     */
+    public function playersByTeam($teamId)
+    {
+        // Retrieve the team by its ID
+        $team = Team::findOrFail($teamId);
+
+        // Retrieve all players belonging to the team
+        $players = $team->players()->orderBy('player_no')->paginate(20);
+
+        // Return a view with the players data
+        return view('players.index', compact('team', 'players'));
     }
 
     /**

@@ -11,8 +11,11 @@ class CreatePositionsTable extends Migration
         Schema::create('positions', function (Blueprint $table) {
 
             $table->integer('id',);
-            $table->string('position', 45)->nullable();
+            $table->string('position_name', 45)->nullable();
+            $table->integer('sport_id',);
+            $table->foreign('sport_id')->references('id')->on('sports');
             $table->primary('id');
+            $table->timestamps();
         });
     }
 

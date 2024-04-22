@@ -3,7 +3,7 @@
         <div class="flex justify-between">
             <div>
                 <h2 class="font-semibold text-xl leading-tight">
-                    {{ __('Roles') }}
+                    {{ __('Manage Roles') }}
                 </h2> 
             </div>
             <div>       
@@ -13,35 +13,34 @@
 
                 <dialog id="add_role" class="modal modal-bottom sm:modal-middle">
                     <div class="modal-box !w-auto">
-                        <h3 class="font-bold text-lg">{{ __('Add Role') }}</h3>
+                        <h3 class="font-bold text-lg">{{ __('Add New Role') }}</h3>
                         <div class="modal-action flex flex-col justify-start">
-                            @if ($errors->any())
-                                <div class="text-red-500 text-sm mb-4">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
 
                             <form action="{{ route('roles.store') }}" method="POST" class="w-full">
                                 @csrf
+                                <!-- Name -->
                                 <div>
-                                    <x-input-label for="name" :value="__('Name')" />
-                                    <x-text-input name="name" id="name" value="{{ old('name') }}" />
+                                    <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
+                                        <x-heroicon-s-user class="w-4 h-4 opacity-70" />
+                                        <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                                    </label>
+                                    @if ($errors->has('name'))
+                                        <x-input-error messages="$errors->get('name')" class="mt-2" />
+                                    @endif
                                 </div>
 
-                                @if ($permissions->count())
+                                @can('edit-role')
                                 <div class="mt-4">
                                     <x-input-label :value="__('Permissions')" />
+                                    <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
                                     @foreach ($permissions as $id => $name)
-                                        <input type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])))>
-                                        <label class="text-sm font-medium text-gray-700" for="permission-{{ $id }}">{{ $name }}</label>
+                                        <input type="checkbox" name="permissions[]" id="permission-{{ $name['id'] }}" value="{{ $name['id'] }}" @checked(in_array($name['id'], old('permissions', [])))>
+                                        <label class="text-sm font-medium" for="permission-{{ $name['id'] }}">{{ $name['name'] }}</label>
                                         <br />
                                     @endforeach
+                                    </div>
                                 </div>
-                                @endif
+                                @endcan
 
                                 <div class="mt-4 space-x-2">
                                     <x-save-button> {{ __('Save') }}</x-save-button>
@@ -65,9 +64,9 @@
                         <thead class="text-base uppercase bg-base-100">
                         <tr class="text-left py-4">
                             <th class="border-b-2 border-base-300">
-                                {{ __('Role') }}</th>
+                                {{ __('#') }}</th>
                             <th class="border-b-2 border-base-300">
-                                {{ __('Permissions') }}
+                                {{ __('Name') }}
                             </th>
                             <th class="border-b-2 border-base-300 text-right" scope="col">
                                 {{ __('Actions') }}
@@ -76,12 +75,12 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                         @forelse ($roles as $role)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">                              
                                 <td class="border-b-2 border-base-300">
-                                    {{ $role->name }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $role->permissions_count }}
+                                    {{ $role->name }}
                                 </td>
                                 <td class="border-b-2 border-base-300 text-right">                                    
                                     <div class="flex justify-end">
@@ -92,35 +91,49 @@
                                         <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                             <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
-                                            <div class="modal-action flex flex-col justify-start text-left">                          
-                                                @if ($errors->any())
-                                                    <div class="text-red-500 text-sm mb-4">
-                                                        <ul>
-                                                            @foreach ($errors->all() as $error)
-                                                                <li>{{ $error }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endif
-                        
-                                                <form action="{{ route('roles.update', $role) }}" method="POST">
+                                            <div class="modal-action flex flex-col justify-start text-left">                        
+                                                <form action="{{ route('roles.update', $role->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div>
                                                         <x-input-label for="name" :value="__('Role')" />
-                                                        <x-text-input name="name" id="name" value="{{ $role->name ?? old('name') }}" />
+                                                        <x-text-input name="name" id="name" value="{{ $role->name }}" />
                                                     </div>
-                        
-                                                    @if ($permissions->count())
-                                                    <div class="mt-4">
-                                                        <x-input-label :value="__('Permissions')" />
-                        
-                                                        @foreach ($permissions as $id => $name)
-                                                            <input type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
-                                                            <label class="text-sm font-medium" for="permission-{{ $id }}">{{ $name }}</label>
-                                                            <br />
-                                                        @endforeach
-                                                    </div>
+
+                                                    {{-- @if ($role->name!='Super Admin')
+                                                        @can('edit-role')
+                                                        <div class="mb-3 row">
+                                                            <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permissions</label>
+                                                            <div class="col-md-6">           
+                                                                <select name="permissions[]" id="permissions" multiple>
+                                                                    @foreach ($permissions as $permission)
+                                                                        <option value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions', [])) || $role->permissions->contains($permission->id) ? 'selected' : '' }}>
+                                                                            {{ $permission->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @if ($errors->has('permissions'))
+                                                                    <span class="text-red-500 text-sm mb-4">{{ $errors->first('permissions') }}</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        @endcan
+                                                    @endif --}}
+
+                                                    @if ($role->name!='Super Admin')
+                                                        @can('edit-role')
+                                                        <div class="mt-4">
+                                                            <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                                            <x-input-label :value="__('Permissions')" />
+                            
+                                                            @foreach ($permissions as $id => $name)
+                                                                <input type="checkbox" name="permissions[]" id="permission-{{ $name['id'] }}" value="{{ $name['id'] }}" @checked(in_array($name['id'], old('permissions', [])) || $role->permissions->contains($name['id']))>
+                                                                <label class="text-sm font-medium" for="permission-{{ $name['id'] }}">{{ $name['name'] }}</label>
+                                                                <br />
+                                                            @endforeach
+                                                            </div>
+                                                        </div>
+                                                        @endcan
                                                     @endif
 
                                                     <div class="mt-4 space-x-2">
@@ -133,12 +146,17 @@
                                             </div>
                                         </div>
                                         </dialog>
-
-                                        <form method="POST" action="{{ route('roles.destroy', $role) }}">
+                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" >
                                             @csrf
                                             @method('DELETE')
-                                            <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                            </x-delete-button>
+                                            @if ($role->name!='Super Admin')
+                                                @can('delete-role')
+                                                    @if ($role->name!=Auth::user()->hasRole($role->name))
+                                                        <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
+                                                        </x-delete-button>
+                                                    @endif
+                                                @endcan
+                                            @endif
                                         </form>
                                     </div>
                                 </td>
@@ -153,6 +171,9 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <div class="pt-4 col-span-2">
+                        {{ $roles->links('pagination::tailwind') }}
+                    </div>
                 </div>
             </div>
         </div>

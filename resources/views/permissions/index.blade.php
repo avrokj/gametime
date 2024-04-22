@@ -109,16 +109,18 @@
                                                         <x-input-label for="name" :value="__('Permission')" />
                                                         <x-text-input name="name" id="name" value="{{ $permission->name ?? old('name') }}" />
                                                     </div>
+                                                    
                         
                                                     @if ($roles->count())
                                                     <div class="mt-4">
                                                         <x-input-label :value="__('Roles')" />
-                        
+                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">                        
                                                         @foreach ($roles as $id => $name)
-                                                            <input type="checkbox" name="roles[]" id="role-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('role', [])) || $permission->roles->contains($id)) />
+                                                            <input type="checkbox" name="roles[]" id="role-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('roles', [])) || $permission->roles->contains($id)) />
                                                             <label class="text-sm font-medium" for="role-{{ $id }}">{{ $name }}</label>
                                                             <br />
-                                                        @endforeach
+                                                        @endforeach                                                        
+                                                        </div>
                                                     </div>
                                                     @endif
 

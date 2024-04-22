@@ -16,6 +16,7 @@ class CreateApisTable extends Migration
             $table->integer('home_score',)->nullable();
             $table->integer('away_score',)->nullable();
             $table->primary(['id', 'sb_id']);
+            $table->timestamps();
         });
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12102e358e9ead4afaac57c33b9c947b",
+    "content-hash": "187fc7cf110091c6aad9bb999f93b83a",
     "packages": [
         {
             "name": "asdh/laravel-flatpickr",
@@ -2099,6 +2099,69 @@
             "time": "2024-01-04T16:10:04+00:00"
         },
         {
+            "name": "laravel/ui",
+            "version": "v4.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "a3562953123946996a503159199d6742d5534e61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/a3562953123946996a503159199d6742d5534e61",
+                "reference": "a3562953123946996a503159199d6742d5534e61",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^9.21|^10.0|^11.0",
+                "illuminate/filesystem": "^9.21|^10.0|^11.0",
+                "illuminate/support": "^9.21|^10.0|^11.0",
+                "illuminate/validation": "^9.21|^10.0|^11.0",
+                "php": "^8.0",
+                "symfony/console": "^6.0|^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.35|^8.15|^9.0",
+                "phpunit/phpunit": "^9.3|^10.4|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/ui/tree/v4.5.1"
+            },
+            "time": "2024-03-21T18:12:29+00:00"
+        },
+        {
             "name": "league/commonmark",
             "version": "2.4.2",
             "source": {
@@ -3066,6 +3129,74 @@
                 }
             ],
             "time": "2023-02-08T01:06:31+00:00"
+        },
+        {
+            "name": "outhebox/blade-flags",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MohmmedAshraf/blade-flags.git",
+                "reference": "0b8aa501e5da6a97c4ef68aeecb191d5ef660ef1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MohmmedAshraf/blade-flags/zipball/0b8aa501e5da6a97c4ef68aeecb191d5ef660ef1",
+                "reference": "0b8aa501e5da6a97c4ef68aeecb191d5ef660ef1",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.1",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.4|^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OutheBox\\BladeFlags\\BladeFlagsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OutheBox\\BladeFlags\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Ashraf",
+                    "email": "cupo.ashraf@gmail.com",
+                    "homepage": "https://github.com/MohmmedAshraf"
+                }
+            ],
+            "description": "A package to easily make use of country & language flags in your Laravel Blade views.",
+            "homepage": "https://github.com/MohmmedAshraf/blade-flags",
+            "keywords": [
+                "blade",
+                "country flags",
+                "flags",
+                "language flags",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/MohmmedAshraf/blade-flags/issues",
+                "source": "https://github.com/MohmmedAshraf/blade-flags/tree/1.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/MohmmedAshraf",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-28T08:08:13+00:00"
         },
         {
             "name": "owenvoke/blade-fontawesome",
@@ -4516,129 +4647,6 @@
                 }
             ],
             "time": "2024-02-28T08:11:20+00:00"
-        },
-        {
-            "name": "stidges/country-flags",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stidges/country-flags.git",
-                "reference": "303f78f3f352c86a7d9bcf410b8bb91004843922"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stidges/country-flags/zipball/303f78f3f352c86a7d9bcf410b8bb91004843922",
-                "reference": "303f78f3f352c86a7d9bcf410b8bb91004843922",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Stidges\\CountryFlags\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stidges",
-                    "email": "info@stidges.com",
-                    "homepage": "https://stidges.com"
-                }
-            ],
-            "description": "A small package to convert a country code to the corresponding country flag emoji",
-            "homepage": "https://github.com/stidges/country-flags",
-            "keywords": [
-                "countries",
-                "country",
-                "country-flags",
-                "emoji",
-                "flag",
-                "unicode"
-            ],
-            "support": {
-                "issues": "https://github.com/stidges/country-flags/issues",
-                "source": "https://github.com/stidges/country-flags/tree/v2.0.0"
-            },
-            "time": "2021-01-08T13:52:23+00:00"
-        },
-        {
-            "name": "stidges/laravel-country-flags",
-            "version": "v2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stidges/laravel-country-flags.git",
-                "reference": "952e3536b18ecc3e0629df5692beaa0533d8f5e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stidges/laravel-country-flags/zipball/952e3536b18ecc3e0629df5692beaa0533d8f5e0",
-                "reference": "952e3536b18ecc3e0629df5692beaa0533d8f5e0",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^7.0|^8.0|^9.0|^10.0",
-                "php": "^7.3|^8.0",
-                "stidges/country-flags": "^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Stidges\\LaravelCountryFlags\\CountryFlagsServiceProvider"
-                    ],
-                    "aliases": {
-                        "CountryFlag": "Stidges\\LaravelCountryFlags\\CountryFlagFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Stidges\\LaravelCountryFlags\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stidges",
-                    "email": "info@stidges.com",
-                    "homepage": "https://stidges.com"
-                }
-            ],
-            "description": "A Laravel 5.5 wrapper for the stidges/country-flags package",
-            "homepage": "https://github.com/stidges/laravel-country-flags",
-            "keywords": [
-                "countries",
-                "country",
-                "country-flags",
-                "emoji",
-                "flag",
-                "laravel",
-                "unicode"
-            ],
-            "support": {
-                "issues": "https://github.com/stidges/laravel-country-flags/issues",
-                "source": "https://github.com/stidges/laravel-country-flags/tree/v2.0.2"
-            },
-            "time": "2023-04-21T14:22:42+00:00"
         },
         {
             "name": "symfony/console",

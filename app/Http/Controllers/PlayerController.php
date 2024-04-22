@@ -12,7 +12,9 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        $players = Player::orderBy('player_name')->paginate(20);
+        $players = Player::orderByRaw('CAST(player_no AS UNSIGNED) ASC')
+            ->orderBy('team_id')
+            ->paginate(20);
         $teams = Team::all(); // Retrieve teams data
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
@@ -22,7 +24,11 @@ class PlayerController extends Controller
     public function search(Request $request)
     {
         $term = $request->input('search');
-        $players = Player::where('player_name', 'like', "%$term%")->orderBy('player_name')->paginate(20);
+        $players = Player::where('player_name', 'like', "%$term%");
+        $players->orWhereHas('team', function ($query) use ($term) {
+            $query->where('team_name', 'like', "%$term%");
+        });
+        $players = $players->orderBy('player_name')->paginate(20);
         $teams = Team::all(); // Retrieve teams data
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
@@ -67,8 +73,9 @@ class PlayerController extends Controller
         $player->country_id = $request->country_id;
         $player->save();
 
-        return redirect()->route('players.index')
-            ->with('success', 'Player added successfully.');
+        // return redirect()->route('players.index')
+        //     ->with('success', 'Player added successfully.');
+        return back();
     }
 
     /**

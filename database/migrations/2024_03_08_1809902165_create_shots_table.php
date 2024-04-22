@@ -13,9 +13,9 @@ class CreateShotsTable extends Migration
             $table->integer('id',);
             $table->integer('game_id',);
             $table->integer('points',)->nullable();
-            $table->timestamp('timestamp')->nullable();
             $table->primary(['id', 'game_id']);
             $table->foreign('game_id')->references('id')->on('games');
+            $table->timestamps();
         });
     }
 

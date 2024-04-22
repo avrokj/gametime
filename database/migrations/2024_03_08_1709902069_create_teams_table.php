@@ -18,6 +18,7 @@ class CreateTeamsTable extends Migration
             $table->primary(['id', 'sport_id', 'coach_id']);
             $table->foreign('sport_id')->references('id')->on('sports');
             $table->foreign('coach_id')->references('id')->on('coaches');
+            $table->timestamps();
         });
     }
 

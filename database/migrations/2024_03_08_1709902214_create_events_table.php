@@ -24,6 +24,7 @@ class CreateEventsTable extends Migration
 			$table->foreign('game_id')->references('id')->on('games');
 			$table->foreign('country_id')->references('id')->on('countries');
 			$table->foreign('arena_id')->references('id')->on('arenas');
+            $table->timestamps();
 		});
 	}
 

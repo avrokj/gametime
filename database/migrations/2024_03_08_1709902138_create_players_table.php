@@ -13,7 +13,7 @@ class CreatePlayersTable extends Migration
 			$table->integer('id',);
 			$table->string('player_name', 45)->nullable();
 			$table->string('player_no', 45)->nullable();
-			$table->date('birthdate')->nullable();
+			$table->date('dob')->nullable();
 			$table->string('image')->nullable();
 			$table->integer('team_id',);
 			$table->integer('position_id',);
@@ -23,6 +23,7 @@ class CreatePlayersTable extends Migration
 			$table->foreign('team_id')->references('id')->on('teams');
 			$table->foreign('position_id')->references('id')->on('positions');
 			$table->foreign('country_id')->references('id')->on('countries');
+            $table->timestamps();
 		});
 	}
 

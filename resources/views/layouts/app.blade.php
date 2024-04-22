@@ -23,7 +23,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen">
+    <div class="[min-height:calc(100vh-80px-1rem)]">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -38,8 +38,32 @@
         <!-- Page Content -->
         <main>
             {{ $slot }}
-        </main>
-    </div>
+        </main> 
+        @if(Request::is('dashboard'))
+        @else
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">       
+                <a href="{{ URL::previous() }}" class="btn btn-default btn-sm shadow-md">Back</a>
+            </div>
+        @endif
+    </div>        
+    <footer class="items-center p-4 mt-4 bg-base-300 base-content">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-12">
+                    <!-- Logo -->
+                    <div class="shrink-0 flex items-center">
+                        <a href="{{ route('dashboard') }}">                        
+                            <div class="w-12 hover:animate-spin mr-2">
+                                <x-application-logo class="block max-h-6 fill-current" />
+                            </div>
+                        </a>
+                        Copyright © {{ now()->year }} - All right reserved</div>
+
+                        <div class="flex text-center items-center text-sm  sm:text-right sm:ml-0">
+                            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                        </div>
+                    </div>
+        </div>
+      </footer>
     <script src="{{ mix('js/spaghetti.js') }}"></script>
 </body>
 

@@ -42,7 +42,7 @@
                             <x-select name="country_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ country_flag($country->code) }} {{ $country->country_name }}</option>
+                                    <option value="{{ $country->id }}"><img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>
@@ -94,7 +94,7 @@
                                     {{ $coach->coach_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($coach->country->code) }} {{ $coach->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($coach->country->code).'.svg') }}" class="w-6 h-6" />{{ $coach->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -122,7 +122,7 @@
                                                     <option disabled selected value="">{{ __('Select Country') }}</option>
                                                     @foreach ($countries as $country)
                                                         <option value="{{ $country->id }}" {{ (old('country_id', $coach->country_id) == $country->id) ? 'selected' : '' }}>
-                                                            {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                            <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
@@ -181,7 +181,7 @@
                                     {{ $coach->coach_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($coach->country->code) }} {{ $coach->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($coach->country->code).'.svg') }}" class="w-6 h-6" />{{ $coach->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
@@ -210,7 +210,7 @@
                                                         <option disabled selected value="">{{ __('Select Country') }}</option>
                                                         @foreach ($countries as $country)
                                                             <option value="{{ $country->id }}" {{ (old('country_id', $coach->country_id) == $country->id) ? 'selected' : '' }}>
-                                                                {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                                <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>

@@ -85,7 +85,7 @@
                                     {{ $country->code }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($country->code) }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" />
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -155,7 +155,7 @@
                                     {{ $country->code }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($country->code) }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" />
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    

@@ -14,9 +14,9 @@ class CreateFoulsTable extends Migration
             $table->integer('game_id',);
             $table->integer('player_id1',);
             $table->integer('player_team_id',);
-            $table->timestamp('timestamp')->nullable();
             $table->primary(['id', 'game_id', 'player_id1', 'player_team_id']);
             $table->foreign('game_id')->references('id')->on('games');
+            $table->timestamps();
         });
     }
 

@@ -42,7 +42,7 @@
                             <x-select name="country_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ country_flag($country->code) }} {{ $country->country_name }}</option>
+                                    <option value="{{ $country->id }}"><img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>
@@ -90,7 +90,7 @@
                                     {{ $arena->arena_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($arena->country->code) }} {{ $arena->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($arena->country->code).'.svg') }}" class="w-6 h-6" />{{ $arena->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $arena->address }} 
@@ -121,7 +121,7 @@
                                                     <option disabled value="">{{ __('Select Country') }}</option>
                                                     @foreach ($countries as $country)
                                                         <option value="{{ $country->id }}" {{ (old('country_id', $arena->country_id) == $country->id) ? 'selected' : '' }}>
-                                                            {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                            <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}
                                                         </option>
                                                     @endforeach                               
                                                 </x-select>
@@ -171,7 +171,7 @@
                                     {{ $arena->arena_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($arena->country->code) }} {{ $arena->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($arena->country->code).'.svg') }}" class="w-6 h-6" />{{ $arena->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $arena->address }} 
@@ -203,7 +203,7 @@
                                                         <option disabled value="">{{ __('Select Country') }}</option>
                                                         @foreach ($countries as $country)
                                                             <option value="{{ $country->id }}" {{ (old('country_id', $arena->country_id) == $country->id) ? 'selected' : '' }}>
-                                                                {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                                <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}
                                                             </option>
                                                         @endforeach                               
                                                     </x-select>

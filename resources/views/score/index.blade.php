@@ -11,7 +11,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
+            <div id="myDiv" class="bg-base-300 overflow-hidden shadow-md rounded-md">                                
+                <label class="flex swap swap-rotate px-2 justify-end pt-2 pr-2 mb-[-20px]">
+                    <input type="checkbox" id="screen-toggle" class="hidden" placeholder="Toggle full Screen"/>
+                    <x-iconpark-fullscreenone-o class="swap-off w-6 h-6 font-bold" />
+                    <x-iconpark-offscreenone-o class="swap-on w-6 h-6 font-bold" />
+                </label>
                 <div class="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
@@ -24,75 +29,76 @@
 
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
 
-<div  x-show="!open" @click="open = ! open" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 75% ;" onclick="handleHomeScore(-1)" >
-                                    <p style="
-                                            color: #bf0915;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        -1
-                                    </p>
-                                </button>
-                            </div>
+                            <div  x-show="!open" @click="open = ! open" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="handleHomeScore(-1)" >
+                                        <p style="
+                                                color: #bf0915;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            -1
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% 25% 25%;" onclick="handleHomeScore(0)" >
-                                    <p style="
-                                            color: #555555;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        0
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6;" onclick="handleHomeScore(0)" >
+                                        <p style="
+                                                color: #555555;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            0
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 30% 30% / 80% 80% ;" onclick="handleHomeScore(1)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        +1
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7;" onclick="handleHomeScore(1)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            +1
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% 25% / 50% 50% ;" onclick="handleHomeScore(2)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        +2
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="handleHomeScore(2)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            +2
+                                        </p>
+                                    </button>
+                                </div>
 
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="handleHomeScore(3)" >
+                                        <p style="
+                                                color: #08660d;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            +3
+                                        </p>
+                                    </button>
+                                </div>
+                        </div>
+
+                        <div  x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                             <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 25% ;" onclick="handleHomeScore(3)" >
-                                    <p style="
-                                            color: #08660d;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        +3
-                                    </p>
-                                </button>
-                            </div>
-</div>
-<div  x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastHomePointsBy(11)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastHomePointsBy(11)" >
                                     <p style="
                                             color: #bf0915;
                                             font-weight: bold;
@@ -105,7 +111,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastHomePointsBy(12)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6;" onclick="lastHomePointsBy(12)" >
                                     <p style="
                                             color: #555555;
                                             font-weight: bold;
@@ -118,7 +124,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastHomePointsBy(13)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7;" onclick="lastHomePointsBy(13)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -131,7 +137,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastHomePointsBy(14)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastHomePointsBy(14)" >
                                     <p style="
                                             color: #08680b;
                                             font-weight: bold;
@@ -144,7 +150,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% 50% ;" onclick="lastHomePointsBy(15)" >
+                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastHomePointsBy(15)" >
                                     <p style="
                                             color: #08660d;
                                             font-weight: bold;
@@ -155,11 +161,11 @@
                                     </p>
                                 </button>
                             </div>
-</div>
-
-
                         </div>
+
+
                     </div>
+                </div>
 
                     
                     <div class="bg-base-200 rounded-lg">
@@ -173,121 +179,121 @@
 
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
 
-<div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            <div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
 
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% / 10% 10% ;" onclick="handleAwayScore(-1)" >
-                                    <p style="
-                                            color: #bf0915;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">-1</p></button>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="handleAwayScore(-1)" >
+                                        <p style="
+                                                color: #bf0915;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">-1</p></button>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6;" onclick="handleAwayScore(0)" >
+                                        <p style="
+                                                color: #555555;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">0</p></button>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7;" onclick="handleAwayScore(1)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">+1</p></button>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="handleAwayScore(2)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">+2</p></button>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="handleAwayScore(3)" >
+                                        <p style="
+                                                color: #08660d;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">+3</p></button>
+                                </div>
                             </div>
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 50% 50% / 20% 20% ;" onclick="handleAwayScore(0)" >
-                                    <p style="
-                                            color: #555555;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">0</p></button>
-                            </div>
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 50%;" onclick="handleAwayScore(1)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">+1</p></button>
-                            </div>
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 20% 20% /50% 50% ;" onclick="handleAwayScore(2)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">+2</p></button>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 10% 10% / 50% 50% ;" onclick="handleAwayScore(3)" >
-                                    <p style="
-                                            color: #08660d;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">+3</p></button>
-                            </div>
-</div>
 
                             <div  x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastAwayPointsBy(1)" >
-                                    <p style="
-                                            color: #bf0915;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        1
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastAwayPointsBy(1)" >
+                                        <p style="
+                                                color: #bf0915;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            1
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastAwayPointsBy(2)" >
-                                    <p style="
-                                            color: #555555;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        2
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6;" onclick="lastAwayPointsBy(2)" >
+                                        <p style="
+                                                color: #555555;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            2
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastAwayPointsBy(3)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        3
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7;" onclick="lastAwayPointsBy(3)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            3
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastAwayPointsBy(4)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        4
-                                    </p>
-                                </button>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastAwayPointsBy(4)" >
+                                        <p style="
+                                                color: #08680b;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            4
+                                        </p>
+                                    </button>
+                                </div>
 
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 hover:opacity-100" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6; border: 2px; border-color: black;border-style: solid; border-radius: 25% ;" onclick="lastAwayPointsBy(5)" >
-                                    <p style="
-                                            color: #08660d;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        5
-                                    </p>
-                                </button>
+                                <div class="flex items-center justify-center">
+                                <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastAwayPointsBy(5)" >
+                                        <p style="
+                                                color: #08660d;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            5
+                                        </p>
+                                    </button>
+                                </div>
                             </div>
-</div>
                         
                         </div>
                     </div>
@@ -432,11 +438,16 @@ var lastHomePointsBy = function(playerNr){
     console.log(lastHomePoints);
 };
 
+// Toggle full Screen
+$('#screen-toggle').click(function(e) {
+  $('#myDiv').toggleClass('w-full h-full fixed top-0 left-0 z-50');
+});
+
 </script>
+
 <style>
     @font-face {
-    font-family: 'CustomFont';
-    src: url('/fonts/fs-sevegment.woff2') format('woff2');
-    /* Add additional font properties if needed */
-}
+        font-family: 'CustomFont';
+        src: url('/fonts/fs-sevegment.woff2') format('woff2');
+    }
 </style>
