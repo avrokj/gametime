@@ -77,11 +77,13 @@
 
                         <!-- Country name -->
                         <div class="mt-4">
-                            <x-select name="country_id" class="!max-w-full">
+                            <x-select name="country_id" class="!max-w-full country-select">
                                 <option disabled selected value="">{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ country_flag($country->code) }} {{ $country->country_name }}</option>
-                                @endforeach                                
+                                    <option value="{{ $country->id }}" data-image="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}">
+                                        {{ $country->country_name }}
+                                    </option>
+                                @endforeach                          
                             </x-select>
                         </div>
 
@@ -153,7 +155,7 @@
                                     {{ $player->position->position_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($player->country->code) }} {{ $player->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($player->country->code).'.svg') }}" class="w-6 h-6" />{{ $player->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -267,7 +269,7 @@
                                     {{ $player->position->position_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ country_flag($player->country->code) }} {{ $player->country->country_name }}
+                                    <img src="{{ asset('vendor/blade-flags/country-'.strtolower($player->country->code).'.svg') }}" class="w-6 h-6" />{{ $player->country->country_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
@@ -338,7 +340,7 @@
                                                         <option disabled value="">{{ __('Select Country') }}</option>
                                                         @foreach ($countries as $country)
                                                             <option value="{{ $country->id }}" {{ (old('country_id', $player->country_id) == $country->id) ? 'selected' : '' }}>
-                                                                {{ country_flag($country->code) }} {{ $country->country_name }}
+                                                                <img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}
                                                             </option>
                                                         @endforeach                               
                                                     </x-select>
@@ -386,4 +388,31 @@
         </div>
         </div>
     </div>
+    <style>
+        .country-select {
+    appearance: none;
+    background-image: url('path/to/arrow-icon.png'); /* Arrow icon for select box */
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 20px; /* Adjust as needed */
+}
+
+.country-select option {
+    padding-left: 30px; /* Adjust as needed */
+    background-repeat: no-repeat;
+}
+
+/* Styling each option */
+.country-select option[data-image] {
+    background-size: 24px; /* Adjust as needed */
+    background-image: url('path/to/transparent.png'); /* Transparent image for spacing */
+}
+
+/* Set image for each option */
+@foreach ($countries as $country)
+    .country-select option[value="{{ $country->id }}"][data-image] {
+        background-image: url('{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}');
+    }
+@endforeach
+</style>
 </x-app-layout>
