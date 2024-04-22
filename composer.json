@@ -17,12 +17,12 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.4",
+        "outhebox/blade-flags": "^1.5",
         "owenvoke/blade-fontawesome": "^2.6",
         "robsontenorio/mary": "^1.25",
         "ryangjchandler/blade-tabler-icons": "^2.3",
         "spatie/laravel-ignition": "^2.4.2",
         "spatie/laravel-permission": "^6.4",
-        "stidges/laravel-country-flags": "^2.0",
         "themesberg/flowbite-blade-icons": "^1.0"
     },
     "require-dev": {
