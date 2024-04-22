@@ -304,7 +304,7 @@
                     </div>
 
                     <div class="text-center text-sm  sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                        &nbsp;
                     </div>
                 </div>
             </div>
