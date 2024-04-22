@@ -48,9 +48,9 @@
 
                         <!-- Birthday -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth')}}" >
+                            <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth yyyy-mm-dd')}}" >
                                 <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" type="text" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
+                                <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" type="text" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
                             </label>
                             <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                         </div>
