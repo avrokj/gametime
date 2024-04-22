@@ -90,6 +90,7 @@
                     <th class="border-b-2 border-base-300">{{ __('Team Name') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Sports') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Coach') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Players') }}</th>
                     <th class="text-right border-b-2 border-base-300">{{ __('Action') }}</th>
                 </tr>
                 </thead>
@@ -99,11 +100,13 @@
                         @foreach($results as $team)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
                                 <td class="border-b-2 border-base-300">                                    
-                                    <div class="btn btn-ghost btn-circle avatar">
-                                        <div class="w-10 rounded-full">
-                                            <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
+                                    <a href="/players">
+                                        <div class="btn btn-ghost btn-circle avatar">
+                                            <div class="w-10 rounded-full">
+                                                <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 
@@ -113,6 +116,9 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->coach->coach_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $team->players->count() }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -202,11 +208,13 @@
                         @foreach ($teams as $team)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
                                 <td class="border-b-2 border-base-300">                                    
-                                    <div class="btn btn-ghost btn-circle avatar">
-                                        <div class="w-10 rounded-full">
-                                            <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
+                                    <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">
+                                        <div class="btn btn-ghost btn-circle avatar">
+                                            <div class="w-10 rounded-full">
+                                                <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 
@@ -216,6 +224,11 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->coach->coach_name }}
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">
+                                        {{ $team->players->count() }}
+                                    </a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
