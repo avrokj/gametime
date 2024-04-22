@@ -43,15 +43,13 @@ class PositionController extends Controller
             'sport_id' => 'required|exists:sports,id'
         ]);
 
-        // dd($request->all());
-        Position::create([
-            'position_name' => $request->input('position_name'),
-            'sport_id' => $request->input('sport_id')
-        ]);
+        $position = new Position();
+        $position->position_name = $request->position_name;
+        $position->sport_id = $request->sport_id;
+        $position->save();
 
-        return view('positions.index', [
-            'positions' => Position::orderBy('position_name')->paginate(20)
-        ]);
+        return redirect()->route('positions.index')
+            ->with('success', 'Position added successfully.');
     }
 
     /**
