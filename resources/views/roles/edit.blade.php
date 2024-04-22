@@ -21,7 +21,7 @@
                                     <!-- Name -->
                                     <div>
                                         <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
-                                            <x-heroicon-s-role class="w-4 h-4 opacity-70" />
+                                            <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
                                             <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
                                         </label>
                                         @if ($errors->has('name'))
@@ -155,7 +155,7 @@
                                                                 <!-- Name -->
                                                                 <div>
                                                                     <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
-                                                                        <x-heroicon-s-role class="w-4 h-4 opacity-70" />
+                                                                        <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
                                                                         <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ $role->name }}" required autofocus autocomplete="name" />
                                                                     </label>
                                                                     @if ($errors->has('name'))
@@ -252,7 +252,7 @@
                                                                 <!-- Name -->
                                                                 <div>
                                                                     <label class="input input-bordered flex items-center gap-2" for="name" :value="{{__('Name')}}" >
-                                                                        <x-heroicon-s-role class="w-4 h-4 opacity-70" />
+                                                                        <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
                                                                         <x-text-input id="name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Name')}}" type="text" name="name" value="{{ $role->name }}" required autofocus autocomplete="name" />
                                                                     </label>
                                                                     @if ($errors->has('name'))
