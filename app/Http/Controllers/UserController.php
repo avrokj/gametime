@@ -68,6 +68,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $input['password'] = Hash::make($request->password);
+        $input['approved_at'] = null;
 
         $user = User::create($input);
         $user->assignRole($request->roles);
