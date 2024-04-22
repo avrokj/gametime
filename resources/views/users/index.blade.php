@@ -63,35 +63,24 @@
                                                         name="password_confirmation" autocomplete="new-password" />
                                         </label>                            
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
-                                        <div class="col-md-6">           
-                                            <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
-                                                @forelse ($roles as $role)
-
-                                                    @if ($role->name != 'Super Admin')
-                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                        {{ $role->name }}
-                                                    </option>
-                                                    @else
-                                                        @if (Auth::user()->hasRole('Super Admin'))   
-                                                        <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                            {{ $role->name }}
-                                                        </option>
-                                                        @endif
-                                                    @endif
-
-                                                @empty
-
-                                                @endforelse
-                                            </select>
-                                            @if ($errors->has('roles'))
-                                                <span class="text-danger">{{ $errors->first('roles') }}</span>
-                                            @endif
+                                    </div>  
+                                            
+                                    <!-- Roles -->
+                                    <div class="mt-4">
+                                        <x-input-label :value="__('Roles')" />
+                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">                        
+                                            @foreach ($roles as $role)
+                                                @if ($role->name != 'Super Admin' || Auth::user()->hasRole('Super Admin'))
+                                                    <input type="radio" name="roles[]" id="role-{{ $role->id }}" value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'checked' : '' }}>
+                                                    <label class="text-sm font-medium" for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                                    <br />
+                                                @endif
+                                            @endforeach                                                        
                                         </div>
-                                    </div>                                                                    
+                                        @if ($errors->has('roles'))
+                                            <span class="text-danger">{{ $errors->first('roles') }}</span>
+                                        @endif
+                                    </div>                                                                 
                                     <div class="mt-4 space-x-2">
                                         <x-save-button> {{ __('Create User') }}</x-save-button>
                                         <x-cancel-button onclick="window.location='{{ route('users.index') }}'">
@@ -125,6 +114,9 @@
                             </th>
                             <th class="border-b-2 border-base-300">
                                 {{ __('Roles') }}
+                            </th>                            
+                            <th class="border-b-2 border-base-300">
+                                {{ __('Approved') }}
                             </th>
                             <th class="border-b-2 border-base-300 text-right" scope="col">
                                 {{ __('Action') }}
@@ -148,6 +140,9 @@
                                         <span class="badge bg-primary">{{ $role }}</span>
                                     @empty
                                     @endforelse
+                                </td>                                
+                                <td class="border-b-2 border-base-300">
+                                    {{ $user->approved_at }}
                                 </td>
                                 <td class="border-b-2 border-base-300 text-right">                                    
                                     <div class="flex justify-end">
@@ -213,34 +208,56 @@
                                                                     </label>                            
                                                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                                                 </div>
-
+                                                                        
+                                                                <!-- Roles -->
                                                                 <div class="mb-4">
                                                                     <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
                                                                     <div class="col-md-6">           
-                                                                        <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
-                                                                            @forelse ($roles as $role)
-
-                                                                                @if ($role->name != 'Super Admin')
-                                                                                <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                                                    {{ $role->name }}
-                                                                                </option>
-                                                                                @else
-                                                                                    @if (Auth::user()->hasRole('Super Admin'))   
-                                                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                                                        {{ $role->name }}
-                                                                                    </option>
+                                                                        <div class="mt-4">
+                                                                            <x-input-label :value="__('Roles')" />
+                                                                            <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">                        
+                                                                                @foreach ($roles as $role)
+                                                                                    @if ($role->name != 'Super Admin' || Auth::user()->hasRole('Super Admin'))
+                                                                                        <input type="radio" name="roles[]" id="role-{{ $role->id }}" value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'checked' : '' }}>
+                                                                                        <label class="text-sm font-medium" for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                                                                        <br />
                                                                                     @endif
-                                                                                @endif
-
-                                                                            @empty
-
-                                                                            @endforelse
-                                                                        </select>
+                                                                                @endforeach                                                        
+                                                                            </div>
+                                                                        </div>
                                                                         @if ($errors->has('roles'))
                                                                             <span class="text-danger">{{ $errors->first('roles') }}</span>
                                                                         @endif
                                                                     </div>
-                                                                </div>                                                                    
+                                                                </div> 
+                                                                
+                                                                <div class="mt-4">
+                                                                    <x-input-label :value="__('Approved')" />
+                                                                    <input type="checkbox" name="approved_at_checkbox" id="approved_at_checkbox" {{ $user->approved_at ? 'checked' : '' }} onchange="updateApproval()">
+                                                                </div>
+                                                                
+                                                                <script>
+                                                                    function updateApproval() {
+                                                                        var userId = "{{ $user->id }}"; // Assuming $user is available in the view
+                                                                        var isChecked = document.getElementById('approved_at_checkbox').checked;
+                                                                
+                                                                        // Send AJAX request to update approved_at timestamp
+                                                                        $.ajax({
+                                                                            url: '/update-approval/' + userId,
+                                                                            type: 'POST',
+                                                                            data: {
+                                                                                approved: isChecked,
+                                                                                _token: "{{ csrf_token() }}"
+                                                                            },
+                                                                            success: function(response) {
+                                                                                console.log('Approval status updated successfully');
+                                                                            },
+                                                                            error: function(xhr) {
+                                                                                console.error('Error updating approval status:', xhr.responseText);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                </script>                                                                 
                                                                 <div class="mt-4 space-x-2">
                                                                     <x-save-button> {{ __('Update User') }}</x-save-button>
                                                                     <x-cancel-button onclick="window.location='{{ route('users.index') }}'">
@@ -310,29 +327,21 @@
                                                                     </label>                            
                                                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                                                 </div>
-
+                                                                        
+                                                                <!-- Roles -->
                                                                 <div class="mb-4">
                                                                     <label for="roles" class="col-md-4 col-form-label text-md-end text-start">{{__('Roles')}}</label>
-                                                                    <div class="col-md-6">           
-                                                                        <select class="select select-bordered w-full" multiple aria-label="Roles" id="roles" name="roles[]">
-                                                                            @forelse ($roles as $role)
-
-                                                                                @if ($role->name != 'Super Admin')
-                                                                                <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                                                    {{ $role->name }}
-                                                                                </option>
-                                                                                @else
-                                                                                    @if (Auth::user()->hasRole('Super Admin'))   
-                                                                                    <option value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'selected' : '' }}>
-                                                                                        {{ $role->name }}
-                                                                                    </option>
-                                                                                    @endif
+                                                                    <div class="col-md-6">                                                                        
+                                                                        <x-input-label :value="__('Roles')" />
+                                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">                        
+                                                                            @foreach ($roles as $role)
+                                                                                @if ($role->name != 'Super Admin' || Auth::user()->hasRole('Super Admin'))
+                                                                                    <input type="radio" name="roles[]" id="role-{{ $role->id }}" value="{{ $role->name }}" {{ $userRoles->contains('name', $role->name) ? 'checked' : '' }}>
+                                                                                    <label class="text-sm font-medium" for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                                                                    <br />
                                                                                 @endif
-
-                                                                            @empty
-
-                                                                            @endforelse
-                                                                        </select>
+                                                                            @endforeach                                                        
+                                                                        </div>
                                                                         @if ($errors->has('roles'))
                                                                             <span class="text-danger">{{ $errors->first('roles') }}</span>
                                                                         @endif
