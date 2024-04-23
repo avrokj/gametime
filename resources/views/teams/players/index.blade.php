@@ -262,7 +262,7 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="w-10 rounded-full">
-                                        <img src="{{ asset('images/logos/' . $player->team->logo) }}" alt="{{ $player->player_name }} image"> {{ $player->team->team_name }}
+                                        <img src="{{ asset('images/logos/' . $player->team->logo) }}" alt="{{ $player->team->team_name }} image"> {{ $player->team->team_name }}
                                     </div>
                                 </td>
                                 <td class="border-b-2 border-base-300">
