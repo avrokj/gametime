@@ -97,6 +97,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/players/{sport}', [PlayerController::class, 'destroy'])->name('players.destroy');
     Route::get('/players/search', [PlayerController::class, 'search'])->name('players.search');
 
+    Route::get('/games', [GameController::class, 'index'])->name('games.index');
+    Route::post('/games', [GameController::class, 'store'])->name('games.store');
+    Route::patch('/games/{sport}', [GameController::class, 'update'])->name('games.update');
+    Route::delete('/games/{sport}', [GameController::class, 'destroy'])->name('games.destroy');
+    Route::get('/games/search', [GameController::class, 'search'])->name('games.search');
+
     Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
     Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
 });
