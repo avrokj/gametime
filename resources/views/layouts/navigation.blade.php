@@ -17,15 +17,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('sports.index')" :active="request()->routeIs('sports.index')">
-                        {{ __('Sports') }}
+                    <x-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
+                        {{ __('Games') }}
                     </x-nav-link>
                     <x-nav-link :href="route('score.index')" :active="request()->routeIs('score.index')">
                         {{ __('Scoreboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('segment.index')" :active="request()->routeIs('segment.index')">
+                    {{-- <x-nav-link :href="route('segment.index')" :active="request()->routeIs('segment.index')">
                         {{ __('7 Segment') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -52,14 +52,20 @@
                         <x-dropdown-link :href="route('arenas.index')">
                             <x-iconpark-arena class="w-5 h-5 opacity-70 pr-1" /> {{ __('Arenas') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('sports.index')">
+                            <x-iconpark-sport class="w-5 h-5 opacity-70 pr-1" /> {{ __('Sports') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('positions.index')">
+                            <x-heroicon-c-cube-transparent class="w-5 h-5 opacity-70 pr-1" /> {{ __('Positions') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('coaches.index')">
                             <x-iconpark-whistling-o class="w-5 h-5 opacity-70 pr-1" /> {{ __('Coaches') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('teams.index')">
                             <x-heroicon-c-user-group class="w-5 h-5 opacity-70 pr-1" /> {{ __('Teams') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('positions.index')">
-                            <x-heroicon-c-cube-transparent class="w-5 h-5 opacity-70 pr-1" /> {{ __('Positions') }}
+                        <x-dropdown-link :href="route('players.index')">
+                            <x-heroicon-m-users class="w-5 h-5 opacity-70 pr-1" /> {{ __('Players') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
