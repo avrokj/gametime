@@ -50,13 +50,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-12">
                     <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
+                    <div class="flex items-center">
                         <a href="{{ route('dashboard') }}">                        
                             <div class="w-12 hover:animate-spin mr-2">
                                 <x-application-logo class="block max-h-6 fill-current" />
                             </div>
                         </a>
-                        Copyright © {{ now()->year }} - All right reserved</div>
+                        © {{ now()->year }} GameTime - All right reserved</div>
 
                         <div class="flex text-center items-center text-sm  sm:text-right sm:ml-0">
                             Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
