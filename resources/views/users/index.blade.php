@@ -125,7 +125,7 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @forelse ($users as $user)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $loop->iteration }}
                                 </td>
@@ -372,7 +372,7 @@
                                 </td>
                             </tr>
                             @empty
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td colspan="3"
                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
                                     No roles found.

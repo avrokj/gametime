@@ -23,6 +23,9 @@
 
                 <dialog id="add_coach" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Coach') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('coaches.store') }}" enctype="multipart/form-data">
@@ -57,11 +60,15 @@
 
                         <div class="mt-4 space-x-2">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('coaches.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -86,7 +93,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $coach)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     <img src="{{ asset('images/coaches/' . $coach->image) }}" alt="Coach Image"> 
                                 </td>
@@ -102,6 +109,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_coach{{ $coach->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Coach') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('coaches.update', $coach) }}" enctype="multipart/form-data">
@@ -140,11 +150,15 @@
 
                                             <div class="mt-4 space-x-2">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('coaches.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
                                             </div>
                                         </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -169,7 +183,7 @@
 
                     @else 
                         @foreach ($coaches as $coach)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">                                    
                                     <div class="btn btn-ghost btn-circle avatar">
                                         <div class="w-10 rounded-full">
@@ -190,6 +204,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $coach->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Coach') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('coaches.update', $coach) }}" enctype="multipart/form-data">
@@ -227,11 +244,15 @@
                                                 </div>
                                                 <div class="mt-4 space-x-2">
                                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('coaches.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>

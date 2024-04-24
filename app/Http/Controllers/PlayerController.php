@@ -51,7 +51,7 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'player_name' => 'required|string|max:45|unique:players',
+            'player_name' => 'required|string|max:45',
             'player_no' => 'required|string|max:45',
             'dob' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
