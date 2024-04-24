@@ -23,6 +23,9 @@
 
                 <dialog id="add_game" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Game') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('games.store') }}" enctype="multipart/form-data">
@@ -74,15 +77,28 @@
                                         {{ __('End') }}
                                     </option>                             
                             </x-select>
+                        </div>            
+                                        
+                        <!-- Scoreboard ID -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Scoreboard Id') }}" >
+                                <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
+                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
+                            </label>
+                            <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
                         </div>
 
                         <div class="mt-4 space-x-2">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('games.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -103,6 +119,7 @@
                     <th class="border-b-2 border-base-300 text-center">{{ __('Score') }}</th>
                     <th class="border-b-2 border-base-300 text-center">{{ __('Away Team') }}</th>
                     <th class="border-b-2 border-base-300 text-center">{{ __('Status') }}</th>
+                    <th class="border-b-2 border-base-300 text-center">{{ __('SB Id') }}</th>
                     <th class="text-right border-b-2 border-base-300">{{ __('Action') }}</th>
                 </tr>
                 </thead>
@@ -110,7 +127,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $game)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                 </td>
                                 <td class="border-b-2 border-base-300">
@@ -131,6 +148,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_game{{ $game->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Game') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('games.update', $game) }}" enctype="multipart/form-data">
@@ -170,15 +190,44 @@
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
+                                            </div>            
+                                    
+                                            <!-- Status -->
+                                            <div class="mt-4">
+                                                <x-select name="status" class="!max-w-full">
+                                                    <option disabled selected value="">{{ __('Select Status') }}</option>
+                                                        <option value="0" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            {{ __('Created') }}
+                                                        </option>  
+                                                        <option value="1" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            {{ __('Live') }}
+                                                        </option> 
+                                                        <option value="2" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            {{ __('End') }}
+                                                        </option>                             
+                                                </x-select>
+                                            </div>            
+                                                            
+                                            <!-- Scoreboard ID -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="old('sb_id', $game->sb_id)" >
+                                                    <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id', $game->sb_id)" autocomplete="sb_id" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
                                             </div>
 
                                             <div class="mt-4 space-x-2">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('games.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
                                             </div>
                                         </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -203,7 +252,7 @@
 
                     @else 
                         @foreach ($games as $game)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $game->id }}
                                 </td>
@@ -246,6 +295,9 @@
                                             {{ __('End') }} 
                                         </span>
                                     @endif
+                                </td>                                
+                                <td class="border-b-2 border-base-300 text-center">
+                                    {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
@@ -254,6 +306,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $game->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Game') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('games.update', $game) }}" enctype="multipart/form-data">
@@ -293,15 +348,44 @@
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
+                                                </div>            
+                                        
+                                                <!-- Status -->
+                                                <div class="mt-4">
+                                                    <x-select name="status" class="!max-w-full">
+                                                        <option disabled selected value="">{{ __('Select Status') }}</option>
+                                                            <option value="0" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                                {{ __('Created') }}
+                                                            </option>  
+                                                            <option value="1" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                                {{ __('Live') }}
+                                                            </option> 
+                                                            <option value="2" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                                {{ __('End') }}
+                                                            </option>                             
+                                                    </x-select>
+                                                </div>            
+                                                                
+                                                <!-- Scoreboard ID -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="old('sb_id', $game->sb_id)" >
+                                                        <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id', $game->sb_id)" autocomplete="sb_id" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
                                                 </div>
 
                                                 <div class="mt-4 space-x-2">
                                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('games.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>

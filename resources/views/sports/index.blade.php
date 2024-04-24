@@ -23,6 +23,9 @@
 
                 <dialog id="add_sport" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Sport') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('sports.store') }}">
@@ -32,11 +35,15 @@
                         <x-input-error :messages="$errors->get('sports_name')" class="mt-2" />
                         <div class="mt-4 space-x-2">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('sports.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -59,7 +66,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $sport)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $sport->sports_name }} 
                                 </td>
@@ -69,6 +76,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_sport{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('sports.update', $sport) }}">
@@ -78,11 +88,15 @@
                                             <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             <div class="mt-4 space-x-2">
                                             <x-save-button> {{ __('Save') }}</x-save-button>
-                                            <x-cancel-button onclick="window.location='{{ route('sports.index') }}'">
-                                                {{ __('Cancel') }}
-                                            </x-cancel-button>
                                             </div>
                                         </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -107,7 +121,7 @@
 
                     @else 
                         @foreach ($sports as $sport)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $sport->sports_name }} 
                                 </td>
@@ -118,6 +132,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $sport->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Sport') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('sports.update', $sport) }}">
@@ -127,11 +144,15 @@
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                                 <div class="mt-4 space-x-2">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('sports.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>

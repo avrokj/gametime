@@ -42,7 +42,7 @@
         @if(Request::is('dashboard'))
         @else
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">       
-                <a href="{{ URL::previous() }}" class="btn btn-default btn-sm shadow-md">Back</a>
+                <a href="{{ URL::previous() }}" class="btn btn-default btn-sm shadow-md"><x-heroicon-o-arrow-left-circle class="w-6"/>Back</a>
             </div>
         @endif
     </div>        
