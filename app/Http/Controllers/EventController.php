@@ -2,31 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Arena;
-use App\Models\Country;
-use App\Models\Position;
 use App\Models\Event;
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
+use App\Models\Arena;
+use App\Models\Game;
 use App\Models\Sport;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class EventController extends Controller
 {
-    public function index()
+    /**
+     * Instantiate a new EventController instance.
+     */
+    public function __construct()
     {
-        $events = Event::orderBy('event_name')->paginate(20);
-        $sports = Sport::all(); // Retrieve sports data
-        $arenas = Arena::all(); // Retrieve arenas data
-        return view('events.index', compact('events', 'sports', 'arenas'));
+        $this->middleware('auth');
+        $this->middleware('permission:create-event|edit-event|delete-event', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-event', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-event', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-event', ['only' => ['destroy']]);
     }
 
-    public function search(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $term = $request->input('search');
-        $events = Event::where('event_name', 'like', "%$term%")->orderBy('event_name')->paginate(20);
-        $sports = Sport::all(); // Retrieve sports data
+        $events = Event::latest()
+            ->paginate(20);
+        $sports = Sport::all(); // Retrieve teams data
+        $games = Game::all(); // Retrieve events data        
         $arenas = Arena::all(); // Retrieve arenas data
 
-        return view('events.index', compact('events', 'sports', 'arenas'));
+        return view('events.index', compact('events', 'sports', 'games', 'arenas'));
+    }
+
+
+    public function search(StoreEventRequest $request)
+    {
+        // $term = $request->input('search');
+        // $events = Game::where('event_name', 'like', "%$term%");
+        // $events->orWhereHas('team', function ($query) use ($term) {
+        //     $query->where('team_name', 'like', "%$term%");
+        // });
+        // $events = $events->orderBy('event_name')->paginate(20);
+        // $teams = Team::all(); // Retrieve teams data
+
+        // return view('events.index', compact('events', 'teams', 'events'));
     }
 
     /**
@@ -34,104 +58,60 @@ class EventController extends Controller
      */
     public function create()
     {
-        // $sports = Sport::all();
-        // return view('events.create', compact('sports'));
+        // return view('events.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEventRequest $request): RedirectResponse
     {
-        $request->validate([
-            'event_name' => 'required|string|max:45|unique:events',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
-            'sport_id' => 'required|exists:sports,id',
-            'coach_id' => 'required|exists:arenas,id'
-        ]);
 
-        $imageName = time() . '.' . $request->logo->extension();
+        $validatedData = $request->validated();
 
-        $request->logo->move(public_path('images/logos'), $imageName);
-
-        $event = new Event();
-        $event->event_name = $request->event_name;
-        $event->logo = $imageName;
-        $event->sport_id = $request->sport_id;
-        $event->coach_id = $request->coach_id;
-        $event->save();
+        Event::create($validatedData);
 
         return redirect()->route('events.index')
-            ->with('success', 'Event added successfully.');
+            ->withSuccess('New event is added successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Event $event): View
     {
-        //
+        // return view('events.show', [
+        //     'event' => $event
+        // ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit(Event $event): View
     {
-        //
+        // return view('events.edit', [
+        //     'event' => $event
+        // ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEventRequest $request, Event $event): RedirectResponse
     {
-        $request->validate([
-            'event_name' => 'required|string|max:45|unique:events',
-            'new_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
-            'sport_id' => 'required|exists:sports,id',
-            'coach_id' => 'required|exists:arenas,id'
-        ]);
-
-        $event = Event::findOrFail($id);
-
-        if ($request->hasFile('new_logo')) {
-            $imageName = time() . '.' . $request->new_logo->extension();
-            $request->new_logo->move(public_path('images/logos'), $imageName);
-            $event->logo = $imageName;
-        }
-
-        $event->event_name = $request->event_name;
-        $event->sport_id = $request->sport_id;
-        $event->coach_id = $request->coach_id;
-        $event->save();
-
-        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
-    }
-
-    /**
-     * Players by event.
-     */
-    public function playersByEvent($eventId)
-    {
-        // Retrieve the event by its ID
-        $event = Event::findOrFail($eventId);
-
-        // Retrieve all players belonging to the event
-        $players = $event->players()->orderBy('player_no')->paginate(20);
-
-        // Return a view with the players data
-        return view('players.index', compact('event', 'players'));
+        $event->update($request->all());
+        return redirect()->back()
+            ->withSuccess('Game is updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Event $event): RedirectResponse
     {
-        $event = Event::findOrFail($id);
         $event->delete();
-
-        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('events.index')
+            ->withSuccess('Event is deleted successfully.');
     }
 }

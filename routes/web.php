@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlayerController;
@@ -102,6 +103,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/games/{sport}', [GameController::class, 'update'])->name('games.update');
     Route::delete('/games/{sport}', [GameController::class, 'destroy'])->name('games.destroy');
     Route::get('/games/search', [GameController::class, 'search'])->name('games.search');
+
+    Route::get('/events', [EventController::class, 'index'])->name('events.index');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::patch('/events/{sport}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{sport}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
     Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
     Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');

@@ -12,7 +12,10 @@
                 </x-primary-button>
 
                 <dialog id="add_role" class="modal modal-bottom sm:modal-middle">
-                    <div class="modal-box !w-auto">
+                    <div class="modal-box !w-auto">                        
+                        <form method="dialog">
+                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        </form>
                         <h3 class="font-bold text-lg">{{ __('Add New Role') }}</h3>
                         <div class="modal-action flex flex-col justify-start">
 
@@ -42,12 +45,16 @@
                                 </div>
                                 @endcan
 
-                                <div class="mt-4 space-x-2">
+                                <div class="mt-4 space-x-2 text-left">
                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                    <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
-                                        {{ __('Cancel') }}
-                                    </x-cancel-button>
                                 </div>
+                            </form>
+                        </div>
+                        <div class="modal-action -mt-8">
+                            <form method="dialog">
+                                <x-cancel-button>
+                                    {{ __('Cancel') }}
+                                </x-cancel-button>
                             </form>
                         </div>
                     </div>
@@ -89,7 +96,10 @@
                                         </x-edit-button>
 
                                         <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
-                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">                                            
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
                                             <div class="modal-action flex flex-col justify-start text-left">                        
                                                 <form action="{{ route('roles.update', $role->id) }}" method="POST">
@@ -136,12 +146,16 @@
                                                         @endcan
                                                     @endif
 
-                                                    <div class="mt-4 space-x-2">
+                                                    <div class="mt-4 space-x-2 text-left">
                                                         <x-save-button> {{ __('Save') }}</x-save-button>
-                                                        <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
-                                                            {{ __('Cancel') }}
-                                                        </x-cancel-button>
                                                     </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
                                                 </form>
                                             </div>
                                         </div>

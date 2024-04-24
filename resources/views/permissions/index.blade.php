@@ -96,7 +96,10 @@
                                         </x-edit-button>
 
                                         <dialog id="edit_permission{{ $permission->id }}" class="modal modal-bottom sm:modal-middle">
-                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">                                            
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
                                             <div class="modal-action flex flex-col justify-start text-left">                          
                                                 @if ($errors->any())
