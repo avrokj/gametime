@@ -20,8 +20,8 @@
                 <div class="p-6 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))]  gap-4 overflow-auto">
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
-                            <h1 class="mb-8 text-6xl font-extrabold">
-                                <a href="{{ Route('segment.hometeam') }}">{{ $game->home_team }}</a>
+                            <h1 class="pt-2 text-6xl font-extrabold uppercase">
+                                <a href="{{ Route('score.hometeam') }}">{{ $home_team->team_name }}</a>
                             </h1>
                         </div>
 
@@ -170,8 +170,8 @@
                     
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
-                            <h1 class="mb-8 text-6xl font-extrabold">
-                                <a href="{{ Route('segment.guestteam') }}">{{ $game->away_team }}</a>
+                            <h1 class="pt-2 text-6xl font-extrabold uppercase">
+                                <a href="{{ Route('score.guestteam') }}">{{ $away_team->team_name }}</a>
                             </h1>
                         </div>
 
@@ -305,8 +305,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    let aScore = {{ $game->away_score }};
-    let hScore = {{ $game->home_score }};
+    let aScore = {{ $away_score }};
+    let hScore = {{ $home_score }};
     var formattedHomeScore = hScore < 10 ? '0' + hScore : hScore;
     homeScore.innerHTML = formattedHomeScore;
     var formattedAwayScore = aScore < 10 ? '0' + aScore : aScore;
@@ -336,7 +336,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            gameId: {{ $game->id }},
+            gameId: {{ $id }},
             awayScore: aScore,
             homeScore: hScore,
         },
@@ -392,7 +392,7 @@ var handleHomeScore = function(amount) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            gameId: {{ $game->id }},
+            gameId: {{ $id }},
             awayScore: aScore,
             homeScore: hScore,
         },

@@ -105,6 +105,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
     Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
+    Route::get('/score/hometeam', [SegmentController::class, 'hometeam'])->name('score.hometeam');
+    Route::get('/score/guestteam', [SegmentController::class, 'guestteam'])->name('score.guestteam');
 });
 
 
