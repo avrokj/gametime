@@ -70,6 +70,7 @@ class GameController extends Controller
             'away_team_id' => 'required|exists:teams,id',
             'home_score' => 'nullable|integer|max:11',
             'away_score' => 'nullable|integer|max:11',
+            'sb_id' => 'nullable|integer|max:11',
             'status' => 'nullable|integer|max:11',
         ]);
 
@@ -79,6 +80,7 @@ class GameController extends Controller
         $game->away_team_id = $request->away_team_id;
         $game->home_score = $request->home_score;
         $game->away_score = $request->away_score;
+        $game->sb_id = $request->sb_id;
         $game->status = $request->status;
         $game->save();
 
