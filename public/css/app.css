@@ -2790,14 +2790,6 @@ input.tab:checked + .tab-content,
 .inset-0 {
   inset: 0px;
 }
-.inset-x-2\/4 {
-  left: 50%;
-  right: 50%;
-}
-.inset-y-1\/2 {
-  top: 50%;
-  bottom: 50%;
-}
 .end-0 {
   inset-inline-end: 0px;
 }
@@ -2870,6 +2862,9 @@ input.tab:checked + .tab-content,
 }
 .-ml-px {
   margin-left: -1px;
+}
+.-mt-8 {
+  margin-top: -2rem;
 }
 .-mt-px {
   margin-top: -1px;
@@ -3909,6 +3904,11 @@ input.tab:checked + .tab-content,
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
 }
+.hover\:scale-\[1\.01\]:hover {
+  --tw-scale-x: 1.01;
+  --tw-scale-y: 1.01;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 @keyframes bounce {
 
   0%, 100% {
@@ -3942,6 +3942,9 @@ input.tab:checked + .tab-content,
 }
 .hover\:animate-spin:hover {
   animation: spin 1s linear infinite;
+}
+.hover\:border-2:hover {
+  border-width: 2px;
 }
 .hover\:border-blue-300:hover {
   --tw-border-opacity: 1;
@@ -4008,6 +4011,11 @@ input.tab:checked + .tab-content,
 .hover\:shadow-\[0_16px_36px_rgba\(237\2c _134\2c _0\2c _0\.5\)\]:hover {
   --tw-shadow: 0 16px 36px rgba(237, 134, 0, 0.5);
   --tw-shadow-colored: 0 16px 36px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:shadow-\[0_9px_4px_-6px_rgba\(0\2c 0\2c 0\2c 0\.3\)\]:hover {
+  --tw-shadow: 0 9px 4px -6px rgba(0,0,0,0.3);
+  --tw-shadow-colored: 0 9px 4px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .focus\:z-10:focus {

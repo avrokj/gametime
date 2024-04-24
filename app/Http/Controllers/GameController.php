@@ -64,25 +64,10 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request): RedirectResponse
     {
-        $request->validate([
-            'event_id' => 'nullable|exists:events,id',
-            'home_team_id' => 'required|exists:teams,id',
-            'away_team_id' => 'required|exists:teams,id',
-            'home_score' => 'nullable|integer|max:11',
-            'away_score' => 'nullable|integer|max:11',
-            'sb_id' => 'nullable|integer|max:11',
-            'status' => 'nullable|integer|max:11',
-        ]);
 
-        $game = new Game();
-        $game->event_id = $request->event_id;
-        $game->home_team_id = $request->home_team_id;
-        $game->away_team_id = $request->away_team_id;
-        $game->home_score = $request->home_score;
-        $game->away_score = $request->away_score;
-        $game->sb_id = $request->sb_id;
-        $game->status = $request->status;
-        $game->save();
+        $validatedData = $request->validated();
+
+        Game::create($validatedData);
 
         return redirect()->route('games.index')
             ->withSuccess('New game is added successfully.');
@@ -103,9 +88,9 @@ class GameController extends Controller
      */
     public function edit(Game $game): View
     {
-        return view('games.edit', [
-            'game' => $game
-        ]);
+        // return view('games.edit', [
+        //     'game' => $game
+        // ]);
     }
 
     /**
