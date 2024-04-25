@@ -59,7 +59,10 @@ class PlayerController extends Controller
             'position_id' => 'required|exists:positions,id'
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
+        $originalFileName = $request->player_name;
+        $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+        $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+        $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->image->extension();
 
         $request->image->move(public_path('images/players'), $imageName);
 
@@ -111,7 +114,10 @@ class PlayerController extends Controller
         $player = Player::findOrFail($id);
 
         if ($request->hasFile('new_image')) {
-            $imageName = time() . '.' . $request->new_image->extension();
+            $originalFileName = $request->player_name;
+            $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+            $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->new_image->extension();
             $request->new_image->move(public_path('images/players'), $imageName);
             $player->image = $imageName;
         }

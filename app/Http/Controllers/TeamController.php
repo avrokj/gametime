@@ -63,7 +63,11 @@ class TeamController extends Controller
             'coach_id' => 'required|exists:coaches,id'
         ]);
 
-        $imageName = time() . '.' . $request->logo->extension();
+
+        $originalFileName = $request->team_name;
+        $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+        $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+        $imageName = $fileNameLowercase . '.' . $request->logo->extension();
 
         $request->logo->move(public_path('images/logos'), $imageName);
 
@@ -100,7 +104,7 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'team_name' => 'required|string|max:45|unique:teams',
+            'team_name' => 'required|string|max:45',
             'new_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'sport_id' => 'required|exists:sports,id',
             'coach_id' => 'required|exists:coaches,id'
@@ -109,7 +113,10 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
 
         if ($request->hasFile('new_logo')) {
-            $imageName = time() . '.' . $request->new_logo->extension();
+            $originalFileName = $request->team_name;
+            $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+            $imageName = $fileNameLowercase . '.' . $request->new_logo->extension();
             $request->new_logo->move(public_path('images/logos'), $imageName);
             $team->logo = $imageName;
         }

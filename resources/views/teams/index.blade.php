@@ -176,11 +176,11 @@
 
                                             <!-- Image -->
                                             <div class="mt-4">
-                                                <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Team Image')}}" >
+                                                <label class="input input-bordered flex items-center gap-2" for="new_logo" :value="{{__('Team Image')}}" >
                                                     <div class="rounded-full">
                                                         <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Current team image" class="w-10 rounded-full">
                                                     </div>
-                                                    <input type="file" name="new_image" id="new_image">
+                                                    <input type="file" name="new_logo" id="new_logo">
                                                 </label>
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             </div>
@@ -293,11 +293,11 @@
 
                                                 <!-- Image -->
                                                 <div class="mt-4">
-                                                    <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Team Image')}}" >
+                                                    <label class="input input-bordered flex items-center gap-2" for="new_logo" :value="{{__('Team Image')}}" >
                                                         <div class="rounded-full">
                                                             <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Current team image" class="w-10 rounded-full">
                                                         </div>
-                                                        <input type="file" name="new_image" id="new_image">
+                                                        <input type="file" name="new_logo" id="new_logo">
                                                     </label>
                                                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                                 </div>
