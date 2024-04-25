@@ -90,6 +90,16 @@
                             </x-select>
                         </div>
 
+                        <!-- Status -->
+                        <div class="mt-4">
+                            <x-select name="status" class="!max-w-full">
+                                <option disabled selected value="">{{ __('Select status') }}</option>
+                                <option value="active">{{ __('Active') }}</option>
+                                <option value="inactive">{{ __('Inactive') }}</option>
+                                <option value="injured">{{ __('Injured') }}</option>
+                            </x-select>
+                        </div>
+
                         <!-- Image -->
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="logo" :value="{{__('Player image')}}" >
@@ -131,6 +141,7 @@
                     <th class="border-b-2 border-base-300">{{ __('Teams') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Position') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Country') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Status') }}</th>
                     <th class="text-right border-b-2 border-base-300">{{ __('Action') }}</th>
                 </tr>
                 </thead>
@@ -210,6 +221,16 @@
                                                     @endforeach                                
                                                 </x-select>
                                             </div>
+                                            
+                                            <!-- Status -->
+                                            <div class="mt-4">
+                                                <x-select name="status" class="!max-w-full">
+                                                    <option disabled value="">{{ __('Select status') }}</option>
+                                                    <option value="active" {{ $player->status === 'active' ? 'selected' : '' }}>{{ __('Active') }}</option>
+                                                    <option value="inactive" {{ $player->status === 'inactive' ? 'selected' : '' }}>{{ __('Inactive') }}</option>
+                                                    <option value="injured" {{ $player->status === 'injured' ? 'selected' : '' }}>{{ __('Injured') }}</option>
+                                                </x-select>
+                                            </div>
 
                                             <!-- Image -->
                                             <div class="mt-4">
@@ -284,7 +305,23 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <img src="{{ asset('vendor/blade-flags/country-'.strtolower($player->country->code).'.svg') }}" class="w-6 h-6" />{{ $player->country->country_name }}
-                                </td>
+                                </td>                                
+                                <td class="border-b-2 border-base-300 text-center">
+                                    @if($player->status == 'inactive')
+                                    
+                                    <span class="badge badge-primary badge-outline">
+                                        {{ __('Inactive') }} 
+                                    </span>
+                                    @elseif($player->status == 'active')
+                                        <span class="badge badge-accent badge-outline">
+                                            {{ __('Active') }} 
+                                        </span>
+                                    @else
+                                        <span class="badge badge-default badge-outline">
+                                            {{ __('Injured') }}
+                                        </span>
+                                    @endif
+                                </td> 
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
                                         <!-- Open the modal using ID.showModal() method -->
@@ -362,6 +399,16 @@
                                                         @endforeach                               
                                                     </x-select>
                                                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Status -->
+                                                <div class="mt-4">
+                                                    <x-select name="status" class="!max-w-full">
+                                                        <option disabled value="">{{ __('Select status') }}</option>
+                                                        <option value="active" {{ $player->status === 'active' ? 'selected' : '' }}>{{ __('Active') }}</option>
+                                                        <option value="inactive" {{ $player->status === 'inactive' ? 'selected' : '' }}>{{ __('Inactive') }}</option>
+                                                        <option value="injured" {{ $player->status === 'injured' ? 'selected' : '' }}>{{ __('Injured') }}</option>
+                                                    </x-select>
                                                 </div>
 
                                                 <!-- Image -->

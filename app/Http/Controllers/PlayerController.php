@@ -56,29 +56,32 @@ class PlayerController extends Controller
             'dob' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'team_id' => 'required|exists:teams,id',
-            'position_id' => 'required|exists:positions,id'
+            'position_id' => 'required|exists:positions,id',
+            'status' => 'required|in:active,inactive,injured'
         ]);
 
-        $originalFileName = $request->player_name;
-        $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
-        $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-        $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->image->extension();
+        try {
+            $fileNameWithoutSpaces = str_replace(' ', '_', $request->player_name);
+            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+            $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->image->extension();
 
-        $request->image->move(public_path('images/players'), $imageName);
+            $request->image->move(public_path('images/players'), $imageName);
 
-        $player = new Player();
-        $player->player_name = $request->player_name;
-        $player->player_no = $request->player_no;
-        $player->dob = $request->dob;
-        $player->image = $imageName;
-        $player->team_id = $request->team_id;
-        $player->position_id = $request->position_id;
-        $player->country_id = $request->country_id;
-        $player->save();
+            Player::create([
+                'player_name' => $request->input('player_name'),
+                'player_no' => $request->input('player_no'),
+                'dob' => $request->input('dob'),
+                'image' => $imageName,
+                'team_id' => $request->input('team_id'),
+                'position_id' => $request->input('position_id'),
+                'country_id' => $request->input('country_id'),
+                'status' => $request->input('status'),
+            ]);
 
-        // return redirect()->route('players.index')
-        //     ->with('success', 'Player added successfully.');
-        return back();
+            return back()->with('success', 'Player added successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred. Please try again.']);
+        }
     }
 
     /**
@@ -102,35 +105,42 @@ class PlayerController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'player_name' => 'required|string|max:45',
             'player_no' => 'required|string|max:45',
             'dob' => 'required|date',
             'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'team_id' => 'required|exists:teams,id',
-            'position_id' => 'required|exists:positions,id'
+            'position_id' => 'required|exists:positions,id',
+            'status' => 'required|in:active,inactive,injured'
         ]);
 
-        $player = Player::findOrFail($id);
+        try {
+            $player = Player::findOrFail($id);
 
-        if ($request->hasFile('new_image')) {
-            $originalFileName = $request->player_name;
-            $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
-            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-            $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->new_image->extension();
-            $request->new_image->move(public_path('images/players'), $imageName);
-            $player->image = $imageName;
+            if ($request->hasFile('new_image')) {
+                $fileNameWithoutSpaces = str_replace(' ', '_', $request->player_name);
+                $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+                $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->new_image->extension();
+                $request->new_image->move(public_path('images/players'), $imageName);
+                $player->image = $imageName;
+            }
+
+            $player->update([
+                'player_name' => $request->input('player_name'),
+                'player_no' => $request->input('player_no'),
+                'dob' => $request->input('dob'),
+                'team_id' => $request->input('team_id'),
+                'position_id' => $request->input('position_id'),
+                'country_id' => $request->input('country_id'),
+                'status' => $request->input('status'),
+            ]);
+
+            return redirect()->route('players.index')->with('success', 'Player updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred. Please try again.']);
         }
-
-        $player->player_name = $request->player_name;
-        $player->player_no = $request->player_no;
-        $player->dob = $request->dob;
-        $player->team_id = $request->team_id;
-        $player->position_id = $request->position_id;
-        $player->country_id = $request->country_id;
-        $player->save();
-
-        return redirect()->route('players.index')->with('success', 'Player updated successfully.');
     }
 
     /**

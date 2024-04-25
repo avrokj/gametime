@@ -110,8 +110,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-base-300 overflow-hidden shadow-md rounded-md">
+            <!-- Display active players -->            
+            <h2 class="font-semibold text-xl leading-tight pl-4 pt-4">
+                {{ __('Active') }} <small>({{ $team->players()->where('status', 'active')->count() }})</small>
+            </h2>           
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-4 gap-8">
-                    @foreach ($players as $player)
+                @foreach ($players as $player)
+                    @if ($player->status === 'active')
                         <div class="bg-base-200 scale-100 text-center p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full">
                             <h2 class="text-2xl">{{ $player->player_no }}</h2>
@@ -122,7 +127,30 @@
                                 </x-edit-button>
                             </div>
                         </div>
-                    @endforeach
+                    @endif
+                @endforeach
+            </div>
+
+            <!-- Display injured players --> 
+            <h2 class="font-semibold text-xl leading-tight pl-4 pt-4">
+                {{ __('Injured') }} <small>({{ $team->players()->where('status', 'injured')->count() }})</small>
+            </h2>            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-4 gap-8">
+                @foreach ($players as $player)
+                    @if ($player->status === 'injured')
+                        <div class="bg-base-100 scale-100 text-center p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                            <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full">
+                            <h2 class="text-2xl">{{ $player->player_no }}</h2>
+                            <h3 class="text-xl font-bold [word-spacing:100vw]">{{ $player->player_name }}</h3>
+                            <p>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->format('d.m.Y') }} ({{ \Carbon\Carbon::createFromFormat('Y-m-d', $player->dob)->diffInYears(\Carbon\Carbon::now()) }}) </p>
+                            <div class="flex justify-end">
+                                <x-edit-button onclick="window.location='../../players/search?search={{ $player->player_name }}'" class="mb-[-20px] mr-[-20px] !text-slate-400">                      
+                                </x-edit-button>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
             </div>
         </div>
         </div>
