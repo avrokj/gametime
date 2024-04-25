@@ -130,7 +130,7 @@
                                                         @endcan
                                                     @endif --}}
 
-                                                    @if ($role->name!='Super Admin')
+                                                    @if ($role->name!=='Super Admin')
                                                         @can('edit-role')
                                                         <div class="mt-4">
                                                             <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">

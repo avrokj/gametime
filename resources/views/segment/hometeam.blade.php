@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
-            <div class="card bg-neutral text-neutral-content shadow-lg rounded-md p-4">
+            <div class="card bg-neutral shadow-lg rounded-md p-4">
                 <h3 class="mb-8 text-xl font-bold text-center">
                     Team Information
                 </h3>
@@ -21,7 +21,7 @@
                 </table>
             </div>
 
-            <div class="card bg-neutral text-neutral-content outline outline-offset-2 outline-[#ed8600] text-primary-content shadow-lg rounded-md p-4">
+            <div class="card bg-neutral outline outline-offset-2 outline-[#ed8600] text-primary-content shadow-lg rounded-md p-4">
                 <h3 class="mb-8 text-xl font-bold text-center">In Game</h3>
                 <table class="table table-zebra table-xs">
                     <thead class="border-b text-white font-bold">
@@ -39,7 +39,7 @@
                 </table>
             </div>
 
-            <div class="card bg-neutral text-neutral-content shadow-lg rounded-md p-4">
+            <div class="card bg-neutral shadow-lg rounded-md p-4">
                 <h3 class="mb-8 text-xl font-bold text-center">On Bench</h3>
                 <table class="table table-zebra table-xs">
                     <thead class="border-b text-white font-bold">

@@ -14,4 +14,8 @@ class Sport extends Model
 
     protected $guarded = []; // tühi jada, ehk siis saame kõike muuta
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

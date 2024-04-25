@@ -36,7 +36,7 @@
                             <x-select name="event_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Event') }}</option>
                                 @foreach ($events as $event)
-                                    <option value="{{ $team->id }}" {{ (old('event_id', $event->event_id) == $event->id) ? 'selected' : '' }}>
+                                    <option value="{{ $event->id }}" {{ (old('event_id', $event->event_id) == $event->id) ? 'selected' : '' }}>
                                         {{ $event->event_name }}
                                     </option>
                                 @endforeach                                
@@ -129,18 +129,50 @@
                         @foreach($results as $game)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
+                                    {{ $game->id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $game->event->event_name }} 
+                                    @if($game->event_id == 0)
+                                        {{ __('No Event') }}
+                                    @else
+                                        {{ $event->event_name }}
+                                    @endif
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
-                                    {{ $game->team->team_name }}
+                                    <div class="flex justify-center w-full">
+                                        <div class="w-10 rounded-full">
+                                            <img src="{{ asset('images/logos/' . $game->homeTeam->logo) }}" alt="{{ $game->homeTeam->team_name }} image"> {{ $game->homeTeam->team_name }}
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
-                                    {{ $game->team->team_name }}
+                                    {{ $game->home_score }} - {{ $game->away_score }}
+                                </td>
+                                <td class="border-b-2 border-base-300 text-center"> 
+                                    <div class="flex justify-center w-full">                                   
+                                        <div class="w-10 rounded-full">
+                                            <img src="{{ asset('images/logos/' . $game->awayTeam->logo) }}" alt="{{ $game->awayTeam->team_name }} image"> {{ $game->awayTeam->team_name }}
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
-                                    {{ $game->players->count() }}
+                                    @if($game->status == 0)
+                                    
+                                    <span class="badge badge-primary badge-outline">
+                                        {{ __('Created') }} 
+                                    </span>
+                                    @elseif($game->status == 1)
+                                        <span class="badge badge-accent badge-outline">
+                                            {{ __('Live') }} 
+                                        </span>
+                                    @else
+                                        <span class="badge badge-default badge-outline">
+                                            {{ __('End') }} 
+                                        </span>
+                                    @endif
+                                </td>                                
+                                <td class="border-b-2 border-base-300 text-center">
+                                    {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
@@ -260,7 +292,7 @@
                                     @if($game->event_id == 0)
                                         {{ __('No Event') }}
                                     @else
-                                        {{ $game->event_id }}
+                                        {{ $event->event_name }}
                                     @endif
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">

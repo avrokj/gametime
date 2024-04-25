@@ -10,6 +10,7 @@ use App\Models\Game;
 use App\Models\Sport;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -40,17 +41,18 @@ class EventController extends Controller
     }
 
 
-    public function search(StoreEventRequest $request)
+    public function search(Request $request)
     {
-        // $term = $request->input('search');
-        // $events = Game::where('event_name', 'like', "%$term%");
-        // $events->orWhereHas('team', function ($query) use ($term) {
-        //     $query->where('team_name', 'like', "%$term%");
-        // });
-        // $events = $events->orderBy('event_name')->paginate(20);
-        // $teams = Team::all(); // Retrieve teams data
+        $term = $request->input('search');
+        $events = Event::where('event_name', 'like', "%$term%");
+        $events->orWhereHas('arena', function ($query) use ($term) {
+            $query->where('arena_name', 'like', "%$term%");
+        });
+        $events = $events->orderBy('event_name')->paginate(20);
+        $sports = Sport::all(); // Retrieve teams data
+        $arenas = Arena::all(); // Retrieve teams data
 
-        // return view('events.index', compact('events', 'teams', 'events'));
+        return view('events.index', compact('events', 'sports', 'arenas', 'events'));
     }
 
     /**
@@ -78,7 +80,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event): View
+    public function show(Event $event)
     {
         // return view('events.show', [
         //     'event' => $event
@@ -88,7 +90,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event): View
+    public function edit(Event $event)
     {
         // return view('events.edit', [
         //     'event' => $event

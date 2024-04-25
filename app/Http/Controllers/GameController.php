@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\Team;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
@@ -38,17 +39,17 @@ class GameController extends Controller
     }
 
 
-    public function search(StoreGameRequest $request)
+    public function search(Request $request)
     {
-        // $term = $request->input('search');
-        // $games = Game::where('game_name', 'like', "%$term%");
-        // $games->orWhereHas('team', function ($query) use ($term) {
-        //     $query->where('team_name', 'like', "%$term%");
-        // });
-        // $games = $games->orderBy('game_name')->paginate(20);
-        // $teams = Team::all(); // Retrieve teams data
+        $term = $request->input('search');
+        $games = Game::where('game_name', 'like', "%$term%");
+        $games->orWhereHas('team', function ($query) use ($term) {
+            $query->where('team_name', 'like', "%$term%");
+        });
+        $games = $games->orderBy('game_name')->paginate(20);
+        $teams = Team::all(); // Retrieve teams data
 
-        // return view('games.index', compact('games', 'teams', 'events'));
+        return view('games.index', compact('games', 'teams', 'events'));
     }
 
     /**
@@ -76,7 +77,7 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Game $game): View
+    public function show(Game $game)
     {
         // return view('games.show', [
         //     'game' => $game
@@ -86,7 +87,7 @@ class GameController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Game $game): View
+    public function edit(Game $game)
     {
         // return view('games.edit', [
         //     'game' => $game

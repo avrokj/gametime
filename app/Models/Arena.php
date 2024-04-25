@@ -13,4 +13,9 @@ class Arena extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function event()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

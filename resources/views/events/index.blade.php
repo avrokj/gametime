@@ -33,29 +33,29 @@
                         @method('post')
                         <!-- Event -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Event Name') }}" >
+                            <label class="input input-bordered flex items-center gap-2" for="event_name" :value="{{ __('Event Name') }}" >
                                 <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
+                                <x-text-input id="event_name" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name')" autocomplete="event_name" />
                             </label>
-                            <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
                         </div>
 
                         <!-- Location -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Location') }}" >
+                            <label class="input input-bordered flex items-center gap-2" for="location" :value="{{ __('Location') }}" >
                                 <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
-                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
+                                <x-text-input id="location" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location')" autocomplete="location" />
                             </label>
-                            <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('location')" class="mt-2" />
                         </div>
 
                         <!-- DateTime -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Datetime') }}" >
+                            <label class="input input-bordered flex items-center gap-2" for="datetime" :value="{{ __('Datetime') }}" >
                                 <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime') }}" type="text" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
+                                <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime')" autocomplete="datetime" />
                             </label>
-                            <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                         </div>
 
                         <!-- Sport name -->
@@ -66,19 +66,7 @@
                                     <option value="{{ $sport->id }}">{{ $sport->sports_name }}</option>
                                 @endforeach                                
                             </x-select>
-                        </div>
-
-                        <!-- Game name -->
-                        <div class="mt-4">
-                            <x-select name="game_id" class="!max-w-full">
-                                <option disabled selected value="">{{ __('Select Game') }}</option>
-                                @foreach ($games as $game)
-                                    <option value="{{ $game->id }}" {{ (old('game_id', $game->game_id) == $game->id) ? 'selected' : '' }}>
-                                        ({{ $game->id }}) {{ $game->home_team_id }} vs {{ $game->away_team_id }}
-                                    </option>
-                                @endforeach                                
-                            </x-select>
-                        </div>                      
+                        </div>                     
                                         
                         <!-- Arena name -->
                         <div class="mt-4">
@@ -159,26 +147,56 @@
                                         <form method="POST" action="{{ route('events.update', $event) }}" enctype="multipart/form-data">
                                             @csrf
                                             @method('patch')
-                                            <!-- Event name -->
+                                            <!-- Event Name -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="event_name" :value="old('event_name', $event->event_name)" >
+                                                    <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Location -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="location" :value="old('event_name', $event->location)" >
+                                                    <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location', $event->location)" autocomplete="location" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Datetime -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
+                                                    <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Sport name -->
                                             <div class="mt-4">
                                                 <x-select name="event_id" class="!max-w-full">
-                                                    <option disabled selected value="">{{ __('Select Event') }}</option>
-                                                    @foreach ($events as $event)
-                                                        <option value="{{ $team->id }}" {{ (old('event_id', $event->event_id) == $event->id) ? 'selected' : '' }}>
-                                                            {{ $event->event_name }}
+                                                    <option disabled selected value="">{{ __('Select Sport') }}</option>
+                                                    @foreach ($sports as $sport)
+                                                        <option value="{{ $sport->id }}" {{ (old('sport_id', $event->sport_id) == $sport->id) ? 'selected' : '' }}>
+                                                            {{ $sport->sports_name }}
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
-                                            </div>            
-                                                            
-                                            <!-- Scoreboard ID -->
+                                            </div> 
+
+                                            <!-- Arena name -->
                                             <div class="mt-4">
-                                                <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="old('sb_id', $game->sb_id)" >
-                                                    <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id', $game->sb_id)" autocomplete="sb_id" />
-                                                </label>
-                                                <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
-                                            </div>
+                                                <x-select name="event_id" class="!max-w-full">
+                                                    <option disabled selected value="">{{ __('Select Arena') }}</option>
+                                                    @foreach ($arenas as $arena)
+                                                        <option value="{{ $arena->id }}" {{ (old('arena_id', $event->arena_id) == $arena->id) ? 'selected' : '' }}>
+                                                            {{ $arena->arena_name }}
+                                                        </option>
+                                                    @endforeach                                
+                                                </x-select>
+                                            </div> 
 
                                             <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
@@ -217,7 +235,7 @@
                         @foreach ($events as $event)
                             <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
-                                    {{ $event->event_id }} 
+                                    {{ $event->id }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $event->event_name }} 
@@ -227,6 +245,15 @@
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
                                     {{ $event->datetime }}
+                                </td>                                
+                                <td class="border-b-2 border-base-300">
+                                    {{ $event->sport->sports_name }}
+                                </td>                               
+                                <td class="border-b-2 border-base-300">
+                                    {{ $event->game_id }}
+                                </td>                               
+                                <td class="border-b-2 border-base-300">
+                                    {{ $event->arena->arena_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     <div class="flex justify-end">                    
@@ -243,26 +270,56 @@
                                             <form method="POST" action="{{ route('events.update', $event) }}" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('patch')
-                                                <!-- Event name -->
+                                                <!-- Event Name -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="event_name" :value="old('event_name', $event->event_name)" >
+                                                        <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Location -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="location" :value="old('event_name', $event->location)" >
+                                                        <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location', $event->location)" autocomplete="location" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Datetime -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
+                                                        <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Sport name -->
                                                 <div class="mt-4">
                                                     <x-select name="event_id" class="!max-w-full">
-                                                        <option disabled selected value="">{{ __('Select Event') }}</option>
-                                                        @foreach ($events as $event)
-                                                            <option value="{{ $team->id }}" {{ (old('event_id', $event->event_id) == $event->id) ? 'selected' : '' }}>
-                                                                {{ $event->event_name }}
+                                                        <option disabled selected value="">{{ __('Select Sport') }}</option>
+                                                        @foreach ($sports as $sport)
+                                                            <option value="{{ $sport->id }}" {{ (old('sport_id', $event->sport_id) == $sport->id) ? 'selected' : '' }}>
+                                                                {{ $sport->sports_name }}
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
-                                                </div>            
-                                                                
-                                                <!-- Scoreboard ID -->
+                                                </div> 
+
+                                                <!-- Arena name -->
                                                 <div class="mt-4">
-                                                    <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="old('sb_id', $game->sb_id)" >
-                                                        <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id', $game->sb_id)" autocomplete="sb_id" />
-                                                    </label>
-                                                    <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
-                                                </div>
+                                                    <x-select name="event_id" class="!max-w-full">
+                                                        <option disabled selected value="">{{ __('Select Arena') }}</option>
+                                                        @foreach ($arenas as $arena)
+                                                            <option value="{{ $arena->id }}" {{ (old('arena_id', $event->arena_id) == $arena->id) ? 'selected' : '' }}>
+                                                                {{ $arena->arena_name }}
+                                                            </option>
+                                                        @endforeach                                
+                                                    </x-select>
+                                                </div> 
 
                                                 <div class="mt-4 space-x-2 text-left">
                                                     <x-save-button> {{ __('Save') }}</x-save-button>

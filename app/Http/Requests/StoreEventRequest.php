@@ -23,10 +23,9 @@ class StoreEventRequest extends FormRequest
     {
         return [
             'event_name' => 'required|string',
-            'location' => 'nullable|exists:teams,id',
-            'datetime' => 'nullable|exists:teams,id',
+            'location' => 'nullable|string',
+            'datetime' => 'nullable|date|date_format:Y-m-d H:i',
             'sport_id' => 'required|exists:sports,id',
-            'game_id' => 'required|exists:games,id',
             'arena_id' => 'required|integer:exists:arenas,id'
         ];
     }
