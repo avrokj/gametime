@@ -134,7 +134,7 @@
                                                     </div>
                                                     @endif
 
-                                                    <div class="mt-4 space-x-2">
+                                                    <div class="mt-4 space-x-2 text-left">
                                                         <x-save-button> {{ __('Save') }}</x-save-button>
                                                     </div>
                                                 </form>

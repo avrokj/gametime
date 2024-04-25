@@ -33,7 +33,7 @@
                         @method('post')
                         <x-text-input name="sports_name" />
                         <x-input-error :messages="$errors->get('sports_name')" class="mt-2" />
-                        <div class="mt-4 space-x-2">
+                        <div class="mt-4 space-x-2 text-left">
                             <x-save-button> {{ __('Save') }}</x-save-button>
                         </div>
                     </form>
@@ -86,7 +86,7 @@
                                             @method('patch')
                                             <x-text-input name="sports_name" value="{{ old('sports_name', $sport->sports_name) }}" />
                                             <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                                            <div class="mt-4 space-x-2">
+                                            <div class="mt-4 space-x-2 text-left">
                                             <x-save-button> {{ __('Save') }}</x-save-button>
                                             </div>
                                         </form>
@@ -142,7 +142,7 @@
                                                 @method('patch')
                                                 <x-text-input name="sports_name" value="{{ old('sports_name', $sport->sports_name) }}" />
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
-                                                <div class="mt-4 space-x-2">
+                                                <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
                                                 </div>
                                             </form>
