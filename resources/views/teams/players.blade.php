@@ -16,7 +16,7 @@
                 </x-primary-button>
 
                 <dialog id="add_player" class="modal modal-bottom sm:modal-middle">
-                hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)]
+                <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">                    
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
@@ -75,7 +75,7 @@
                             <x-select name="country_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Country') }}</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}"><img src="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6" /> {{ $country->country_name }}</option>
+                                    <option value="{{ $country->id }}"><x-flag-country-{{ $country->iso2_code }} class="w-6 h-6"/> {{ $country->country_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>
@@ -93,7 +93,7 @@
                             <x-save-button> {{ __('Save') }}</x-save-button>
                         </div>
                     </form>
-                    </div>
+                    </div>                    
                     <div class="modal-action -mt-8">
                         <form method="dialog">
                             <x-cancel-button>
