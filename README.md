@@ -6,17 +6,7 @@
 
 ## Lühidalt GameTime-st / GameTime Overview
 
-GameTime is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
--   [Simple, fast routing engine](https://laravel.com/docs/routing).
--   [Powerful dependency injection container](https://laravel.com/docs/container).
--   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
--   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
--   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
--   [Robust background job processing](https://laravel.com/docs/queues).
--   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Täiustamisel / It will come...
 
 ## Lingid / Links
 
@@ -26,10 +16,10 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Pildid / Pictures
 
-![Pocket Scoreboard](assets/new_old.png)
+![Pocket Scoreboard](test/gallery/images/new_old.png)
 _Uus ja vana tabloo / New and old scoreboard_
 
-![New and Old](assets/pocket_scoreboard.png)
+![New and Old](test/gallery/images/pocket_scoreboard.png)
 _Taskutabloo prototüübid / Pocket scoreboard prototypes_
 
 ## Paigaldamine / Installation
