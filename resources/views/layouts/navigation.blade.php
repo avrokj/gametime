@@ -147,6 +147,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
+                {{ __('Events') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
+                {{ __('Games') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('score.index')" :active="request()->routeIs('score.index')">
+                {{ __('Scoreboard') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
