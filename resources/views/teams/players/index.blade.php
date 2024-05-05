@@ -35,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Name')}}" >
                                 <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
-                                <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Name')}}" type="text" name="player_name" :value="old('player_name')" required autofocus autocomplete="player_name" />
+                                <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Name')}}" name="player_name" :value="old('player_name')" required autofocus autocomplete="player_name" />
                             </label>
                             <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                         </div>
@@ -44,7 +44,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Number')}}" >
                                 <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
-                                <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" type="text" name="player_no" :value="old('player_no')" required autofocus autocomplete="player_no" />
+                                <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" name="player_no" :value="old('player_no')" required autofocus autocomplete="player_no" />
                             </label>
                             <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
                         </div>
@@ -53,7 +53,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth yyyy-mm-dd')}}" >
                                 <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" type="text" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
+                                <x-text-input id="dob" type="datetime-local" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
                             </label>
                             <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                         </div>
@@ -193,7 +193,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_name', $player->player_name)" >
                                                     <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" type="text" name="player_name" :value="old('player_name', $player->player_name)" required autofocus autocomplete="player_name" />
+                                                    <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" name="player_name" :value="old('player_name', $player->player_name)" required autofocus autocomplete="player_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                                             </div>
@@ -341,7 +341,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_name', $player->player_name)" >
                                                         <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" type="text" name="player_name" :value="old('player_name', $player->player_name)" required autofocus autocomplete="player_name" />
+                                                        <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" name="player_name" :value="old('player_name', $player->player_name)" required autofocus autocomplete="player_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                                                 </div>
@@ -350,7 +350,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_no', $player->player_no)" >
                                                         <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" type="text" name="player_no" :value="old('player_no', $player->player_no)" required autofocus autocomplete="player_no" />
+                                                        <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" name="player_no" :value="old('player_no', $player->player_no)" required autofocus autocomplete="player_no" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
                                                 </div>
@@ -359,7 +359,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="dob" :value="old('player_no', $player->dob)" >
                                                         <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="dob" type="datetime-local" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" type="text" name="dob" :value="old('dob', $player->dob)" required autofocus autocomplete="dob" />
+                                                        <x-text-input id="dob" type="datetime-local" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" name="dob" :value="old('dob', $player->dob)" required autofocus autocomplete="dob" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                                                 </div>

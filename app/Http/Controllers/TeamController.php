@@ -33,13 +33,14 @@ class TeamController extends Controller
 
     public function players(Request $request, $teamId)
     {
-        // dd($request);
-        $team = Team::findOrFail($teamId); // Retrieve the team by ID
+        // dd($request);        
+        $team = Team::with('coaches')->findOrFail($teamId); // Retrieve the team by ID
         $players = $team->players; // Fetch players associated with the team        
         $positions = Position::all(); // Retrieve positions data
         $countries = Country::all(); // Retrieve countries data
+        $coaches = $team->coaches; // Fetch coaches associated with the team
 
-        return view('teams.players', compact('team', 'players', 'positions', 'countries'));
+        return view('teams.players', compact('team', 'players', 'positions', 'countries', 'coaches'));
     }
 
     /**
@@ -132,17 +133,18 @@ class TeamController extends Controller
     /**
      * Players by team.
      */
-    public function playersByTeam($teamId)
-    {
-        // Retrieve the team by its ID
-        $team = Team::findOrFail($teamId);
+    // public function playersByTeam($teamId)
+    // {
+    //     // Retrieve the team by its ID
+    //     $team = Team::findOrFail($teamId);
+    //     $coaches = Coach::all(); // Retrieve coaches data
 
-        // Retrieve all players belonging to the team
-        $players = $team->players()->orderBy('player_no')->paginate(20);
+    //     // Retrieve all players belonging to the team
+    //     $players = $team->players()->orderBy('player_no')->paginate(20);
 
-        // Return a view with the players data
-        return view('players.index', compact('team', 'players'));
-    }
+    //     // Return a view with the players data
+    //     return view('players.index', compact('team', 'players', 'coaches'));
+    // }
 
     /**
      * Remove the specified resource from storage.

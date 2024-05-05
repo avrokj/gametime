@@ -167,7 +167,7 @@
                                                 <x-select name="coach_id" class="!max-w-full">
                                                     <option disabled selected value="">{{ __('Select Coach') }}</option>
                                                     @foreach ($coaches as $coach)
-                                                        <option value="{{ $sport->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
+                                                        <option value="{{ $coach->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
                                                             {{ $coach->coach_name }}
                                                         </option>
                                                     @endforeach                                
@@ -284,7 +284,7 @@
                                                     <x-select name="coach_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Coach') }}</option>
                                                         @foreach ($coaches as $coach)
-                                                            <option value="{{ $sport->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
+                                                            <option value="{{ $coach->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
                                                                 {{ $coach->coach_name }}
                                                             </option>
                                                         @endforeach                                

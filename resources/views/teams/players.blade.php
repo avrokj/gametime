@@ -29,7 +29,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Name')}}" >
                                 <x-heroicon-m-user-circle class="w-4 h-4 opacity-70" />
-                                <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Name')}}" type="text" name="player_name" :value="old('player_name')" required autofocus autocomplete="player_name" />
+                                <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Name')}}" name="player_name" :value="old('player_name')" required autofocus autocomplete="player_name" />
                             </label>
                             <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
                         </div>
@@ -38,7 +38,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Player Number')}}" >
                                 <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
-                                <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" type="text" name="player_no" :value="old('player_no')" required autofocus autocomplete="player_no" />
+                                <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" name="player_no" :value="old('player_no')" required autofocus autocomplete="player_no" />
                             </label>
                             <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
                         </div>
@@ -47,7 +47,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth yyyy-mm-dd')}}" >
                                 <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                <x-text-input id="dob" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" type="text" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
+                                <x-text-input id="dob" type="date" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
                             </label>
                             <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                         </div>
@@ -77,6 +77,16 @@
                                 @foreach ($countries as $country)
                                     <option value="{{ $country->id }}"><x-flag-country-{{ $country->iso2_code }} class="w-6 h-6"/> {{ $country->country_name }}</option>
                                 @endforeach                                
+                            </x-select>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="mt-4">
+                            <x-select name="status" class="!max-w-full">
+                                <option disabled selected value="">{{ __('Select status') }}</option>
+                                <option value="active">{{ __('Active') }}</option>
+                                <option value="inactive">{{ __('Inactive') }}</option>
+                                <option value="injured">{{ __('Injured') }}</option>
                             </x-select>
                         </div>
 
@@ -149,6 +159,23 @@
                             </div>
                         </div>
                     @endif
+                @endforeach
+            </div>
+            
+            <!-- Coach --> 
+            <h2 class="font-semibold text-xl leading-tight pl-4 pt-4">
+                {{ __('Coaches') }}
+            </h2>            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 p-4 gap-8">
+                @foreach ($coaches as $coach)
+                    <div class="bg-base-200 scale-100 text-center p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                        <img src="{{ asset('images/coaches/' . $coach->image) }}" alt="{{ $coach->coach_name }} image" class="object-cover w-full aspect-square rounded-full">
+                        <h3 class="text-xl font-bold [word-spacing:100vw]">{{ $coach->coach_name }}</h3>
+                        <div class="flex justify-end">
+                            <x-edit-button onclick="window.location='../../coaches/search?search={{ $coach->coach_name }}'" class="mb-[-20px] mr-[-20px] !text-slate-400">                      
+                            </x-edit-button>
+                        </div>
+                    </div>
                 @endforeach
             </div>
             </div>

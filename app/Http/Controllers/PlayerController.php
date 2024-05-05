@@ -61,11 +61,16 @@ class PlayerController extends Controller
         ]);
 
         try {
-            $fileNameWithoutSpaces = str_replace(' ', '_', $request->player_name);
-            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-            $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->image->extension();
+            // Is an image provided
+            if ($request->hasFile('image')) {
+                $fileNameWithoutSpaces = str_replace(' ', '_', $request->player_name);
+                $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+                $imageName = $fileNameLowercase . '-' . $request->player_no . '.' . $request->image->extension();
 
-            $request->image->move(public_path('images/players'), $imageName);
+                $request->image->move(public_path('images/players'), $imageName);
+            } else {
+                $imageName = 'default.png';
+            }
 
             Player::create([
                 'player_name' => $request->input('player_name'),
@@ -83,6 +88,7 @@ class PlayerController extends Controller
             return back()->withErrors(['error' => 'An error occurred. Please try again.']);
         }
     }
+
 
     /**
      * Display the specified resource.
