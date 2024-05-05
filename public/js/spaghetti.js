@@ -34,5 +34,69 @@ document.getElementById("darkModeCheckbox").addEventListener("change", toggleDar
 
 // Initialize dark mode
 initializeDarkMode();
+
+// Function to Accordion
+document.addEventListener("DOMContentLoaded", function () {
+  var accordionTriggers = document.querySelectorAll(".accordion-trigger");
+  accordionTriggers.forEach(function (trigger) {
+    trigger.addEventListener("click", function () {
+      var content = this.parentElement.querySelector(".collapse-content");
+      var radio = this.parentElement.querySelector('input[type="radio"]');
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        radio.checked = false;
+      } else {
+        content.style.maxHeight = content.scrollHeight + 40 + "px";
+        radio.checked = true;
+      }
+    });
+  });
+});
+
+// Function to Tabs
+document.addEventListener("DOMContentLoaded", function () {
+  var eventTabs = document.querySelectorAll(".event-tabs .tab");
+  eventTabs.forEach(function (tab) {
+    tab.addEventListener("click", function (event) {
+      event.preventDefault();
+      // Hide all tab contents
+      document.querySelectorAll('[role="eventtabpanel"]').forEach(function (tabContent) {
+        tabContent.classList.add("hidden");
+      });
+      // Remove active class from all tabs
+      document.querySelectorAll(".event-tabs .tab").forEach(function (tab) {
+        tab.classList.remove("font-semibold");
+        tab.classList.remove("tab-active");
+      });
+      // Show the clicked tab content
+      var tabId = this.getAttribute("href").substring(1);
+      document.getElementById(tabId).classList.remove("hidden");
+      // Add active class to the clicked tab
+      this.classList.add("font-semibold");
+      this.classList.add("tab-active");
+    });
+  });
+  var gameTabs = document.querySelectorAll(".game-tabs .tab");
+  gameTabs.forEach(function (tab) {
+    tab.addEventListener("click", function (event) {
+      event.preventDefault();
+      // Hide all tab contents
+      document.querySelectorAll('[role="gametabpanel"]').forEach(function (tabContent) {
+        tabContent.classList.add("hidden");
+      });
+      // Remove active class from all tabs
+      document.querySelectorAll(".game-tabs .tab").forEach(function (tab) {
+        tab.classList.remove("font-semibold");
+        tab.classList.remove("tab-active");
+      });
+      // Show the clicked tab content
+      var tabId = this.getAttribute("href").substring(1);
+      document.getElementById(tabId).classList.remove("hidden");
+      // Add active class to the clicked tab
+      this.classList.add("font-semibold");
+      this.classList.add("tab-active");
+    });
+  });
+});
 /******/ })()
 ;
