@@ -17,7 +17,8 @@ use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
-use App\Models\Position;
+use App\Models\Event;
+use App\Models\Game;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -32,7 +33,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $events = Event::all();
+    $games = Game::all();
+    return view('welcome', ['events' => $events, 'games' => $games]);
 });
 
 Auth::routes();
