@@ -3102,6 +3102,9 @@ input.tab:checked + .tab-content,
 .max-w-7xl {
   max-width: 80rem;
 }
+.max-w-full {
+  max-width: 100%;
+}
 .max-w-xl {
   max-width: 36rem;
 }
@@ -4214,6 +4217,10 @@ input.tab:checked + .tab-content,
 
   .sm\:mt-0 {
     margin-top: 0px;
+  }
+
+  .sm\:block {
+    display: block;
   }
 
   .sm\:flex {

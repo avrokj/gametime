@@ -32,8 +32,46 @@ document
 // Initialize dark mode
 initializeDarkMode();
 
-// Function to Accordion
+// Other Functions
 document.addEventListener("DOMContentLoaded", function () {
+    // Function to Modals
+    var forms = document.querySelectorAll(".teamForm");
+    forms.forEach(function (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", form.getAttribute("action"), true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Handle successful response, maybe close modal or show success message
+                    } else if (xhr.status === 422) {
+                        var errors = JSON.parse(xhr.responseText).errors;
+                        Object.keys(errors).forEach(function (key) {
+                            // Display error messages next to corresponding input fields
+                            // Example assuming you have input fields with IDs
+                            var errorMessage = document.createElement("span");
+                            errorMessage.className = "text-red-500";
+                            errorMessage.textContent = errors[key][0];
+                            var inputField = document.getElementById(key);
+                            inputField.parentNode.insertBefore(
+                                errorMessage,
+                                inputField.nextSibling
+                            );
+                        });
+                    } else {
+                        // Handle other error cases
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+    });
+
+    // Function to Accordion
     const accordionTriggers = document.querySelectorAll(".accordion-trigger");
 
     accordionTriggers.forEach((trigger) => {
@@ -52,10 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-});
 
-// Function to Tabs
-document.addEventListener("DOMContentLoaded", function () {
+    // Function to Tabs
     const eventTabs = document.querySelectorAll(".event-tabs .tab");
     eventTabs.forEach((tab) => {
         tab.addEventListener("click", function (event) {

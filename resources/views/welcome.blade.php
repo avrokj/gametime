@@ -392,7 +392,9 @@
                                                         {{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}
                                                     </td>
                                                     <td class="flex items-center border-b-2 border-base-300 text-left font-semibold">
-                                                        {{ $game->homeTeam->team_name }} <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1"> {{ $game->home_score }}-{{ $game->away_score }} <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1"> {{ $game->awayTeam->team_name }}
+                                                        <span class="hidden sm:block"> {{ $game->homeTeam->team_name }}</span> <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1"> 
+                                                        {{ $game->home_score }}-{{ $game->away_score }} 
+                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1"> <span class="hidden sm:block">{{ $game->awayTeam->team_name }}</span>
                                                     </td>
                                                 </tr>
                                         @endif

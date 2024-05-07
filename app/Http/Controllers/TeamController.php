@@ -9,6 +9,8 @@ use App\Models\Position;
 use App\Models\Team;
 use App\Models\Sport;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
@@ -59,28 +61,36 @@ class TeamController extends Controller
     {
         $request->validate([
             'team_name' => 'required|string|max:45|unique:teams',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'sport_id' => 'required|exists:sports,id',
-            'coach_id' => 'required|exists:coaches,id'
+            'coach_id' => 'required|exists:coaches,id',
+            'short_name' => 'nullable|uppercase|string|max:3'
         ]);
 
+        try {
+            // Is an image provided
+            if ($request->hasFile('image')) {
+                $fileNameWithoutSpaces = str_replace(' ', '_', $request->team_name);
+                $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+                $imageName = $fileNameLowercase . '.' . $request->logo->extension();
 
-        $originalFileName = $request->team_name;
-        $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
-        $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-        $imageName = $fileNameLowercase . '.' . $request->logo->extension();
+                $request->image->move(public_path('images/players'), $imageName);
+            } else {
+                $imageName = 'default.png';
+            }
 
-        $request->logo->move(public_path('images/logos'), $imageName);
+            Team::create([
+                'team_name' => $request->input('team_name'),
+                'logo' => $imageName,
+                'sport_id' => $request->input('sport_id'),
+                'coach_id' => $request->input('coach_id'),
+                'short_name' => $request->input('short_name'),
+            ]);
 
-        $team = new Team();
-        $team->team_name = $request->team_name;
-        $team->logo = $imageName;
-        $team->sport_id = $request->sport_id;
-        $team->coach_id = $request->coach_id;
-        $team->save();
-
-        return redirect()->route('teams.index')
-            ->with('success', 'Team added successfully.');
+            return back()->with('success', 'Team added successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred. Please try again.']);
+        }
     }
 
     /**
@@ -108,7 +118,8 @@ class TeamController extends Controller
             'team_name' => 'required|string|max:45',
             'new_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max
             'sport_id' => 'required|exists:sports,id',
-            'coach_id' => 'required|exists:coaches,id'
+            'coach_id' => 'required|exists:coaches,id',
+            'short_name' => 'nullable|uppercase|string|max:3'
         ]);
 
         $team = Team::findOrFail($id);
@@ -125,6 +136,7 @@ class TeamController extends Controller
         $team->team_name = $request->team_name;
         $team->sport_id = $request->sport_id;
         $team->coach_id = $request->coach_id;
+        $team->short_name = $request->short_name;
         $team->save();
 
         return redirect()->route('teams.index')->with('success', 'Team updated successfully.');

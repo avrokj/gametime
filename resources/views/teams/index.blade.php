@@ -27,17 +27,26 @@
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Team') }}</h3>
-                    <div class="modal-action justify-start">
-                    <form method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
+                    <div id="teamFormModal" class="modal-action justify-start">
+                    <form id="teamForm" method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
                         @csrf
                         @method('post')
                         <!-- Team Name -->
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="team_name" :value="{{__('Team Name')}}" >
                                 <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Team Name')}}" type="text" name="team_name" :value="old('team_name')" required autofocus autocomplete="team_name" />
+                                <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Team Name')}}" name="team_name" :value="old('team_name')" required autofocus autocomplete="team_name" />
                             </label>
                             <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                        </div>
+
+                        <!-- Team Short Name -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="short_name" :value="{{__('Short Name')}}" >
+                                <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Short Name')}}" name="short_name" :value="old('short_name')" required autofocus autocomplete="short_name" />
+                            </label>
+                            <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                         </div>
                 
                         <!-- Sports name -->
@@ -69,7 +78,7 @@
                         </div>
 
                         <div class="mt-4 space-x-2 text-left">
-                            <x-save-button> {{ __('Save') }}</x-save-button>
+                            <x-save-button id="saveTeamButton"> {{ __('Save') }}</x-save-button>
                         </div>
                     </form>
                     </div>
@@ -81,6 +90,34 @@
                         </form>
                     </div>
                 </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $('#saveTeamButton').click(function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: $('#teamForm').attr('action'),
+                                data: $('#teamForm').serialize(),
+                                success: function (response) {
+                                    // Handle successful response, maybe close modal or show success message
+                                },
+                                error: function (xhr, status, error) {
+                                    // Handle error response
+                                    if (xhr.status === 422) {
+                                        var errors = xhr.responseJSON.errors;
+                                        $.each(errors, function (key, value) {
+                                            // Display error messages next to corresponding input fields
+                                            // Example assuming you have input fields with IDs
+                                            $('#' + key).after('<span class="text-red-500">' + value[0] + '</span>');
+                                        });
+                                    } else {
+                                        // Handle other error cases
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
                 </dialog>
             </div>
         </div>
@@ -95,6 +132,7 @@
                 <tr class="text-left py-4">
                     <th class="border-b-2 border-base-300">{{ __('Logo') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Team Name') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Short Name') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Sports') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Coach') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Players') }}</th>
@@ -117,6 +155,9 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $team->short_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->sport->sports_name }}
@@ -145,9 +186,18 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="team_name" :value="old('team_name', $team->team_name)" >
                                                     <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" type="text" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
+                                                    <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Team Short Name -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="short_name" :value="old('short_name', $team->short_name)" >
+                                                    <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" name="short_name" :value="old('short_name', $team->short_name)" required autofocus autocomplete="short_name" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                                             </div>
                                     
                                             <!-- Sports name -->
@@ -233,6 +283,9 @@
                                     {{ $team->team_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
+                                    {{ $team->short_name }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
                                     {{ $team->sport->sports_name }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
@@ -262,9 +315,18 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="team_name" :value="old('team_name', $team->team_name)" >
                                                         <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" type="text" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
+                                                        <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Team Short Name -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="short_name" :value="old('short_name', $team->short_name)" >
+                                                        <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" name="short_name" :value="old('short_name', $team->short_name)" required autofocus autocomplete="short_name" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                                                 </div>
                                         
                                                 <!-- Sports name -->
