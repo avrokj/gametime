@@ -137,4 +137,28 @@ class PlayerController extends Controller
 
         return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
     }
+
+    public function updateStatus($id)
+    {
+        // Update the status of the specific player to 'away_court'
+        $player = Player::findOrFail($id);
+        $player->status = 'away_court';
+        $player->update();
+        dd($player->player_name);
+
+        // Ensure only 5 players have the status 'away_court', others to 'away_bench'
+        $awayCourtPlayers = Player::where('status', 'away_court')->get();
+        
+        if ($awayCourtPlayers->count() > 5) {
+            $extraPlayers = $awayCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer) {
+                $extraPlayer->status = 'away_bench';
+                $extraPlayer->update();
+            }
+        }
+
+        // Redirect back to the active players list with a success message
+        return redirect()->back()->with('status', 'Player status updated.');
+    }
+
 }

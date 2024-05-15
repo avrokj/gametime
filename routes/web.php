@@ -104,11 +104,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
 Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
-Route::get('/segment/guestteam', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
+Route::get('/segment/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 
-
+Route::post('/players/update-status/{team_id}', [PlayerController::class, 'updateStatus'])->name('players.updateStatus');
 require __DIR__ . '/auth.php';

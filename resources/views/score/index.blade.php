@@ -171,7 +171,7 @@
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
                             <h1 class="mb-8 text-6xl font-extrabold">
-                                <a href="{{ Route('segment.guestteam') }}">{{ $away_team->team_name }}</a>
+                                <a href="{{ Route('segment.guestteam', ['team_id' => $away_team->id]) }}">{{ $away_team->team_name }}</a>
                             </h1>
                         </div>
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Player;
 
 use Illuminate\Http\Request;
 
@@ -16,9 +17,12 @@ class SegmentController extends Controller
         return view('segment.hometeam');
     }
 
-    public function guestteam()
+    public function guestteam($team_id)
     {
-        return view('segment.guestteam');
+        //dd($team_id);
+        $players = Player::where('team_id', $team_id)->get();
+        //dd($players);
+        return view('segment.guestteam', compact('players'));
     }
 
     public function team()
