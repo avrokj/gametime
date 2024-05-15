@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Session;
 
 use App\Models\Game;
 use App\Models\Team;
@@ -10,6 +11,18 @@ class ScoreController extends Controller
 {
     public function index()
     {
+        // Retrieve the players collection from the session
+        $players = Session::get('players');
+        // Check if players data exists in session
+        if ($players) {
+        // Filter players with status 'away_court'
+        $awayCourtPlayers = $players->where('status', 'away_court')->take(5); // Limit to 5 players
+        }
+        else
+        {
+        $awayCourtPlayers = collect(); // Empty collection if no players found
+    }
+
         $game = Game::find(1);
         $home_team = Team::find($game->home_team_id);
         $away_team = Team::find($game->away_team_id);
@@ -22,7 +35,8 @@ class ScoreController extends Controller
             'home_score' => $home_score,
             'away_score' => $away_score,
             'id' => $id
-        ]);
+        ], compact('awayCourtPlayers'));
+        
     }
 
     public function updateHomeScore(Request $request)
