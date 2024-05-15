@@ -10,8 +10,8 @@
         </div>
     </x-slot>
 
-    <div>
-        <div class="p-8">
+    <div class="grid grid-cols-3 gap-4">
+        <div class="p-8 col-span-1">
             <h1 class="mb-4">Active Players:</h1>
             @foreach($players as $player)
             @if($player['status'] == 'active')
@@ -24,12 +24,12 @@
             @endif
             @endforeach
         </div>
-        <div class="p-8">
+        <div class="p-8 col-span-1">
             <h1 class="mb-4">In Game Players:</h1>
                 @foreach($players as $player)
                 @if($player['status'] == 'away_court')
                     <p>{{ $player['player_no'] }} {{ $player['player_name'] }}</p>
-                    <form action="{{ route('players.updateStatus', $player->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('players.updateStatusToBench', $player->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('POST')
                         <x-primary-button>Go to bench</x-primary-button>
@@ -37,7 +37,7 @@
                     @endif
                 @endforeach
         </div>
-        <div class="p-8">
+        <div class="p-8 col-span-1">
             <h1 class="mb-4">Bench Players:</h1>
             @foreach($players as $player)
             @if($player['status'] == 'away_bench')

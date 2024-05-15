@@ -168,13 +168,29 @@ class PlayerController extends Controller
         // Redirect back to the active players list with a success message
         return redirect()->back()->with('status', 'Player status updated.');
     }
-    public function clearSession()
-{
-    // Clear players from session
-    Session::forget('players');
+    
+    public function updateStatusToBench($id)
+    {
+        // Update the status of the specific player to 'away_court'
+        //dd($id);
+        $players = Session::get('players');
+        if ($players) {
+            // Find the player by ID
+            $player = $players->firstWhere('id', $id);
+        }
+        $player->status = 'away_bench';
+        Session::put('players', $players);
+        // Redirect back to the active players list with a success message
+        return redirect()->back()->with('status', 'Player status updated.');
+    }
 
-    // Redirect back with a success message
-    return redirect()->back()->with('message', 'Session cleared successfully!');
-}
+    public function clearSession()
+    {
+        // Clear players from session
+        Session::forget('players');
+
+        // Redirect back with a success message
+        return redirect()->back()->with('message', 'Session cleared successfully!');
+    }
 
 }
