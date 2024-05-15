@@ -110,5 +110,6 @@ Route::get('/segment/player', [SegmentController::class, 'player'])->name('segme
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 
-Route::post('/players/update-status/{team_id}', [PlayerController::class, 'updateStatus'])->name('players.updateStatus');
+Route::post('/players/update-status/{id}', [PlayerController::class, 'updateStatus'])->name('players.updateStatus');
+Route::post('/clear-session', [PlayerController::class, 'clearSession'])->name('clear.session');
 require __DIR__ . '/auth.php';

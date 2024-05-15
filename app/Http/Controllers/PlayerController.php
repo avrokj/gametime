@@ -7,6 +7,8 @@ use App\Models\Position;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Ramsey\Uuid\Type\Integer;
 
 class PlayerController extends Controller
 {
@@ -141,24 +143,38 @@ class PlayerController extends Controller
     public function updateStatus($id)
     {
         // Update the status of the specific player to 'away_court'
-        $player = Player::findOrFail($id);
+        //dd($id);
+        $players = Session::get('players');
+        if ($players) {
+            // Find the player by ID
+            $player = $players->firstWhere('id', $id);
+        }
         $player->status = 'away_court';
-        $player->update();
-        dd($player->player_name);
+        Session::put('players', $players);
+        
+        //dd($players);
 
         // Ensure only 5 players have the status 'away_court', others to 'away_bench'
-        $awayCourtPlayers = Player::where('status', 'away_court')->get();
+        $awayCourtPlayers = $players->where('status', 'away_court');
         
         if ($awayCourtPlayers->count() > 5) {
             $extraPlayers = $awayCourtPlayers->slice(5);
             foreach ($extraPlayers as $extraPlayer) {
                 $extraPlayer->status = 'away_bench';
-                $extraPlayer->update();
+                Session::put('players', $players);
             }
         }
 
         // Redirect back to the active players list with a success message
         return redirect()->back()->with('status', 'Player status updated.');
     }
+    public function clearSession()
+{
+    // Clear players from session
+    Session::forget('players');
+
+    // Redirect back with a success message
+    return redirect()->back()->with('message', 'Session cleared successfully!');
+}
 
 }
