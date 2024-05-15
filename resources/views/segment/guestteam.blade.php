@@ -15,10 +15,10 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="p-8 col-span-1">
                     <h1 class="mb-4 font-bold">Active Players:</h1>
-                    @foreach($players as $player)
-                    @if($player['status'] == 'active')
-                        <p>{{ $player['player_no'] }} {{ $player['player_name'] }}</p>
-                        <form action="{{ route('players.updateStatus', $player->id) }}" method="POST" style="display:inline;">
+                    @foreach($guestTeamPlayers as $guestTeamPlayer)
+                    @if($guestTeamPlayer['status'] == 'active')
+                        <p>{{ $guestTeamPlayer['player_no'] }} {{ $guestTeamPlayer['player_name'] }}</p>
+                        <form action="{{ route('players.updateAwayPlayerStatus', $guestTeamPlayer->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('POST')
                             <x-primary-button>Go and play</x-primary-button>
@@ -28,10 +28,10 @@
                 </div>
                 <div class="p-8 col-span-1">
                     <h1 class="mb-4 font-bold">In Game Players:</h1>
-                        @foreach($players as $player)
-                        @if($player['status'] == 'away_court')
-                            <p>{{ $player['player_no'] }} {{ $player['player_name'] }}</p>
-                            <form action="{{ route('players.updateStatusToBench', $player->id) }}" method="POST" style="display:inline;">
+                        @foreach($guestTeamPlayers as $guestTeamPlayer)
+                        @if($guestTeamPlayer['status'] == 'away_court')
+                            <p>{{ $guestTeamPlayer['player_no'] }} {{ $guestTeamPlayer['player_name'] }}</p>
+                            <form action="{{ route('players.updateAwayPlayerStatusToBench', $guestTeamPlayer->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('POST')
                                 <x-primary-button>Go to bench</x-primary-button>
@@ -41,10 +41,10 @@
                 </div>
                 <div class="p-8 col-span-1">
                     <h1 class="mb-4 font-bold">Bench Players:</h1>
-                    @foreach($players as $player)
-                    @if($player['status'] == 'away_bench')
-                        <p>{{ $player['player_no'] }} {{ $player['player_name'] }}</p>
-                        <form action="{{ route('players.updateStatus', $player->id) }}" method="POST" style="display:inline;">
+                    @foreach($guestTeamPlayers as $guestTeamPlayer)
+                    @if($guestTeamPlayer['status'] == 'away_bench')
+                        <p>{{ $guestTeamPlayer['player_no'] }} {{ $guestTeamPlayer['player_name'] }}</p>
+                        <form action="{{ route('players.updateAwayPlayerStatus', $guestTeamPlayer->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('POST')
                             <x-primary-button>Go and play</x-primary-button>

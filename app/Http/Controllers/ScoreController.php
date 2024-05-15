@@ -14,14 +14,17 @@ class ScoreController extends Controller
         // Retrieve the players collection from the session
         $players = Session::get('players');
         // Check if players data exists in session
-        if ($players) {
+        if ($players)
+        {
         // Filter players with status 'away_court'
-        $awayCourtPlayers = $players->where('status', 'away_court')->take(5); // Limit to 5 players
+        $awayTeamPlayers = $players->where('status', 'away_court')->take(5); // Limit to 5 players
+        $homeTeamPlayers = $players->where('status', 'home_court')->take(5); // Limit to 5 players
         }
         else
         {
-        $awayCourtPlayers = collect(); // Empty collection if no players found
-    }
+        $homeTeamPlayers = collect(); // Empty collection if no players found
+        $awayTeamPlayers = collect(); // Empty collection if no players found
+        }
 
         $game = Game::find(1);
         $home_team = Team::find($game->home_team_id);
@@ -35,7 +38,7 @@ class ScoreController extends Controller
             'home_score' => $home_score,
             'away_score' => $away_score,
             'id' => $id
-        ], compact('awayCourtPlayers'));
+        ], compact('awayTeamPlayers','homeTeamPlayers'));
         
     }
 

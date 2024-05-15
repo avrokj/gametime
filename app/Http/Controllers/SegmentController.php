@@ -13,31 +13,53 @@ class SegmentController extends Controller
         return view('segment.index');
     }
 
-    public function hometeam()
+    public function hometeam($team_id)
     {
-        return view('segment.hometeam');
-    }
-
-    public function guestteam($team_id)
-    {
+        //Session::forget('homeTeamPlayers');
         // Check if players data exists in session
-        $players = Session::get('players');
-        if ($players) {
+        $homeTeamPlayers = Session::get('homeTeamPlayers');
+        
+        if ($homeTeamPlayers) {
         // Do something with the players data
         // For example, return another view with players data
-        return view('segment.guestteam', compact('players'));
+        return view('segment.hometeam', compact('homeTeamPlayers'));
         }
         else
         {
         // Retrieve players based on team_id
-        $players = Player::where('team_id', $team_id)->get();
+        $homeTeamPlayers = Player::where('team_id', $team_id)->get();
 
         // Store players in the session
-        Session::put('players', $players);
+        Session::put('homeTeamPlayers', $homeTeamPlayers);
         }
         // Return the view with players data
-        //dd($players);
-        return view('segment.guestteam', compact('players'));
+        //dd($homeTeamPlayers);
+        return view('segment.hometeam', compact('homeTeamPlayers'));
+        
+    }
+
+    public function guestteam($team_id)
+    {
+        //Session::flush();
+        // Check if players data exists in session
+        $guestTeamPlayers = Session::get('guestTeamPlayers');
+        if ($guestTeamPlayers) {
+        // Do something with the players data
+        // For example, return another view with players data
+        return view('segment.guestteam', compact('guestTeamPlayers'));
+        }
+        else
+        {
+        // Retrieve players based on team_id
+        $guestTeamPlayers = Player::where('team_id', $team_id)->get();
+
+        // Store players in the session
+        Session::put('guestTeamPlayers', $guestTeamPlayers);
+        }
+        // Return the view with players data
+        //dd($guestTeamPlayers);
+        return view('segment.guestteam', compact('guestTeamPlayers'));
+        
     }
 
     public function team()

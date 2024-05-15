@@ -21,7 +21,7 @@
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
                             <h1 class="mb-8 text-6xl font-extrabold">
-                                <a href="{{ Route('segment.hometeam') }}">{{ $home_team->team_name }}</a>
+                                <a href="{{ Route('segment.hometeam', ['team_id' => $home_team->id]) }}">{{ $home_team->team_name }}</a>
                             </h1>
                         </div>
 
@@ -96,71 +96,21 @@
                                 </div>
                         </div>
 
-                        <div  x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastHomePointsBy(11)" >
-                                    <p style="
-                                            color: #bf0915;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        11
-                                    </p>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #c1b6a6); background-color: #c1b6a6;" onclick="lastHomePointsBy(12)" >
-                                    <p style="
-                                            color: #555555;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        12
-                                    </p>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #b4bfb7;" onclick="lastHomePointsBy(13)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        13
-                                    </p>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastHomePointsBy(14)" >
-                                    <p style="
-                                            color: #08680b;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        14
-                                    </p>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-center">
-                            <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #b4bfb7); background-color: #a2b3a6;" onclick="lastHomePointsBy(15)" >
-                                    <p style="
-                                            color: #08660d;
-                                            font-weight: bold;
-                                            font-size: xx-large;
-                                            text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
-                                        ">
-                                        15
-                                    </p>
-                                </button>
-                            </div>
+                        <div x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            @foreach($homeTeamPlayers as $player)
+                                <div class="flex items-center justify-center">
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastHomePointsBy({{ $player->player_no }})" >
+                                        <p style="
+                                                color: #bf0915;
+                                                font-weight: bold;
+                                                font-size: xx-large;
+                                                text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
+                                            ">
+                                            {{ $player->player_no }}
+                                        </p>
+                                    </button>
+                                </div>
+                                @endforeach
                         </div>
 
 
@@ -226,10 +176,10 @@
                                 </div>
                             </div>
 
-                            <div  x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                                @foreach($awayCourtPlayers as $player)
+                            <div x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                                @foreach($awayTeamPlayers as $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastAwayPointsBy(1)" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastAwayPointsBy({{ $player->player_no }})" >
                                         <p style="
                                                 color: #bf0915;
                                                 font-weight: bold;
@@ -242,7 +192,6 @@
                                 </div>
                                 @endforeach
                             </div>
-                        
                         </div>
                     </div>
                 </div>

@@ -103,14 +103,16 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
-Route::get('/segment/hometeam', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
+Route::get('/segment/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
 Route::get('/segment/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
 Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
 Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 
-Route::post('/players/update-status/{id}', [PlayerController::class, 'updateStatus'])->name('players.updateStatus');
-Route::post('/players/update-status*-to-bench/{id}', [PlayerController::class, 'updateStatusToBench'])->name('players.updateStatusToBench');
+Route::post('/players/updateAwayPlayerStatus/{id}', [PlayerController::class, 'updateAwayPlayerStatus'])->name('players.updateAwayPlayerStatus');
+Route::post('/players/updateAwayPlayerStatusToBench/{id}', [PlayerController::class, 'updateAwayPlayerStatusToBench'])->name('players.updateAwayPlayerStatusToBench');
+Route::post('/players/updateHomePlayerStatus/{id}', [PlayerController::class, 'updateHomePlayerStatus'])->name('players.updateHomePlayerStatus');
+Route::post('/players/updateHomePlayerStatusToBench/{id}', [PlayerController::class, 'updateHomePlayerStatusToBench'])->name('players.updateHomePlayerStatusToBench');
 Route::post('/clear-session', [PlayerController::class, 'clearSession'])->name('clear.session');
 require __DIR__ . '/auth.php';

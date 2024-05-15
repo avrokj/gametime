@@ -140,28 +140,56 @@ class PlayerController extends Controller
         return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
     }
 
-    public function updateStatus($id)
+    public function updateHomePlayerStatus($id)
+    {
+        // Update the status of the specific player to 'home_court'
+        $homeTeamPlayers = Session::get('homeTeamPlayers');
+        if ($homeTeamPlayers) {
+            // Find the player by ID
+            $homeTeamPlayers = $homeTeamPlayers->firstWhere('id', $id);
+        }
+        $homeTeamPlayers->status = 'away_court';
+        Session::put('homeTeamPlayers', $homeTeamPlayers);
+        
+        //dd($players);
+
+        // Ensure only 5 players have the status 'away_court', others to 'home_bench'
+        $homeCourtPlayers = $homeTeamPlayers->where('status', 'home_court');
+        
+        if ($homeCourtPlayers->count() > 5) {
+            $extraPlayers = $homeCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer) {
+                $extraPlayer->status = 'home_bench';
+                Session::put('homeTeamPlayers', $homeTeamPlayers);
+            }
+        }
+
+        // Redirect back to the active players list with a success message
+        return redirect()->back()->with('status', 'Player status updated.');
+    }
+
+    public function updateAwayPlayerStatus($id)
     {
         // Update the status of the specific player to 'away_court'
         //dd($id);
-        $players = Session::get('players');
-        if ($players) {
+        $guestTeamPlayers = Session::get('guestTeamPlayers');
+        if ($guestTeamPlayers) {
             // Find the player by ID
-            $player = $players->firstWhere('id', $id);
+            $guestTeamPlayers = $guestTeamPlayers->firstWhere('id', $id);
         }
-        $player->status = 'away_court';
-        Session::put('players', $players);
+        $guestTeamPlayers->status = 'away_court';
+        Session::put('guestTeamPlayers', $guestTeamPlayers);
         
         //dd($players);
 
         // Ensure only 5 players have the status 'away_court', others to 'away_bench'
-        $awayCourtPlayers = $players->where('status', 'away_court');
+        $awayCourtPlayers = $guestTeamPlayers->where('status', 'away_court');
         
         if ($awayCourtPlayers->count() > 5) {
             $extraPlayers = $awayCourtPlayers->slice(5);
             foreach ($extraPlayers as $extraPlayer) {
                 $extraPlayer->status = 'away_bench';
-                Session::put('players', $players);
+                Session::put('guestTeamPlayers', $guestTeamPlayers);
             }
         }
 
