@@ -35,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="coach_name" :value="{{__('Coach Name')}}" >
                                 <x-iconpark-whistling-o class="w-4 h-4 opacity-70" />
-                                <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Coach Name')}}" type="text" name="coach_name" :value="old('coach_name')" required autofocus autocomplete="coach_name" />
+                                <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Coach Name')}}" name="coach_name" :value="old('coach_name')" required autofocus autocomplete="coach_name" />
                             </label>
                             <x-input-error :messages="$errors->get('coach_name')" class="mt-2" />
                         </div>
@@ -121,7 +121,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="coach_name" :value="old('coach_name', $coach->coach_name)" >
                                                     <x-iconpark-whistling-o class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" type="text" name="coach_name" :value="old('coach_name', $coach->coach_name)" required autofocus autocomplete="coach_name" />
+                                                    <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" name="coach_name" :value="old('coach_name', $coach->coach_name)" required autofocus autocomplete="coach_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('coach_name')" class="mt-2" />
                                             </div>
@@ -216,7 +216,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="coach_name" :value="old('coach_name', $coach->coach_name)" >
                                                         <x-iconpark-whistling-o class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" type="text" name="coach_name" :value="old('coach_name', $coach->coach_name)" required autofocus autocomplete="coach_name" />
+                                                        <x-text-input id="coach_name" type="text" class="grow border-none focus:outline-none" name="coach_name" :value="old('coach_name', $coach->coach_name)" required autofocus autocomplete="coach_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('coach_name')" class="mt-2" />
                                                 </div>

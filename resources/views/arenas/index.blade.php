@@ -35,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="{{__('Arena Name')}}" >
                                 <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Arena Name')}}" type="text" name="arena_name" :value="old('arena_name')" required autofocus autocomplete="arena_name" />
+                                <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Arena Name')}}" name="arena_name" :value="old('arena_name')" required autofocus autocomplete="arena_name" />
                             </label>
                             <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                         </div>
@@ -53,7 +53,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="address" :value="{{__('Address')}}" >
                                 <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                <x-text-input id="address" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Address')}}" type="text" name="address" :value="old('aaddress')" required autofocus autocomplete="address" />
+                                <x-text-input id="address" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Address')}}" name="address" :value="old('aaddress')" required autofocus autocomplete="address" />
                             </label>
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
@@ -120,7 +120,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
                                                     <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                    <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                                             </div>                                                 
@@ -141,7 +141,7 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
                                                     <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                    <x-text-input id="address" type="text" class="grow border-none focus:outline-none" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                             </div>
@@ -209,7 +209,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
                                                         <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                        <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                                                 </div>                                                 
@@ -230,7 +230,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
                                                         <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                        <x-text-input id="address" type="text" class="grow border-none focus:outline-none" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                                 </div>

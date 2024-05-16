@@ -35,7 +35,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="event_name" :value="{{ __('Event Name') }}" >
                                 <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                <x-text-input id="event_name" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name')" autocomplete="event_name" />
+                                <x-text-input id="event_name" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" name="event_name" :value="old('event_name')" autocomplete="event_name" />
                             </label>
                             <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
                         </div>
@@ -44,7 +44,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="location" :value="{{ __('Location') }}" >
                                 <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
-                                <x-text-input id="location" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location')" autocomplete="location" />
+                                <x-text-input id="location" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" name="location" :value="old('location')" autocomplete="location" />
                             </label>
                             <x-input-error :messages="$errors->get('location')" class="mt-2" />
                         </div>
@@ -53,7 +53,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="datetime" :value="{{ __('Datetime') }}" >
                                 <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime')" autocomplete="datetime" />
+                                <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime')" autocomplete="datetime" />
                             </label>
                             <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                         </div>
@@ -151,7 +151,7 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="event_name" :value="old('event_name', $event->event_name)" >
                                                     <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
+                                                    <x-text-input id="event_name" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
                                             </div>
@@ -160,7 +160,7 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="location" :value="old('event_name', $event->location)" >
                                                     <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location', $event->location)" autocomplete="location" />
+                                                    <x-text-input id="location" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" name="location" :value="old('location', $event->location)" autocomplete="location" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('location')" class="mt-2" />
                                             </div>
@@ -169,7 +169,7 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
                                                     <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                    <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                             </div>
@@ -274,7 +274,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="event_name" :value="old('event_name', $event->event_name)" >
                                                         <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" type="text" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
+                                                        <x-text-input id="event_name" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Event Name') }}" name="event_name" :value="old('event_name', $event->event_name)" autocomplete="event_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('event_name')" class="mt-2" />
                                                 </div>
@@ -283,7 +283,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="location" :value="old('event_name', $event->location)" >
                                                         <x-heroicon-c-map-pin class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" type="text" name="location" :value="old('location', $event->location)" autocomplete="location" />
+                                                        <x-text-input id="location" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Location') }}" name="location" :value="old('location', $event->location)" autocomplete="location" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('location')" class="mt-2" />
                                                 </div>
@@ -292,7 +292,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
                                                         <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="sb_id" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" type="text" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                        <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                                 </div>
