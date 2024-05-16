@@ -12,7 +12,11 @@ class ScoreController extends Controller
 {
     public function index()
     {
-        
+        $scoreAdditionStep = [-1, 0, 1, 2, 3];
+        $red = rand(128, 255);
+        $green = rand(0, 63);
+        $blue = rand(0, 63);
+
         $game = Game::find(1);
         $home_team = Team::find($game->home_team_id);
         $away_team = Team::find($game->away_team_id);
@@ -33,13 +37,17 @@ class ScoreController extends Controller
         $homeTeamPlayers = collect(); // Empty collection if no players found
         $awayTeamPlayers = collect(); // Empty collection if no players found
         }
-
+        //dd($scoreAdditionStep);
         return view('score.index', [
             'home_team' => $home_team,
             'away_team' => $away_team,
             'home_score' => $home_score,
             'away_score' => $away_score,
-            'id' => $id
+            'id' => $id,
+            'scoreAdditionStep' => $scoreAdditionStep,
+            'red' => $red,
+            'green' => $green,
+            'blue' => $blue
         ], compact('awayTeamPlayers','homeTeamPlayers'));
         
     }
