@@ -67,30 +67,25 @@ class TeamController extends Controller
             'short_name' => 'nullable|uppercase|string|max:3'
         ]);
 
-        try {
-            // Is an image provided
-            if ($request->hasFile('image')) {
-                $fileNameWithoutSpaces = str_replace(' ', '_', $request->team_name);
-                $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-                $imageName = $fileNameLowercase . '.' . $request->logo->extension();
-
-                $request->image->move(public_path('images/players'), $imageName);
-            } else {
-                $imageName = 'default.png';
-            }
-
-            Team::create([
-                'team_name' => $request->input('team_name'),
-                'logo' => $imageName,
-                'sport_id' => $request->input('sport_id'),
-                'coach_id' => $request->input('coach_id'),
-                'short_name' => $request->input('short_name'),
-            ]);
-
-            return back()->with('success', 'Team added successfully.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'An error occurred. Please try again.']);
+        // Is an image provided
+        if ($request->hasFile('logo')) {
+            $fileNameWithoutSpaces = str_replace([' ', '/'], ['_', '-'], $request->team_name);
+            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+            $imageName = $fileNameLowercase . '.' . $request->logo->extension();
+            $request->logo->move(public_path('images/logos'), $imageName);
+        } else {
+            $imageName = 'default.png';
         }
+
+        $team = new Team();
+        $team->team_name = $request->team_name;
+        $team->logo = $imageName;
+        $team->sport_id = $request->sport_id;
+        $team->coach_id = $request->coach_id;
+        $team->short_name = $request->short_name;
+        $team->save();
+
+        return back()->with('success', 'Team added successfully.');
     }
 
     /**
@@ -122,24 +117,29 @@ class TeamController extends Controller
             'short_name' => 'nullable|uppercase|string|max:3'
         ]);
 
-        $team = Team::findOrFail($id);
+        try {
 
-        if ($request->hasFile('new_logo')) {
-            $originalFileName = $request->team_name;
-            $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
-            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
-            $imageName = $fileNameLowercase . '.' . $request->new_logo->extension();
-            $request->new_logo->move(public_path('images/logos'), $imageName);
-            $team->logo = $imageName;
+            $team = Team::findOrFail($id);
+
+            if ($request->hasFile('new_logo')) {
+                $fileNameWithoutSpaces = str_replace([' ', '/'], ['_', '-'], $request->team_name);
+                $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+                $imageName = $fileNameLowercase . '.' . $request->new_logo->extension();
+                $request->new_logo->move(public_path('images/logos'), $imageName);
+                $team->logo = $imageName;
+            }
+
+            $team->update([
+                'team_name' => $request->input('team_name'),
+                'sport_id' => $request->input('sport_id'),
+                'coach_id' => $request->input('coach_id'),
+                'short_name' => $request->input('short_name'),
+            ]);
+
+            return redirect()->route('team.index')->with('success', 'Team updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred. Please try again.']);
         }
-
-        $team->team_name = $request->team_name;
-        $team->sport_id = $request->sport_id;
-        $team->coach_id = $request->coach_id;
-        $team->short_name = $request->short_name;
-        $team->save();
-
-        return redirect()->route('teams.index')->with('success', 'Team updated successfully.');
     }
 
     /**

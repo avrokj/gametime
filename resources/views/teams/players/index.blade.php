@@ -53,7 +53,7 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="player_name" :value="{{__('Date of birth yyyy-mm-dd')}}" >
                                 <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                <x-text-input id="dob" type="datetime-local" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
+                                <x-text-input id="dob" type="date" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth yyyy-mm-dd')}}" name="dob" :value="old('dob')" required autofocus autocomplete="dob" />
                             </label>
                             <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                         </div>
@@ -177,9 +177,10 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                 <div class="flex justify-end">                            
-                                    <x-edit-button onclick="document.getElementById('edit_player{{ $player->id }}').showModal()">                      
+                                    <!-- Open the modal using ID.showModal() method -->
+                                    <x-edit-button onclick="document.getElementById('my_modal_edit{{ $player->id }}').showModal()">                      
                                     </x-edit-button>
-                                    <dialog id="edit_player{{ $player->id }}" class="modal modal-bottom sm:modal-middle">
+                                    <dialog id="my_modal_edit{{ $player->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                         <form method="dialog">
                                             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -189,13 +190,31 @@
                                         <form method="POST" action="{{ route('players.update', $player) }}" enctype="multipart/form-data">
                                             @csrf
                                             @method('patch')
-                                            <!-- Player Name -->
+                                            <!-- Player name -->
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_name', $player->player_name)" >
                                                     <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
                                                     <x-text-input id="player_name" type="text" class="grow border-none focus:outline-none" name="player_name" :value="old('player_name', $player->player_name)" required autofocus autocomplete="player_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('player_name')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Player No -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="player_name" :value="old('player_no', $player->player_no)" >
+                                                    <x-tabler-shirt-sport class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="player_no" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Player Number')}}" name="player_no" :value="old('player_no', $player->player_no)" required autofocus autocomplete="player_no" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('player_no')" class="mt-2" />
+                                            </div>
+                    
+                                            <!-- Birthday -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="dob" :value="old('player_no', $player->dob)" >
+                                                    <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="dob" type="date" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" name="dob" :value="optional($player->dob)->format('d.m.Y')" required autofocus autocomplete="dob" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                                             </div>
                                     
                                             <!-- Teams name -->
@@ -204,12 +223,12 @@
                                                     <option disabled selected value="">{{ __('Select Teams') }}</option>
                                                     @foreach ($teams as $team)
                                                         <option value="{{ $team->id }}" {{ (old('team_id', $player->team_id) == $team->id) ? 'selected' : '' }}>
-                                                            {{ $team->teams_name }}
+                                                            {{ $team->team_name }}
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
                                             </div>
-                                        
+                                    
                                             <!-- Position name -->
                                             <div class="mt-4">
                                                 <x-select name="position_id" class="!max-w-full">
@@ -220,8 +239,21 @@
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
+                                            </div>                                               
+        
+                                            <!-- Country name -->
+                                            <div class="mt-4">
+                                                <x-select name="country_id" class="!max-w-full">
+                                                    <option disabled value="">{{ __('Select Country') }}</option>
+                                                    @foreach ($countries as $country)
+                                                        <option value="{{ $country->id }}" {{ (old('country_id', $player->country_id) == $country->id) ? 'selected' : '' }}
+                                                            data-thumbnail="{{ asset('vendor/blade-flags/country-'.strtolower($country->code).'.svg') }}" class="w-6 h-6"> {{ $country->country_name }}
+                                                        </option>
+                                                    @endforeach                               
+                                                </x-select>
+                                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             </div>
-                                            
+
                                             <!-- Status -->
                                             <div class="mt-4">
                                                 <x-select name="status" class="!max-w-full">
@@ -235,14 +267,13 @@
                                             <!-- Image -->
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Player Image')}}" >
-                                                    <div class="rounded-full">
-                                                        <img src="{{ asset('images/players/' . $player->logo) }}" alt="Current player image" class="w-10 rounded-full">
+                                                    <div class="rounded-full hover:scale-150">
+                                                        <img src="{{ asset('images/players/' . $player->image) }}" alt="Current player image" class="w-10 rounded-full">
                                                     </div>
                                                     <input type="file" name="new_image" id="new_image">
                                                 </label>
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             </div>
-
                                             <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
                                             </div>
@@ -257,13 +288,13 @@
                                         </div>
                                     </div>
                                     </dialog>
-                                    
-                                <form method="POST" action="{{ route('players.destroy', $player) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
-                                    </x-delete-button>
-                                </form>
+                                        
+                                    <form method="POST" action="{{ route('players.destroy', $player) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-delete-button onclick="return confirm('Are you sure?'); event.preventDefault(); this.closest('form').submit();">
+                                        </x-delete-button>
+                                    </form>
                                 </div>
                                 </td>
                             </tr>
@@ -359,7 +390,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="dob" :value="old('player_no', $player->dob)" >
                                                         <x-tabler-calendar-month class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="dob" type="datetime-local" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" name="dob" :value="old('dob', $player->dob)" required autofocus autocomplete="dob" />
+                                                        <x-text-input id="dob" type="date" class="grow border-none focus:outline-none" placeholder="{{__('Date of birth')}}" name="dob" :value="old('dob', $player->dob)" required autofocus autocomplete="dob" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('dob')" class="mt-2" />
                                                 </div>

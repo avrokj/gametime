@@ -35,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="position_name" :value="{{__('Position Name')}}" >
                                 <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Position Name')}}" type="text" name="position_name" :value="old('position_name')" required autofocus autocomplete="position_name" />
+                                <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Position Name')}}" name="position_name" :value="old('position_name')" required autofocus autocomplete="position_name" />
                             </label>
                             <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                         </div>
@@ -108,7 +108,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="position_name" :value="old('position_name', $position->position_name)" >
                                                     <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" type="text" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
+                                                    <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                                             </div>                                                 
@@ -186,7 +186,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="position_name" :value="old('position_name', $position->position_name)" >
                                                         <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" type="text" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
+                                                        <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                                                 </div>                                                 
