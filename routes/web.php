@@ -112,7 +112,9 @@ Route::post('/apis', [ApiController::class, 'updateApi']);
 
 Route::post('/players/updateAwayPlayerStatus/{id}', [PlayerController::class, 'updateAwayPlayerStatus'])->name('players.updateAwayPlayerStatus');
 Route::post('/players/updateAwayPlayerStatusToBench/{id}', [PlayerController::class, 'updateAwayPlayerStatusToBench'])->name('players.updateAwayPlayerStatusToBench');
-Route::post('/players/updateHomePlayerStatus/{id}', [PlayerController::class, 'updateHomePlayerStatus'])->name('players.updateHomePlayerStatus');
+//Route::post('/players/updateHomePlayerStatus/{id}', [PlayerController::class, 'updateHomePlayerStatus'])->name('players.updateHomePlayerStatus');
+Route::post('/players/{id}/update-status', [PlayerController::class, 'updateHomePlayerStatus'])->name('players.updateHomePlayerStatus');
 Route::post('/players/updateHomePlayerStatusToBench/{id}', [PlayerController::class, 'updateHomePlayerStatusToBench'])->name('players.updateHomePlayerStatusToBench');
-Route::post('/clear-session', [PlayerController::class, 'clearSession'])->name('clear.session');
+Route::post('/clear/clearAwaySession', [PlayerController::class, 'clearAwayLineup'])->name('clear.clearAwayLineup');
+Route::post('/clear/clearHomeSession', [PlayerController::class, 'clearHomwLineup'])->name('clear.clearHomeLineup');
 require __DIR__ . '/auth.php';

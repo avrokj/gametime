@@ -29,7 +29,7 @@
                 <div class="p-8 col-span-1">
                     <h1 class="mb-4 font-bold">In Game Players:</h1>
                         @foreach($guestTeamPlayers as $guestTeamPlayer)
-                        @if($guestTeamPlayer['status'] == 'away_court')
+                        @if($guestTeamPlayer['status'] == 'guest_court')
                             <p>{{ $guestTeamPlayer['player_no'] }} {{ $guestTeamPlayer['player_name'] }}</p>
                             <form action="{{ route('players.updateAwayPlayerStatusToBench', $guestTeamPlayer->id) }}" method="POST" style="display:inline;">
                                 @csrf
@@ -42,7 +42,7 @@
                 <div class="p-8 col-span-1">
                     <h1 class="mb-4 font-bold">Bench Players:</h1>
                     @foreach($guestTeamPlayers as $guestTeamPlayer)
-                    @if($guestTeamPlayer['status'] == 'away_bench')
+                    @if($guestTeamPlayer['status'] == 'guest_bench')
                         <p>{{ $guestTeamPlayer['player_no'] }} {{ $guestTeamPlayer['player_name'] }}</p>
                         <form action="{{ route('players.updateAwayPlayerStatus', $guestTeamPlayer->id) }}" method="POST" style="display:inline;">
                             @csrf
@@ -53,7 +53,7 @@
                     @endforeach
                 </div>
             </div>
-            <form action="{{ route('clear.session') }}" method="POST">
+            <form action="{{ route('clear.clearAwayLineup') }}" method="POST">
                 @csrf
                 <x-danger-button>Clear in game players</x-danger-button>
             </form>
