@@ -53,7 +53,7 @@
                     @endforeach
                 </div>
             </div>
-            <form action="{{ route('clear.clearHomeSession') }}" method="POST">
+            <form action="{{ route('clear.clearHomeLineup') }}" method="POST">
                 @csrf
                 <x-danger-button>Clear in game players</x-danger-button>
             </form>

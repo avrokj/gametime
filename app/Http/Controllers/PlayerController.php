@@ -141,152 +141,95 @@ class PlayerController extends Controller
         return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
     }
 
-    public function updateHomePlayerStatus(Request $request, $id)
+    public function updateHomePlayerStatus($id)
     {
-        //dd('homeTeamPlayers');
-        // Update the status of the specific player to 'home_court'
-        $homeTeamPlayers = Session::get('homeTeamPlayers');
-        dd($homeTeamPlayers);
-        if ($homeTeamPlayers) {
-            // Find the player by ID
-            $homeTeamPlayer = $homeTeamPlayers->firstWhere('id', $id);
-        }
-        $homeTeamPlayer['status'] = 'home_court';
-        Session::put('homeTeamPlayers', $homeTeamPlayer);
-        
-        //dd($players);
 
-        // Ensure only 5 players have the status 'away_court', others to 'home_bench'
-        $homeCourtPlayers = $homeTeamPlayers->where('status', 'home_court');
-        
-        if ($homeCourtPlayers->count() > 5) {
-            $extraPlayers = $homeCourtPlayers->slice(5);
-            foreach ($extraPlayers as $extraPlayer) {
+        $player = Lineup::findOrFail($id);
+        $team_id = $player->player_team_id;
+        $player->status = 'home_court';
+        $player->updated_at = now();
+        $player->save();
+
+        $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $awayCourtPlayers = $teamPlayers->where('status', 'home_court');
+
+        if ($awayCourtPlayers->count() >= 5)
+        {
+            $extraPlayers = $awayCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer)
+            {
                 $extraPlayer->status = 'home_bench';
-                Session::put('homeTeamPlayers', $extraPlayers);
+                $extraPlayer->save();
             }
         }
 
-        // Redirect back to the active players list with a success message
-        return redirect()->back()->with('status', 'Player status updated.');
-    }
-/*
-    public function updateHomePlayerStatus($id)
-    {
-        // Find the player by ID
-        $player = Player::findOrFail($id);
-        //dd($player);
-        // Update the player's status
-        $player->status = 'home_court'; // Set the desired status
-        $player->updated_at = now(); // Update the timestamp
-        $player->save();
-
-        // Redirect back with a success message
         return redirect()->back()->with('message', 'Player status updated successfully!');
     }
-*/
+
 public function updateAwayPlayerStatus($id)
     {
-        // Find the player by ID
         $player = Lineup::findOrFail($id);
         $team_id = $player->player_team_id;
-        //dd($player->player_team_id);
-        // Update the player's status
         $player->status = 'guest_court'; // Set the desired status
-        $player->updated_at = now(); // Update the timestamp
+        $player->updated_at = now();
         $player->save();
-        // Ensure only 5 players have the status 'away_court', others to 'home_bench'
+
         $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
         $awayCourtPlayers = $teamPlayers->where('status', 'guest_court');
-        if ($awayCourtPlayers->count() >= 5) {
+
+        if ($awayCourtPlayers->count() >= 5)
+        {
             $extraPlayers = $awayCourtPlayers->slice(5);
-            foreach ($extraPlayers as $extraPlayer) {
+            foreach ($extraPlayers as $extraPlayer)
+            {
                 $extraPlayer->status = 'guest_bench';
                 $extraPlayer->save();
             }
         }
 
-        // Redirect back with a success message
         return redirect()->back()->with('message', 'Player status updated successfully!');
     }
-/*
-    public function updateAwayPlayerStatus($id)
-    {
-        // Update the status of the specific player to 'away_court'
-        //dd($id);
-        $guestTeamPlayers = Session::get('guestTeamPlayers');
-        if ($guestTeamPlayers) {
-            // Find the player by ID
-            $guestTeamPlayers = $guestTeamPlayers->firstWhere('id', $id);
-        }
-        $guestTeamPlayers->status = 'away_court';
-        Session::put('guestTeamPlayers', $guestTeamPlayers);
-        
-        //dd($players);
 
-        // Ensure only 5 players have the status 'away_court', others to 'away_bench'
-        $awayCourtPlayers = $guestTeamPlayers->where('status', 'away_court');
-        
-        if ($awayCourtPlayers->count() > 5) {
-            $extraPlayers = $awayCourtPlayers->slice(5);
-            foreach ($extraPlayers as $extraPlayer) {
-                $extraPlayer->status = 'away_bench';
-                Session::put('guestTeamPlayers', $guestTeamPlayers);
-            }
-        }
-
-        // Redirect back to the active players list with a success message
-        return redirect()->back()->with('status', 'Player status updated.');
-    }
-    */
     public function updateHomePlayerStatusToBench($id)
     {
-        // Update the status of the specific player to 'away_court'
-        //dd($id);
-        $homeTeamPlayers = Session::get('homeTeamPlayers');
-        if ($homeTeamPlayers) {
-            // Find the player by ID
-            $homeTeamPlayers = $homeTeamPlayers->firstWhere('id', $id);
-        }
-        $homeTeamPlayers->status = 'home_bench';
-        Session::put('homeTeamPlayers', $homeTeamPlayers);
-        // Redirect back to the active players list with a success message
+        $player = Lineup::findOrFail($id);
+        $player->status = 'home_bench';
+        $player->save();
+        
         return redirect()->back()->with('status', 'Player status updated.');
     }
 
     public function updateAwayPlayerStatusToBench($id)
     {
-        // Update the status of the specific player to 'away_court'
-        //dd($id);
         $player = Lineup::findOrFail($id);
-        
         $player->status = 'guest_bench';
         $player->save();
-        // Redirect back to the active players list with a success message
+
         return redirect()->back()->with('status', 'Player status updated.');
     }
 
     public function clearHomeSession()
     {
-        // Clear players from session
-        Session::forget('homeTeamPlayers');
+        $players = Lineup::whereIn('status', ['home_court', 'home_bench'])->get();
 
-        // Redirect back with a success message
+        foreach ($players as $player) {
+            $player->status = 'active';
+            $player->updated_at = now();
+            $player->save();
+        }
+
         return redirect()->back()->with('message', 'All players are active!');
     }
     public function clearAwayLineup()
     {
-        // Find all players where status is 'guest_court' or 'guest_bench'
         $players = Lineup::whereIn('status', ['guest_court', 'guest_bench'])->get();
 
-        // Update the status of each player to 'active'
         foreach ($players as $player) {
             $player->status = 'active';
-            $player->updated_at = now(); // Update the timestamp
+            $player->updated_at = now();
             $player->save();
         }
 
-        // Redirect back with a success message
         return redirect()->back()->with('message', 'All players are active!');
     }
 
