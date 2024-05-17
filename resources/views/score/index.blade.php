@@ -46,11 +46,12 @@
 
                         </div>
                         <div x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            @php $i = 0; @endphp
                             @foreach($homeTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="lastHomePointsBy({{ $player->player_no }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastHomePointsBy({{ $player->player_no }})" >
                                         <p style="
-                                                color: {{ $buttons['color'][$index] }};
+                                                color: {{ $buttons['color'][$i] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
@@ -59,6 +60,7 @@
                                         </p>
                                     </button>
                                 </div>
+                                @php $i++; @endphp
                             @endforeach
                         </div>
                     </div>
@@ -88,11 +90,12 @@
                                 @endforeach
                             </div>
                             <div x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                                @php $i = 0; @endphp
                                 @foreach($awayTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="lastAwayPointsBy({{ $player->player_no }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastAwayPointsBy({{ $player->player_no }})" >
                                         <p style="
-                                                color: {{ $buttons['color'][$index] }};
+                                                color: {{ $buttons['color'][$i] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
@@ -101,6 +104,7 @@
                                         </p>
                                     </button>
                                 </div>
+                                @php $i++; @endphp
                                 @endforeach
                             </div>
                         </div>
