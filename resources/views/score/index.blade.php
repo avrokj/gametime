@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+
     <x-slot name="header">
         <div class="flex justify-between">
             <div>
@@ -28,11 +28,12 @@
                         <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div  x-show="!open" @click="open = ! open" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            @foreach($scoreAdditionStep as $step)
+                            
+                                @foreach($buttons['step'] as $index => $step)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="handleHomeScore({{ $step }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleHomeScore({{ 'step' }})" >
                                         <p style="
-                                                color: rgb({{$red}},{{$green}},{{$blue}});
+                                                color: {{$buttons['color'][$index]}};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
@@ -42,13 +43,14 @@
                                     </button>
                                 </div>
                             @endforeach
+
                         </div>
                         <div x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                            @foreach($homeTeamPlayers as $player)
+                            @foreach($homeTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastHomePointsBy({{ $player->player_no }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="lastHomePointsBy({{ $player->player_no }})" >
                                         <p style="
-                                                color: rgb({{$red}},{{$green}},{{$blue}});: #bf0915;
+                                                color: {{ $buttons['color'][$index] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
@@ -70,11 +72,11 @@
                         <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                                @foreach($scoreAdditionStep as $step)
+                                @foreach($buttons['step'] as $index => $step)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="handleHomeScore({{ $step }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleHomeScore({{ 'color' }})" >
                                         <p style="
-                                                color: rgb({{$red}},{{$green}},{{$blue}});
+                                                color: {{ $buttons['color'][$index] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
@@ -86,11 +88,11 @@
                                 @endforeach
                             </div>
                             <div x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
-                                @foreach($awayTeamPlayers as $player)
+                                @foreach($awayTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px #bf0915); background-color: #c1a3a6;" onclick="lastAwayPointsBy({{ $player->player_no }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="lastAwayPointsBy({{ $player->player_no }})" >
                                         <p style="
-                                                color: rgb({{$red}},{{$green}},{{$blue}});
+                                                color: {{ $buttons['color'][$index] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
