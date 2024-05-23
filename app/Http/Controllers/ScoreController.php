@@ -7,6 +7,7 @@ use App\Models\Game;
 use App\Models\Lineup;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class ScoreController extends Controller
 {
@@ -84,4 +85,21 @@ class ScoreController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Game not found']);
     }
+
+    public function lastHomeScoreUpdate(Request $request)
+    {
+        $player_id = (int)$request->player_id;
+        $points = (int)$request->points;       
+
+        return redirect()->route('score.index')->with('success', 'Gamelog updated');
+    }
+
+    public function lastAwayScoreUpdate(Request $request)
+    {
+        $player_id = (int)$request->player_id;
+        $points = (int)$request->points;       
+
+        return redirect()->route('score.index')->with('success', 'Gamelog updated');
+    }
+
 }

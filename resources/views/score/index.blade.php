@@ -11,6 +11,7 @@
     </x-slot>
 
     <div class="py-12">
+    
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div id="myDiv" class="bg-base-300 overflow-hidden shadow-md rounded-md">                                
                 <label class="flex swap swap-rotate px-2 justify-end pt-2 pr-2 mb-[-20px]">
@@ -31,7 +32,7 @@
                             
                                 @foreach($buttons['step'] as $index => $step)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleHomeScore({{ 'step' }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleHomeScore({{ $step }})" >
                                         <p style="
                                                 color: {{$buttons['color'][$index]}};
                                                 font-weight: bold;
@@ -46,11 +47,14 @@
 
                         </div>
                         <div x-show="open" @click="open = false" style="display: none" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                            
                             @php $i = 0; @endphp
                             @foreach($homeTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastHomePointsBy({{ $player->player_no }})" >
-                                        <p style="
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastHomePointsBy({{ $player->player_id }})">
+                                        @csrf
+                                        @method('POST')
+                                            <p style="
                                                 color: {{ $buttons['color'][$i] }};
                                                 font-weight: bold;
                                                 font-size: xx-large;
@@ -58,10 +62,11 @@
                                             ">
                                             {{ $player->player_no }}
                                         </p>
-                                    </button>
+                                     </button>
                                 </div>
                                 @php $i++; @endphp
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -74,9 +79,10 @@
                         <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                                
                                 @foreach($buttons['step'] as $index => $step)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleHomeScore({{ 'color' }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[50%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$index] }}); background-color: {{ $buttons['bg_color'][$index] }};" onclick="handleAwayScore({{ $step }})" >
                                         <p style="
                                                 color: {{ $buttons['color'][$index] }};
                                                 font-weight: bold;
@@ -88,12 +94,14 @@
                                     </button>
                                 </div>
                                 @endforeach
+
                             </div>
                             <div x-show="open" @click="open = false" style="display: none" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
+                                
                                 @php $i = 0; @endphp
                                 @foreach($awayTeamPlayers as $index => $player)
                                 <div class="flex items-center justify-center">
-                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastAwayPointsBy({{ $player->player_no }})" >
+                                    <button class="w-16 h-16 select-none cursor-pointer opacity-75 rounded-[25%] border-black border-solid border-2" style="filter: drop-shadow(2px 4px 2px {{ $buttons['color'][$i] }}); background-color: {{ $buttons['bg_color'][$i] }};" onclick="lastAwayPointsBy({{ $player->player_id }})">
                                         <p style="
                                                 color: {{ $buttons['color'][$i] }};
                                                 font-weight: bold;
@@ -106,6 +114,7 @@
                                 </div>
                                 @php $i++; @endphp
                                 @endforeach
+                                
                             </div>
                         </div>
                     </div>
@@ -125,7 +134,7 @@
     awayScore.innerHTML = formattedAwayScore;
     
     var handleAwayScore = function(amount) {
-        
+
     // Increment or decrement the away score by the specified amount
     aScore += amount;
     lastAwayPoints = amount;
@@ -153,7 +162,7 @@
             homeScore: hScore,
         },
         success: function(response) {
-            console.log(response);
+            console.log('score saved to database');
         },
         error: function(xhr, status, error) {
             console.error(error);
@@ -171,19 +180,20 @@
             homeScore: hScore
         },
         success: function(response) {
-            console.log(response);
+            console.log('score saved to api');
         },
         error: function(xhr, status, error) {
             console.error(error);
         }
     });
-    //return lastAwayPoints;
+    return lastAwayPoints;
 };
 
 var handleHomeScore = function(amount) {
     // Increment or decrement the away score by the specified amount
     hScore += amount;
     lastHomePoints = amount;
+    console.log(lastHomePoints);
     //console.log(lastHomePoints);
     // Ensure the score doesn't go below 0
     if (hScore < 0) {
@@ -209,12 +219,13 @@ var handleHomeScore = function(amount) {
             homeScore: hScore,
         },
         success: function(response) {
-            console.log(response);
+            console.log('score saved to database');
         },
         error: function(xhr, status, error) {
             console.error(error);
         }
     });
+
     $.ajax({
         url: 'apis', // Endpoint for API route
         method: 'POST',
@@ -227,27 +238,64 @@ var handleHomeScore = function(amount) {
             homeScore: hScore
         },
         success: function(response) {
-            console.log(response);
+            console.log('score saved to api');
         },
         error: function(xhr, status, error) {
             console.error(error);
         }
     });
-    //return lastHomePoints;
+    return lastHomePoints;
 };
 
-var lastAwayPointsBy = function(playerNr){
-    //var lastAwayPoints = handleAwayScore();
-    //writing lastHomePoint and who scored it to game log
-    console.log(playerNr);
-    console.log(lastAwayPoints);
+var lastAwayPointsBy = function(player){
+        
+    $.ajax({
+        url: 'gamelog/away', // Assuming this is the route you've defined in your Laravel routes file
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        data: {
+            game_id: {{ $id }},
+            team_id: 2,
+            player_id: player,
+            action: lastAwayPoints,
+            home_score: hScore,
+            away_score: aScore
+        },
+        success: function(response) {
+            console.log('gamelog saved to database');
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
 };
 
-var lastHomePointsBy = function(playerNr){
-    //var lastHomePoints = handleHomeScore();
-    //writing lastHomePoint and who scored it to game log
-    console.log(playerNr);
-    console.log(lastHomePoints);
+var lastHomePointsBy = function(player){
+    
+    $.ajax({
+        url: 'gamelog/home', // Assuming this is the route you've defined in your Laravel routes file
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            game_id: {{ $id }},
+            team_id: 1,
+            player_id: player,
+            action: lastHomePoints,
+            home_score: hScore,
+            away_score: aScore
+        },
+        success: function(response) {
+            console.log('gamelog saved to database');
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
 };
 
 // Toggle full Screen

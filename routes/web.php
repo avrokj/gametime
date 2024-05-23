@@ -16,6 +16,7 @@ use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GameLogController;
 use App\Models\Position;
 use Illuminate\Support\Facades\Auth;
 
@@ -101,6 +102,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
 });
 
+Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'] )->name('score.lastHomeScoreUpdate');
+Route::post('/score/guest', [ScoreController::class, 'lastAwayScoreUpdate'] )->name('score.lastAwayScoreUpdate');
+Route::post('/gamelog/home', [GameLogController::class, 'storeHome']);
+Route::post('/gamelog/away', [GameLogController::class, 'storeAway']);
 
 Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
 Route::get('/segment/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
