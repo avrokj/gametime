@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Lineup;
 use App\Models\Position;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Ramsey\Uuid\Type\Integer;
 
 class PlayerController extends Controller
 {
@@ -159,4 +162,97 @@ class PlayerController extends Controller
 
         return redirect()->route('players.index')->with('success', 'Player deleted successfully.');
     }
+
+    public function updateHomePlayerStatus($id)
+    {
+
+        $player = Lineup::findOrFail($id);
+        $team_id = $player->player_team_id;
+        $player->status = 'home_court';
+        $player->updated_at = now();
+        $player->save();
+
+        $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $awayCourtPlayers = $teamPlayers->where('status', 'home_court');
+
+        if ($awayCourtPlayers->count() >= 5)
+        {
+            $extraPlayers = $awayCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer)
+            {
+                $extraPlayer->status = 'home_bench';
+                $extraPlayer->save();
+            }
+        }
+
+        return redirect()->back()->with('message', 'Player status updated successfully!');
+    }
+
+public function updateAwayPlayerStatus($id)
+    {
+        $player = Lineup::findOrFail($id);
+        $team_id = $player->player_team_id;
+        $player->status = 'guest_court'; // Set the desired status
+        $player->updated_at = now();
+        $player->save();
+
+        $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $awayCourtPlayers = $teamPlayers->where('status', 'guest_court');
+
+        if ($awayCourtPlayers->count() >= 5)
+        {
+            $extraPlayers = $awayCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer)
+            {
+                $extraPlayer->status = 'guest_bench';
+                $extraPlayer->save();
+            }
+        }
+
+        return redirect()->back()->with('message', 'Player status updated successfully!');
+    }
+
+    public function updateHomePlayerStatusToBench($id)
+    {
+        $player = Lineup::findOrFail($id);
+        $player->status = 'home_bench';
+        $player->save();
+        
+        return redirect()->back()->with('status', 'Player status updated.');
+    }
+
+    public function updateAwayPlayerStatusToBench($id)
+    {
+        $player = Lineup::findOrFail($id);
+        $player->status = 'guest_bench';
+        $player->save();
+
+        return redirect()->back()->with('status', 'Player status updated.');
+    }
+
+    public function clearHomeSession()
+    {
+        $players = Lineup::whereIn('status', ['home_court', 'home_bench'])->get();
+
+        foreach ($players as $player) {
+            $player->status = 'active';
+            $player->updated_at = now();
+            $player->save();
+        }
+
+        return redirect()->back()->with('message', 'All players are active!');
+    }
+    public function clearAwayLineup()
+    {
+        $players = Lineup::whereIn('status', ['guest_court', 'guest_bench'])->get();
+
+        foreach ($players as $player) {
+            $player->status = 'active';
+            $player->updated_at = now();
+            $player->save();
+        }
+
+        return redirect()->back()->with('message', 'All players are active!');
+    }
+
 }

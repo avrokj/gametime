@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Session;
+use App\Models\Player;
+use App\Models\Lineup;
 
 use Illuminate\Http\Request;
 
@@ -11,14 +14,19 @@ class SegmentController extends Controller
         return view('segment.index');
     }
 
-    public function hometeam()
+    public function hometeam($team_id)
     {
-        return view('segment.hometeam');
+        $homeTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        //dd(compact('homeTeamPlayers'));
+        return view('segment.hometeam', compact('homeTeamPlayers'));
+        
     }
-
-    public function guestteam()
+    public function guestteam($team_id)
     {
-        return view('segment.guestteam');
+        $guestTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        //dd(compact('guestTeamPlayers'));
+        return view('segment.guestteam', compact('guestTeamPlayers'));
+        
     }
 
     public function team()
