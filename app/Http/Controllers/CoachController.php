@@ -44,7 +44,10 @@ class CoachController extends Controller
             'country_id' => 'required|exists:countries,id'
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
+        $originalFileName = $request->coach_name;
+        $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+        $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+        $imageName = $fileNameLowercase . '.' . $request->image->extension();
 
         $request->image->move(public_path('images/coaches'), $imageName);
 
@@ -80,7 +83,7 @@ class CoachController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'coach_name' => 'required|string|max:45|unique:coaches',
+            'coach_name' => 'required|string|max:45',
             'new_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // 2MB max
             'country_id' => 'required|exists:countries,id'
         ]);
@@ -88,7 +91,10 @@ class CoachController extends Controller
         $coach = Coach::findOrFail($id);
 
         if ($request->hasFile('new_image')) {
-            $imageName = time() . '.' . $request->new_image->extension();
+            $originalFileName = $request->coach_name;
+            $fileNameWithoutSpaces = str_replace(' ', '_', $originalFileName);
+            $fileNameLowercase = strtolower($fileNameWithoutSpaces);
+            $imageName = $fileNameLowercase . '.' . $request->new_image->extension();
             $request->new_image->move(public_path('images/coaches'), $imageName);
             $coach->image = $imageName;
         }

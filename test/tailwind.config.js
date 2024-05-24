@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./*.{html,js}"],
+    content: ["./*.{html,js}", "./*/*.{html,js}"],
     darkMode: "selector",
     theme: {
         extend: {
@@ -28,5 +28,8 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    daisyui: {
+        themes: ["light", "dracula"],
+    },
+    plugins: [require("daisyui")],
 };

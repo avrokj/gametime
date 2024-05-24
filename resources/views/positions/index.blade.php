@@ -23,6 +23,9 @@
 
                 <dialog id="add_position" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Position') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('positions.store') }}">
@@ -32,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="position_name" :value="{{__('Position Name')}}" >
                                 <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Position Name')}}" type="text" name="position_name" :value="old('position_name')" required autofocus autocomplete="position_name" />
+                                <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Position Name')}}" name="position_name" :value="old('position_name')" required autofocus autocomplete="position_name" />
                             </label>
                             <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                         </div>
@@ -46,13 +49,17 @@
                                 @endforeach                                
                             </x-select>
                         </div>
-                        <div class="mt-4 space-x-2">
+                        <div class="mt-4 space-x-2 text-left">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('positions.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -76,7 +83,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $position)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $position->position_name }} 
                                 </td>
@@ -89,6 +96,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_position{{ $position->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Position') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('positions.update', $position) }}">
@@ -98,7 +108,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="position_name" :value="old('position_name', $position->position_name)" >
                                                     <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" type="text" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
+                                                    <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                                             </div>                                                 
@@ -115,13 +125,17 @@
                                                 </x-select>
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             </div>
-                                            <div class="mt-4 space-x-2">
+                                            <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('positions.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
                                             </div>
                                         </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -146,7 +160,7 @@
 
                     @else 
                         @foreach ($positions as $position)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $position->position_name }} 
                                 </td>
@@ -160,6 +174,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $position->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Position') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('positions.update', $position) }}">
@@ -169,7 +186,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="position_name" :value="old('position_name', $position->position_name)" >
                                                         <x-heroicon-c-cube-transparent class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" type="text" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
+                                                        <x-text-input id="position_name" type="text" class="grow border-none focus:outline-none" name="position_name" :value="old('position_name', $position->position_name)" required autofocus autocomplete="position_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('position_name')" class="mt-2" />
                                                 </div>                                                 
@@ -186,13 +203,17 @@
                                                     </x-select>
                                                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                                 </div>
-                                                <div class="mt-4 space-x-2">
-                                                    <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('positions.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
+                                                <div class="mt-4 space-x-2 text-left">
+                                                    <x-save-button> {{ __('Save') }}</x-save-button>                                                    
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>

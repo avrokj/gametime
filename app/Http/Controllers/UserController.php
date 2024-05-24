@@ -45,7 +45,7 @@ class UserController extends Controller
             $userRoles = collect();
         }
         return view('users.index', [
-            'users' => User::latest('id')->paginate(3),
+            'users' => User::latest('id')->paginate(20),
             'roles' => $roles,
             'userRoles' => $userRoles
         ]);
@@ -82,9 +82,9 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
-        return view('users.show', [
-            'user' => $user
-        ]);
+        // return view('users.show', [
+        //     'user' => $user
+        // ]);
     }
 
     /**
@@ -102,7 +102,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user' => $user,
             'roles' => Role::pluck('name')->all(),
-            'userRoles' => $user->roles->pluck('name')->all()
+            'userRoles' => $user->roles
         ]);
     }
 

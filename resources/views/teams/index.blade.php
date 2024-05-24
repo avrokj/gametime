@@ -23,6 +23,9 @@
 
                 <dialog id="add_team" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Team') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
@@ -32,9 +35,18 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="team_name" :value="{{__('Team Name')}}" >
                                 <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Team Name')}}" type="text" name="team_name" :value="old('team_name')" required autofocus autocomplete="team_name" />
+                                <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Team Name')}}" name="team_name" :value="old('team_name')" required autofocus autocomplete="team_name" />
                             </label>
                             <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                        </div>
+
+                        <!-- Team Short Name -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="short_name" :value="{{__('Short Name')}}" >
+                                <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Short Name')}}" name="short_name" :value="old('short_name')" autofocus autocomplete="short_name" />
+                            </label>
+                            <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                         </div>
                 
                         <!-- Sports name -->
@@ -56,6 +68,7 @@
                                 @endforeach                                
                             </x-select>
                         </div>
+
                         <!-- Logo -->
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="logo" :value="{{__('Team logo')}}" >
@@ -65,13 +78,17 @@
                             <x-input-error :messages="$errors->get('message')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4 space-x-2">
+                        <div class="mt-4 space-x-2 text-left">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('teams.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -88,6 +105,7 @@
                 <tr class="text-left py-4">
                     <th class="border-b-2 border-base-300">{{ __('Logo') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Team Name') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Short Name') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Sports') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Coach') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Players') }}</th>
@@ -98,7 +116,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $team)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">                                    
                                     <a href="/players">
                                         <div class="btn btn-ghost btn-circle avatar">
@@ -110,6 +128,9 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $team->short_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->sport->sports_name }}
@@ -126,6 +147,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_team{{ $team->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Team') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('teams.update', $team) }}" enctype="multipart/form-data">
@@ -135,9 +159,18 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="team_name" :value="old('team_name', $team->team_name)" >
                                                     <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" type="text" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
+                                                    <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                                            </div>
+
+                                            <!-- Team Short Name -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="short_name" :value="old('short_name', $team->short_name)" >
+                                                    <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" name="short_name" :value="old('short_name', $team->short_name)" required autofocus autocomplete="short_name" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                                             </div>
                                     
                                             <!-- Sports name -->
@@ -157,7 +190,7 @@
                                                 <x-select name="coach_id" class="!max-w-full">
                                                     <option disabled selected value="">{{ __('Select Coach') }}</option>
                                                     @foreach ($coaches as $coach)
-                                                        <option value="{{ $sport->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
+                                                        <option value="{{ $coach->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
                                                             {{ $coach->coach_name }}
                                                         </option>
                                                     @endforeach                                
@@ -166,22 +199,25 @@
 
                                             <!-- Image -->
                                             <div class="mt-4">
-                                                <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Team Image')}}" >
+                                                <label class="input input-bordered flex items-center gap-2" for="new_logo" :value="{{__('Team Image')}}" >
                                                     <div class="rounded-full">
                                                         <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Current team image" class="w-10 rounded-full">
                                                     </div>
-                                                    <input type="file" name="new_image" id="new_image">
+                                                    <input type="file" name="new_logo" id="new_logo">
                                                 </label>
                                                 <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                             </div>
 
-                                            <div class="mt-4 space-x-2">
+                                            <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('teams.index') }}'">
+                                        </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
                                                     {{ __('Cancel') }}
                                                 </x-cancel-button>
-                                            </div>
-                                        </form>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -206,7 +242,7 @@
 
                     @else 
                         @foreach ($teams as $team)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">                                    
                                     <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">
                                         <div class="btn btn-ghost btn-circle avatar">
@@ -218,6 +254,9 @@
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->team_name }} 
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $team->short_name }} 
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->sport->sports_name }}
@@ -237,6 +276,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $team->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Team') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('teams.update', $team) }}" enctype="multipart/form-data">
@@ -246,9 +288,18 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="team_name" :value="old('team_name', $team->team_name)" >
                                                         <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" type="text" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
+                                                        <x-text-input id="team_name" type="text" class="grow border-none focus:outline-none" name="team_name" :value="old('team_name', $team->team_name)" required autofocus autocomplete="team_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('team_name')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Team Short Name -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="short_name" :value="old('short_name', $team->short_name)" >
+                                                        <x-heroicon-c-user-group class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="short_name" type="text" class="grow border-none focus:outline-none" name="short_name" :value="old('short_name', $team->short_name)" required autofocus autocomplete="short_name" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('short_name')" class="mt-2" />
                                                 </div>
                                         
                                                 <!-- Sports name -->
@@ -268,7 +319,7 @@
                                                     <x-select name="coach_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Coach') }}</option>
                                                         @foreach ($coaches as $coach)
-                                                            <option value="{{ $sport->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
+                                                            <option value="{{ $coach->id }}" {{ (old('coach_id', $team->coach_id) == $coach->id) ? 'selected' : '' }}>
                                                                 {{ $coach->coach_name }}
                                                             </option>
                                                         @endforeach                                
@@ -277,21 +328,25 @@
 
                                                 <!-- Image -->
                                                 <div class="mt-4">
-                                                    <label class="input input-bordered flex items-center gap-2" for="new_image" :value="{{__('Team Image')}}" >
+                                                    <label class="input input-bordered flex items-center gap-2" for="new_logo" :value="{{__('Team Image')}}" >
                                                         <div class="rounded-full">
                                                             <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Current team image" class="w-10 rounded-full">
                                                         </div>
-                                                        <input type="file" name="new_image" id="new_image">
+                                                        <input type="file" name="new_logo" id="new_logo">
                                                     </label>
                                                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                                                 </div>
-                                                <div class="mt-4 space-x-2">
+                                                <div class="mt-4 space-x-2 text-save">
                                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('teams.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>
@@ -314,6 +369,12 @@
             </div>
             </div>
         </div>
+        @if(session()->has('error'))
+            <script>
+                    var myModal = new bootstrap.Modal(document.getElementById('add_team'));
+                    myModal.show();
+                </script>
+        @endif
         </div>
     </div>
 </x-app-layout>

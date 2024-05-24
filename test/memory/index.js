@@ -72,7 +72,7 @@ function checkForMatch() {
 function checkScore() {
     const h2Element = document.querySelector("h2.score-value");
 
-    if (score > 29) {
+    if (score > 27) {
         var messageDiv = document.createElement("div");
         messageDiv.textContent = "Looser...";
         messageDiv.classList.add(
@@ -95,10 +95,10 @@ function checkScore() {
         }, 5000);
     }
 
-    if (score > 24) {
+    if (score > 23) {
         h2Element.classList.remove("text-orange-400");
         h2Element.classList.add("text-red-500");
-    } else if (score > 19) {
+    } else if (score > 18) {
         h2Element.classList.add("text-orange-400");
         h2Element.classList.remove("text-red-500");
     } else {

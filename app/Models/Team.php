@@ -19,8 +19,18 @@ class Team extends Model
         return $this->belongsTo(Coach::class);
     }
 
+    public function coaches()
+    {
+        return $this->hasMany(Coach::class, 'id');
+    }
+
     public function players()
     {
         return $this->hasMany(Player::class);
+    }
+
+    public function game()
+    {
+        return $this->hasMany(Game::class);
     }
 }

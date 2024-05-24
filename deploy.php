@@ -10,7 +10,7 @@ set('remote_user', 'vhost122307ssh');
 set('http_user', 'vhost122307f0');
 set('keep_releases', 2);
 
-host('gametime.ee')
+host('production')
     ->setHostname('gametime.ee')
     ->set('port', '1022')
     ->set('http_user', 'vhost122307f0')

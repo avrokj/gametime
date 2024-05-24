@@ -23,6 +23,9 @@
 
                 <dialog id="add_arena" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="font-bold text-lg text-left">{{ __('Add Arena') }}</h3>
                     <div class="modal-action justify-start">
                     <form method="POST" action="{{ route('arenas.store') }}">
@@ -32,7 +35,7 @@
                         <div>
                             <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="{{__('Arena Name')}}" >
                                 <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Arena Name')}}" type="text" name="arena_name" :value="old('arena_name')" required autofocus autocomplete="arena_name" />
+                                <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Arena Name')}}" name="arena_name" :value="old('arena_name')" required autofocus autocomplete="arena_name" />
                             </label>
                             <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                         </div>
@@ -50,17 +53,21 @@
                         <div class="mt-4">
                             <label class="input input-bordered flex items-center gap-2" for="address" :value="{{__('Address')}}" >
                                 <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                <x-text-input id="address" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Address')}}" type="text" name="address" :value="old('aaddress')" required autofocus autocomplete="address" />
+                                <x-text-input id="address" type="text" class="grow border-none focus:outline-none" placeholder="{{__('Address')}}" name="address" :value="old('aaddress')" required autofocus autocomplete="address" />
                             </label>
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
-                        <div class="mt-4 space-x-2">
+                        <div class="mt-4 space-x-2 text-left">
                             <x-save-button> {{ __('Save') }}</x-save-button>
-                            <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
-                                {{ __('Cancel') }}
-                            </x-cancel-button>
                         </div>
                     </form>
+                    </div>
+                    <div class="modal-action -mt-8">
+                        <form method="dialog">
+                            <x-cancel-button>
+                                {{ __('Cancel') }}
+                            </x-cancel-button>
+                        </form>
                     </div>
                 </div>
                 </dialog>
@@ -85,7 +92,7 @@
                     @if(isset($results))
                         @if(count($results) > 0)
                         @foreach($results as $arena)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $arena->arena_name }} 
                                 </td>
@@ -101,6 +108,9 @@
                                     </x-edit-button>
                                     <dialog id="edit_arena{{ $arena->id }}" class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
                                         <h3 class="font-bold text-lg">{{ __('Edit Arena') }}</h3>
                                         <div class="modal-action justify-start">                          
                                         <form method="POST" action="{{ route('arenas.update', $arena) }}">
@@ -110,7 +120,7 @@
                                             <div>
                                                 <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
                                                     <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                    <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                                             </div>                                                 
@@ -131,17 +141,21 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
                                                     <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                    <x-text-input id="address" type="text" class="grow border-none focus:outline-none" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                             </div>
-                                            <div class="mt-4 space-x-2">
+                                            <div class="mt-4 space-x-2 text-left">
                                                 <x-save-button> {{ __('Save') }}</x-save-button>
-                                                <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
-                                                    {{ __('Cancel') }}
-                                                </x-cancel-button>
                                             </div>
                                         </form>
+                                        </div>
+                                        <div class="modal-action -mt-8">
+                                            <form method="dialog">
+                                                <x-cancel-button>
+                                                    {{ __('Cancel') }}
+                                                </x-cancel-button>
+                                            </form>
                                         </div>
                                     </div>
                                     </dialog>
@@ -166,7 +180,7 @@
 
                     @else 
                         @foreach ($arenas as $arena)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td class="border-b-2 border-base-300">
                                     {{ $arena->arena_name }} 
                                 </td>
@@ -183,6 +197,9 @@
                                         </x-edit-button>
                                         <dialog id="my_modal_edit{{ $arena->id }}" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box !w-auto hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit Arena') }}</h3>
                                             <div class="modal-action justify-start">                          
                                             <form method="POST" action="{{ route('arenas.update', $arena) }}">
@@ -192,7 +209,7 @@
                                                 <div>
                                                     <label class="input input-bordered flex items-center gap-2" for="arena_name" :value="old('arena_name', $arena->arena_name)" >
                                                         <x-iconpark-arena class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" type="text" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
+                                                        <x-text-input id="arena_name" type="text" class="grow border-none focus:outline-none" name="arena_name" :value="old('arena_name', $arena->arena_name)" required autofocus autocomplete="arena_name" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('arena_name')" class="mt-2" />
                                                 </div>                                                 
@@ -213,17 +230,21 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="address" :value="old('address', $arena->address)" >
                                                         <x-heroicon-s-map-pin class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="address" type="text" class="grow border-none focus:outline-none" type="text" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
+                                                        <x-text-input id="address" type="text" class="grow border-none focus:outline-none" name="address" :value="old('address', $arena->address)" required autofocus autocomplete="address" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                                 </div>
-                                                <div class="mt-4 space-x-2">
+                                                <div class="mt-4 space-x-2 text-left">
                                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                                    <x-cancel-button onclick="window.location='{{ route('arenas.index') }}'">
-                                                        {{ __('Cancel') }}
-                                                    </x-cancel-button>
                                                 </div>
                                             </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
+                                                </form>
                                             </div>
                                         </div>
                                         </dialog>

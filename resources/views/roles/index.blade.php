@@ -12,7 +12,10 @@
                 </x-primary-button>
 
                 <dialog id="add_role" class="modal modal-bottom sm:modal-middle">
-                    <div class="modal-box !w-auto">
+                    <div class="modal-box !w-auto">                        
+                        <form method="dialog">
+                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        </form>
                         <h3 class="font-bold text-lg">{{ __('Add New Role') }}</h3>
                         <div class="modal-action flex flex-col justify-start">
 
@@ -42,12 +45,16 @@
                                 </div>
                                 @endcan
 
-                                <div class="mt-4 space-x-2">
+                                <div class="mt-4 space-x-2 text-left">
                                     <x-save-button> {{ __('Save') }}</x-save-button>
-                                    <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
-                                        {{ __('Cancel') }}
-                                    </x-cancel-button>
                                 </div>
+                            </form>
+                        </div>
+                        <div class="modal-action -mt-8">
+                            <form method="dialog">
+                                <x-cancel-button>
+                                    {{ __('Cancel') }}
+                                </x-cancel-button>
                             </form>
                         </div>
                     </div>
@@ -75,7 +82,7 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                         @forelse ($roles as $role)
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">                              
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">                              
                                 <td class="border-b-2 border-base-300">
                                     {{ $loop->iteration }}
                                 </td>
@@ -89,7 +96,10 @@
                                         </x-edit-button>
 
                                         <dialog id="edit_role{{ $role->id }}" class="modal modal-bottom sm:modal-middle">
-                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                        <div class="modal-box !w-auto text-left hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">                                            
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
                                             <h3 class="font-bold text-lg">{{ __('Edit role') }}</h3>
                                             <div class="modal-action flex flex-col justify-start text-left">                        
                                                 <form action="{{ route('roles.update', $role->id) }}" method="POST">
@@ -120,7 +130,7 @@
                                                         @endcan
                                                     @endif --}}
 
-                                                    @if ($role->name!='Super Admin')
+                                                    @if ($role->name!=='Super Admin')
                                                         @can('edit-role')
                                                         <div class="mt-4">
                                                             <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
@@ -136,12 +146,16 @@
                                                         @endcan
                                                     @endif
 
-                                                    <div class="mt-4 space-x-2">
+                                                    <div class="mt-4 space-x-2 text-left">
                                                         <x-save-button> {{ __('Save') }}</x-save-button>
-                                                        <x-cancel-button onclick="window.location='{{ route('roles.index') }}'">
-                                                            {{ __('Cancel') }}
-                                                        </x-cancel-button>
                                                     </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-action -mt-8">
+                                                <form method="dialog">
+                                                    <x-cancel-button>
+                                                        {{ __('Cancel') }}
+                                                    </x-cancel-button>
                                                 </form>
                                             </div>
                                         </div>
@@ -162,7 +176,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:bg-neutral-50 hover:text-slate-500 hover:font-semibold">
+                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                 <td colspan="3"
                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
                                     No roles found.

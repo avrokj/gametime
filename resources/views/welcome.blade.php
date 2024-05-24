@@ -220,6 +220,189 @@
 
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                        
+                        <!-- Events -->
+                        <div class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                            <h2 class="font-semibold text-xl flex items-center leading-tight w-full">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                                    </svg>
+                                </div> 
+                                &nbsp;{{ __('Events') }}
+                            </h2>
+
+                            <div role="tablist" class="event-tabs tabs tabs-bordered mt-2">
+                                <a role="tab" class="tab" href="#event-tab-future"> {{ __('Future Events') }}</a>
+                                <a role="tab" class="tab font-semibold tab-active" href="#event-tab-ongoing"> {{ __('Ongoing Events') }}</a>
+                                <a role="tab" class="tab" href="#event-tab-past">{{ __('Past Events') }}</a>
+                            </div>
+                              
+                            <div id="event-tab-future" role="eventtabpanel" class="hidden">                               
+                                @php
+                                    $futureEvents = false;
+                                    foreach ($events as $event) {
+                                        if (\Carbon\Carbon::parse($event->datetime)->isFuture()) {
+                                            $futureEvents = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+
+                                @if ($futureEvents)
+                                    @foreach ($events as $event)
+                                        @if (\Carbon\Carbon::parse($event->datetime)->isFuture())
+                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
+                                                <h2 class="text-2xl">{{ $event->event_name }}</h2>
+                                                <p>{{ \Carbon\Carbon::parse($event->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($event->datetime)->format('H:i') }}</p>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <div class="pt-4 col-span-2">
+                                        {{ __('No future events.') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div id="event-tab-ongoing" role="eventtabpanel" class="tab-active">
+                                @php
+                                    $ongoingEvents = false;
+                                    foreach ($events as $event) {
+                                        if (\Carbon\Carbon::parse($event->datetime)->isPast() && \Carbon\Carbon::parse($event->end_datetime)->isFuture()) {
+                                            $ongoingEvents = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+
+                                @if ($ongoingEvents)
+                                    @foreach ($events as $event)                                        
+                                        @if (\Carbon\Carbon::parse($event->datetime)->isPast() && \Carbon\Carbon::parse($event->end_datetime)->isFuture())
+                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
+                                                <h2 class="text-2xl">{{ $event->event_name }}</h2>
+                                                <p>{{ \Carbon\Carbon::parse($event->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($event->datetime)->format('H:i') }}</p>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <div class="pt-4 col-span-2">
+                                        {{ __('No ongoing events.') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div id="event-tab-past" role="eventtabpanel" class="hidden">
+                                <table class="table min-w-full">  
+                                    @foreach ($events as $event)                                      
+                                        @if (\Carbon\Carbon::parse($event->datetime)->isPast())
+                                                <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                                    <td class="border-b-2 border-base-300">
+                                                        {{ \Carbon\Carbon::parse($event->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($event->datetime)->format('H:i') }}
+                                                    </td>
+                                                    <td class="border-b-2 border-base-300 text-left font-semibold">
+                                                        {{ $event->event_name }}
+                                                    </td>
+                                                    <td class="border-b-2 border-base-300 text-right">
+                                                        {{ $event->sport->sports_name }}
+                                                    </td>
+                                                </tr>
+                                        @endif
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Games -->
+                        <div class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                            <h2 class="font-semibold text-xl flex items-center leading-tight w-full">
+                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                                    </svg>
+                                </div> 
+                                &nbsp;{{ __('Games') }}
+                            </h2>
+
+                            <div role="tablist" class="game-tabs tabs tabs-bordered mt-2">
+                                <a role="tab" class="tab" href="#game-tab-future"> {{ __('Future Games') }}</a>
+                                <a role="tab" class="tab font-semibold tab-active" href="#game-tab-ongoing"> {{ __('Ongoing Games') }}</a>
+                                <a role="tab" class="tab" href="#game-tab-past">{{ __('Past Games') }}</a>
+                            </div>
+                              
+                            <div id="game-tab-future" role="gametabpanel" class="hidden">                               
+                                @php
+                                    $futureGames = false;
+                                    foreach ($games as $game) {
+                                        if ($game->status == 1) {
+                                            $futureGames = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+
+                                @if ($futureGames)
+                                    @foreach ($games as $game)
+                                        @if (\Carbon\Carbon::parse($game->datetime)->isFuture())
+                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
+                                                <h2 class="text-2xl">{{ $game->game_name }}</h2>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <div class="pt-4 col-span-2">
+                                        {{ __('No future games.') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div id="game-tab-ongoing" role="gametabpanel" class="tab-active">
+                                @php
+                                    $ongoingGames = false;
+                                    foreach ($games as $game) {
+                                        if (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture()) {
+                                            $ongoingGames = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+
+                                @if ($ongoingGames)
+                                    @foreach ($games as $game)                                        
+                                        @if (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture())
+                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
+                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
+                                                <h2 class="text-2xl">{{ $game->game_name }}</h2>
+                                                <p>{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <div class="pt-4 col-span-2">
+                                        {{ __('No ongoing games.') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div id="game-tab-past" role="gametabpanel" class="hidden">
+                                <table class="table min-w-full">  
+                                    @foreach ($games as $game)                                      
+                                        @if (\Carbon\Carbon::parse($game->datetime)->isPast())
+                                                <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                                    <td class="border-b-2 border-base-300">
+                                                        {{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}
+                                                    </td>
+                                                    <td class="flex items-center border-b-2 border-base-300 text-left font-semibold">
+                                                        <span class="hidden sm:block"> {{ $game->homeTeam->team_name }}</span> <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1"> 
+                                                        {{ $game->home_score }}-{{ $game->away_score }} 
+                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1"> <span class="hidden sm:block">{{ $game->awayTeam->team_name }}</span>
+                                                    </td>
+                                                </tr>
+                                        @endif
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+
                         <a href="https://laravel.com/docs" class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                             <div>
                                 <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
@@ -259,42 +442,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                             </svg>
                         </a>
-
-                        <a href="https://laravel-news.com" class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                            <div>
-                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold">GameTime News</h2>
-
-                                <p class="mt-4  text-sm leading-relaxed">
-                                    GameTime News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-amber-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <div class="bg-base-200 scale-100 p-6 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg flex motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                            <div>
-                                <div class="h-16 w-16 bg-base-300 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold">Vibrant Ecosystem</h2>
-
-                                <p class="mt-4  text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
