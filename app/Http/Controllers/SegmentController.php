@@ -18,24 +18,24 @@ class SegmentController extends Controller
     {
         $homeTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
         //dd(compact('homeTeamPlayers'));
-        return view('segment.hometeam', compact('homeTeamPlayers'));
+        return view('score.hometeam', compact('homeTeamPlayers'));
         
     }
     public function guestteam($team_id)
     {
         $guestTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
         //dd(compact('guestTeamPlayers'));
-        return view('segment.guestteam', compact('guestTeamPlayers'));
+        return view('score.guestteam', compact('guestTeamPlayers'));
         
     }
 
     public function team()
     {
-        return view('segment.team');
+        return view('score.team');
     }
 
     public function player()
     {
-        return view('segment.player');
+        return view('score.player');
     }
 }

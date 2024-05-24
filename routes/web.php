@@ -119,20 +119,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
     Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
-    Route::get('/score/hometeam', [SegmentController::class, 'hometeam'])->name('score.hometeam');
-    Route::get('/score/guestteam', [SegmentController::class, 'guestteam'])->name('score.guestteam');
+    Route::get('/score/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('score.hometeam');
+    Route::get('/score/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('score.guestteam');
+    Route::get('/score/team', [SegmentController::class, 'team'])->name('score.team');
+    Route::get('/score/player', [SegmentController::class, 'player'])->name('score.player');
 });
 
 Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'] )->name('score.lastHomeScoreUpdate');
 Route::post('/score/guest', [ScoreController::class, 'lastAwayScoreUpdate'] )->name('score.lastAwayScoreUpdate');
 Route::post('/gamelog/home', [GameLogController::class, 'storeHome']);
 Route::post('/gamelog/away', [GameLogController::class, 'storeAway']);
-
-Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
-Route::get('/segment/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('segment.hometeam');
-Route::get('/segment/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('segment.guestteam');
-Route::get('/segment/team', [SegmentController::class, 'team'])->name('segment.team');
-Route::get('/segment/player', [SegmentController::class, 'player'])->name('segment.player');
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 
