@@ -47,7 +47,7 @@ class ScoreController extends Controller
             'away_team' => $away_team,
             'home_score' => $home_score,
             'away_score' => $away_score,
-            'id' => $id,
+            'game_id' => $id,
             'status' => $status,
             'buttons' => $buttons
         ], compact('awayTeamPlayers', 'homeTeamPlayers', 'id'));

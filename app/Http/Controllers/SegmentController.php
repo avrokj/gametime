@@ -14,16 +14,18 @@ class SegmentController extends Controller
         return view('segment.index');
     }
 
-    public function hometeam($team_id)
+    public function hometeam($game_id, $team_id)
     {
-        $homeTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $homeTeamPlayers = Lineup::where('player_team_id', $team_id)
+        ->where('game_id', $game_id)->get();
+
         $id = $homeTeamPlayers[0]->game_id;
         //dd(compact('homeTeamPlayers'));
         View::share('id', $id);
         return view('score.hometeam' ,compact('homeTeamPlayers'));
         
     }
-    public function guestteam($team_id)
+    public function guestteam($game_id, $team_id)
     {
         $guestTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
         $id = $guestTeamPlayers[0]->game_id;
