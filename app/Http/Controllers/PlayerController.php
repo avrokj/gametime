@@ -188,7 +188,7 @@ class PlayerController extends Controller
         return redirect()->back()->with('message', 'Player status updated successfully!');
     }
 
-public function updateAwayPlayerStatus($id)
+    public function updateAwayPlayerStatus($id)
     {
         $player = Lineup::findOrFail($id);
         $team_id = $player->player_team_id;
@@ -230,7 +230,7 @@ public function updateAwayPlayerStatus($id)
         return redirect()->back()->with('status', 'Player status updated.');
     }
 
-    public function clearHomeSession()
+    public function clearHomeLineup()
     {
         $players = Lineup::whereIn('status', ['home_court', 'home_bench'])->get();
 
