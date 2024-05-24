@@ -23,12 +23,6 @@
                     <x-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
                         {{ __('Games') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('score.index')" :active="request()->routeIs('score.index')">
-                        {{ __('Scoreboard') }}
-                    </x-nav-link>
-                    {{-- <x-nav-link :href="route('segment.index')" :active="request()->routeIs('segment.index')">
-                        {{ __('7 Segment') }}
-                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -166,9 +160,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
                 {{ __('Games') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('score.index')" :active="request()->routeIs('score.index')">
-                {{ __('Scoreboard') }}
             </x-responsive-nav-link>
         </div>
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use App\Models\Player;
 use App\Models\Lineup;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
 class SegmentController extends Controller
@@ -17,16 +17,20 @@ class SegmentController extends Controller
     public function hometeam($team_id)
     {
         $homeTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $id = $homeTeamPlayers[0]->game_id;
         //dd(compact('homeTeamPlayers'));
-        return view('score.hometeam', compact('homeTeamPlayers'));
+        View::share('id', $id);
+        return view('score.hometeam' ,compact('homeTeamPlayers'));
         
     }
     public function guestteam($team_id)
     {
         $guestTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
-        //dd(compact('guestTeamPlayers'));
+        $id = $guestTeamPlayers[0]->game_id;
+        //dd($guestTeamPlayers[0]->game_id);
+        View::share('id', $id);
+        //dd($id);
         return view('score.guestteam', compact('guestTeamPlayers'));
-        
     }
 
     public function team()

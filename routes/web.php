@@ -117,8 +117,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/events/{sport}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
-    Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
-    Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
+    Route::get('/score/{id}', [ScoreController::class, 'index'])->name('score.index');
+    Route::post('/score/{id}', [ScoreController::class, 'updateScore'])->name('score.index');
     Route::get('/score/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('score.hometeam');
     Route::get('/score/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('score.guestteam');
     Route::get('/score/team', [SegmentController::class, 'team'])->name('score.team');

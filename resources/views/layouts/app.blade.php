@@ -42,7 +42,7 @@
         @if(Request::is('dashboard'))
         @elseif(Request::is('score/hometeam/*','score/guestteam/*'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">       
-            <a href="/score" class="btn btn-default btn-sm shadow-md"><x-heroicon-o-arrow-left-circle class="w-6"/>Back</a>
+            <a href="/score/{{ $id }}" class="btn btn-default btn-sm shadow-md"><x-heroicon-o-arrow-left-circle class="w-6"/>Back</a>
         </div>
         @else
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">       
