@@ -92,20 +92,34 @@
                         </x-dropdown-link>
 
                         <!-- Roles -->
-                        <x-dropdown-link :href="route('roles.index')"
-                           class="
-                           @if (request()->routeIs('permission-editor.roles.*')) border-indigo-500
-                           @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
-                           @endif"> {{ __('Roles') }}
-                        </x-dropdown-link>
+                        @if (Auth::user()->hasRole('Super Admin'))
+                            <x-dropdown-link :href="route('roles.index')"
+                                class="
+                                @if (request()->routeIs('permission-editor.roles.*')) border-indigo-500
+                                @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+                                @endif"> {{ __('Roles') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <!-- Permissions -->
-                        <x-dropdown-link :href="route('permissions.index')"
-                           class="
-                           @if (request()->routeIs('permissions.*')) border-indigo-500
-                           @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
-                           @endif"> {{ __('Permissions') }}
-                        </x-dropdown-link>
+                        @if (Auth::user()->hasRole('Super Admin'))
+                            <x-dropdown-link :href="route('permissions.index')"
+                                class="
+                                @if (request()->routeIs('permissions.*')) border-indigo-500
+                                @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+                                @endif"> {{ __('Permissions') }}
+                            </x-dropdown-link>
+                        @endif
+
+                        <!-- Permissions -->
+                        @if (Auth::user()->hasRole('Super Admin'))
+                            <x-dropdown-link :href="route('users.index')"
+                                class="
+                                @if (request()->routeIs('users.*')) border-indigo-500
+                                @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+                                @endif"> {{ __('Users') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
