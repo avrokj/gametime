@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\Game;
 use App\Models\Lineup;
-
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
@@ -50,5 +49,57 @@ class ScoreController extends Controller
             'id' => $id,
             'buttons' => $buttons
         ], compact('awayTeamPlayers','homeTeamPlayers'));
+        
     }
+
+    public function updateHomeScore(Request $request)
+    {
+        $game = Game::find(1);
+        if ($game) {
+            $game->home_score = $request->input('homeScore');
+            $game->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Game not found']);
+    }
+
+    public function updateAwayScore(Request $request)
+    {
+        $game = Game::find(1);
+        if ($game) {
+            $game->away_score = $request->input('awayScore');
+            $game->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Game not found']);
+    }
+
+    public function updateScore(Request $request)
+    {
+        $game = Game::find(1);
+        if ($game) {
+            $game->away_score = $request->input('awayScore');
+            $game->home_score = $request->input('homeScore');
+            $game->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Game not found']);
+    }
+
+    public function lastHomeScoreUpdate(Request $request)
+    {
+        $player_id = (int)$request->player_id;
+        $points = (int)$request->points;       
+
+        return redirect()->route('score.index')->with('success', 'Gamelog updated');
+    }
+
+    public function lastAwayScoreUpdate(Request $request)
+    {
+        $player_id = (int)$request->player_id;
+        $points = (int)$request->points;       
+
+        return redirect()->route('score.index')->with('success', 'Gamelog updated');
+    }
+
 }
