@@ -48,6 +48,7 @@ Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
     'games' => GameController::class,
+    'events' => EventController::class,
 ]);
 
 Route::middleware('auth')->group(function () {
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('/sports', [SportController::class, 'index'])->name('sports.index');
     Route::post('/sports', [SportController::class, 'store'])->name('sports.store');
