@@ -126,7 +126,7 @@
                                                         <x-input-label :value="__('Roles')" />
                                                         <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">                        
                                                         @foreach ($roles as $id => $name)
-                                                            <input type="checkbox" name="roles[]" id="role-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('roles', [])) || $permission->roles->contains($id)) />
+                                                            <input type="checkbox" name="roles[]" id="role-{{ $id }}" value="{{ $name }}" @checked(in_array($name, old('roles', [])) || $permission->roles->contains($name)) />
                                                             <label class="text-sm font-medium" for="role-{{ $id }}">{{ $name }}</label>
                                                             <br />
                                                         @endforeach                                                        
