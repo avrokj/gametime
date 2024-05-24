@@ -107,6 +107,7 @@ class EventController extends Controller
             ->withSuccess('Game is updated successfully.');
     }
 
+
     /**
      * Remove the specified resource from storage.
      */

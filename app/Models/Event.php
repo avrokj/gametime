@@ -9,7 +9,9 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    // protected $guarded = [];
+    protected $fillable = ['event_name', 'location', 'datetime', 'sport_id', 'arena_id'];
+
 
     public function game()
     {

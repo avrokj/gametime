@@ -25,7 +25,7 @@ class UpdateEventRequest extends FormRequest
             'event_name' => 'required|string',
             'location' => 'nullable|string',
             'datetime' => 'nullable|date|date_format:Y-m-d H:i',
-            'sport_id' => 'required|exists:sports,id',
+            'sport_id' => 'required|integer:exists:sports,id',
             'arena_id' => 'required|integer:exists:arenas,id'
         ];
     }
