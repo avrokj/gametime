@@ -42,6 +42,15 @@
                                 @endforeach                                
                             </x-select>
                         </div> 
+
+                        <!-- DateTime -->
+                        <div class="mt-4">
+                            <label class="input input-bordered flex items-center gap-2" for="datetime" :value="{{ __('Datetime') }}" >
+                                <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
+                                <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime')" autocomplete="datetime" />
+                            </label>
+                            <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
+                        </div>
                                         
                         <!-- Home Team name -->
                         <div class="mt-4">
@@ -115,6 +124,7 @@
                 <tr class="text-left py-4">
                     <th class="border-b-2 border-base-300">{{ __('ID') }}</th>
                     <th class="border-b-2 border-base-300">{{ __('Event') }}</th>
+                    <th class="border-b-2 border-base-300">{{ __('Datetime') }}</th>
                     <th class="border-b-2 border-base-300 text-center">{{ __('Home Team') }}</th>
                     <th class="border-b-2 border-base-300 text-center">{{ __('Score') }}</th>
                     <th class="border-b-2 border-base-300 text-center">{{ __('Away Team') }}</th>
@@ -137,6 +147,9 @@
                                     @else
                                         {{ $event->event_name }}
                                     @endif
+                                </td>
+                                <td class="border-b-2 border-base-300">
+                                    {{ $game->datetime }}
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
                                     <div class="flex justify-center w-full">
@@ -175,7 +188,10 @@
                                     {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                <div class="flex justify-end">                            
+                                <div class="flex justify-end">                                      
+                                    <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
+                                        <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
+                                    </a>                         
                                     <x-edit-button onclick="document.getElementById('edit_game{{ $game->id }}').showModal()">                      
                                     </x-edit-button>
                                     <dialog id="edit_game{{ $game->id }}" class="modal modal-bottom sm:modal-middle">
@@ -198,6 +214,15 @@
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
+                                            </div>  
+
+                                            <!-- Datetime -->
+                                            <div class="mt-4">
+                                                <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
+                                                    <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
+                                                    <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                </label>
+                                                <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                             </div>
                                 
                                             <!-- Home Team name -->
@@ -222,7 +247,7 @@
                                                         </option>
                                                     @endforeach                                
                                                 </x-select>
-                                            </div>            
+                                            </div>          
                                     
                                             <!-- Status -->
                                             <div class="mt-4">
@@ -238,7 +263,7 @@
                                                             {{ __('End') }}
                                                         </option>                             
                                                 </x-select>
-                                            </div>            
+                                            </div>          
                                                             
                                             <!-- Scoreboard ID -->
                                             <div class="mt-4">
@@ -296,6 +321,9 @@
                                     @endif
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
+                                    {{ $game->datetime }}
+                                </td>
+                                <td class="border-b-2 border-base-300 text-center">
                                     <div class="flex justify-center w-full">
                                         <div class="w-10 rounded-full">
                                             <img src="{{ asset('images/logos/' . $game->homeTeam->logo) }}" alt="{{ $game->homeTeam->team_name }} image"> {{ $game->homeTeam->team_name }}
@@ -332,7 +360,10 @@
                                     {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    <div class="flex justify-end">                    
+                                    <div class="flex justify-end">    
+                                        <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
+                                            <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
+                                        </a>         
                                         <!-- Open the modal using ID.showModal() method -->
                                         <x-edit-button onclick="document.getElementById('my_modal_edit{{ $game->id }}').showModal()">                      
                                         </x-edit-button>
@@ -351,11 +382,20 @@
                                                     <x-select name="event_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Event') }}</option>
                                                         @foreach ($events as $event)
-                                                            <option value="{{ $team->id }}" {{ (old('event_id', $event->event_id) == $event->id) ? 'selected' : '' }}>
+                                                            <option value="{{ $event->id }}" {{ (old('event_id', $game->event_id) == $event->id) ? 'selected' : '' }}>
                                                                 {{ $event->event_name }}
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
+                                                </div>
+
+                                                <!-- Datetime -->
+                                                <div class="mt-4">
+                                                    <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $game->datetime)" >
+                                                        <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
+                                                        <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $game->datetime)" autocomplete="datetime" />
+                                                    </label>
+                                                    <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                                 </div>
                                     
                                                 <!-- Home Team name -->
@@ -386,13 +426,13 @@
                                                 <div class="mt-4">
                                                     <x-select name="status" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Status') }}</option>
-                                                            <option value="0" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            <option value="0" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
                                                                 {{ __('Created') }}
                                                             </option>  
-                                                            <option value="1" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            <option value="1" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
                                                                 {{ __('Live') }}
                                                             </option> 
-                                                            <option value="2" {{ (old('status', $game->status) == $game->id) ? 'selected' : '' }}>
+                                                            <option value="2" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
                                                                 {{ __('End') }}
                                                             </option>                             
                                                     </x-select>

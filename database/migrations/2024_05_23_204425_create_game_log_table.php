@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('game_logs', function (Blueprint $table) {
-            $table->id();
-            $table->integer('game_id',);
-            $table->integer('team_id',);
-            $table->integer('player_id',);
-            $table->string('action');
-            $table->integer('home_score',);
-            $table->integer('away_score',);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('game_logs')) {
+            Schema::create('game_logs', function (Blueprint $table) {
+                $table->id();
+                $table->integer('game_id',);
+                $table->integer('team_id',);
+                $table->integer('player_id',);
+                $table->string('action');
+                $table->integer('home_score',);
+                $table->integer('away_score',);
+                $table->timestamps();
+            });
+        }
     }
 
     /**

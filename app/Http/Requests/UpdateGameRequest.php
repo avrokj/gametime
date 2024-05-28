@@ -28,7 +28,8 @@ class UpdateGameRequest extends FormRequest
             'home_score' => 'nullable|integer|max:200',
             'away_score' => 'nullable|integer|max:200',
             'sb_id' => 'nullable|integer',
-            'status' => 'nullable|integer|max:11'
+            'status' => 'nullable|integer|max:11',
+            'datetime' => 'nullable|date|date_format:Y-m-d H:i'
         ];
     }
 }
