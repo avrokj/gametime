@@ -23,10 +23,11 @@
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
                             <h1 class="pt-2 text-6xl font-extrabold uppercase">
-                                <a href="{{ Route('score.hometeam', ['team_id' => $home_team->id]) }}">{{ $home_team->team_name }}</a>
+                                <a href="{{ Route('score.hometeam', ['game_id' => $game_id, 'team_id' => $home_team->id]) }}">{{ $home_team->team_name }}</a>
                             </h1>
                         </div>
                         <p id="homeScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                        @if($status==1)
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div  x-show="!open" @click="open = ! open" id="buttons1" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                             
@@ -69,14 +70,16 @@
 
                         </div>
                     </div>
+                    @endif
                 </div>
                     <div class="bg-base-200 rounded-lg">
                         <div id="container" class="flex justify-center">
                             <h1 class="pt-2 text-6xl font-extrabold uppercase">
-                                <a href="{{ Route('score.guestteam', ['team_id' => $away_team->id]) }}">{{ $away_team->team_name }}</a>
+                                <a href="{{ Route('score.guestteam', ['game_id' => $game_id, 'team_id' => $away_team->id]) }}">{{ $away_team->team_name }}</a>
                             </h1>
                         </div>
                         <p id="awayScore" style="font-family: 'CustomFont', sans-serif;" class="text-red-600 text-[240px] text-center"></p>
+                        @if($status==1)
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div  x-show="!open" @click="open = ! open" id="buttons" class="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-4 content-stretch border-dashed border-t-8 py-2 border-base-300">
                                 
@@ -117,6 +120,7 @@
                                 
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

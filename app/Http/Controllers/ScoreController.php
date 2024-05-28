@@ -11,7 +11,7 @@ use Ramsey\Uuid\Type\Integer;
 
 class ScoreController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $buttons = 
         [
@@ -19,13 +19,14 @@ class ScoreController extends Controller
             'color' => ['#BF0915', '#555555', '#08680B', '#08680B', '#08660D'],
             'bg_color' => ['#C1A3A6', '#C1B6A6', '#B4BfB7', '#A2B3A6', '#A2B3A6']
         ];
-
-        $game = Game::find(1);
+       
+        $game = Game::find($id);
         $home_team = Team::find($game->home_team_id);
         $away_team = Team::find($game->away_team_id);
         $home_score = $game->home_score;
         $away_score = $game->away_score;
         $id = $game->id;
+        $status = $game->status;
         // Retrieve the players collection from the session
         $players = Lineup::where('game_id', $id)->get();
         // Check if players data exists in session
@@ -46,9 +47,10 @@ class ScoreController extends Controller
             'away_team' => $away_team,
             'home_score' => $home_score,
             'away_score' => $away_score,
-            'id' => $id,
+            'game_id' => $id,
+            'status' => $status,
             'buttons' => $buttons
-        ], compact('awayTeamPlayers','homeTeamPlayers'));
+        ], compact('awayTeamPlayers', 'homeTeamPlayers', 'id'));
         
     }
 

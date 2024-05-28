@@ -117,12 +117,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/events/{sport}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
-    Route::get('/score', [ScoreController::class, 'index'])->name('score.index');
-    Route::post('/score', [ScoreController::class, 'updateScore'])->name('score.index');
-    Route::get('/score/hometeam/{team_id}', [SegmentController::class, 'hometeam'])->name('score.hometeam');
-    Route::get('/score/guestteam/{team_id}', [SegmentController::class, 'guestteam'])->name('score.guestteam');
+    Route::get('/score/{id}', [ScoreController::class, 'index'])->name('score.index');
+    Route::post('/score/{id}', [ScoreController::class, 'updateScore'])->name('score.index');
+    Route::get('/score/hometeam/{game_id}/{team_id}', [SegmentController::class, 'hometeam'])->name('score.hometeam');
+    Route::get('/score/guestteam/{game_id}/{team_id}', [SegmentController::class, 'guestteam'])->name('score.guestteam');
     Route::get('/score/team', [SegmentController::class, 'team'])->name('score.team');
     Route::get('/score/player', [SegmentController::class, 'player'])->name('score.player');
+    Route::get('/score/gamelog/{game_id}', [SegmentController::class, 'gamelog'])->name('score.gamelog');
+    Route::get('/score/stats/{game_id}', [SegmentController::class, 'stats'])->name('score.stats');
 });
 
 Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'] )->name('score.lastHomeScoreUpdate');
