@@ -330,7 +330,8 @@
                                 <a role="tab" class="tab" href="#game-tab-past">{{ __('Past Games') }}</a>
                             </div>
                               
-                            <div id="game-tab-future" role="gametabpanel" class="hidden">                               
+                            <div id="game-tab-future" role="gametabpanel" class="hidden">  
+                                <table class="table min-w-full">                             
                                 @php
                                     $futureGames = false;
                                     foreach ($games as $game) {
@@ -344,10 +345,24 @@
                                 @if ($futureGames)
                                     @foreach ($games as $game)
                                         @if (\Carbon\Carbon::parse($game->datetime)->isFuture())
-                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
-                                                <h2 class="text-2xl">{{ $game->game_name }}</h2>
-                                            </div>
+                                        <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                            <td class="border-b-2 border-base-300">
+                                                <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
+                                                <div class="flex justify-center">
+                                                    <div class="flex w-2/5 items-center justify-end">
+                                                        <span class="hidden md:block">{{ $game->homeTeam->team_name }}</span> 
+                                                        <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1" title="{{ $game->homeTeam->team_name }}" alt="{{ $game->homeTeam->team_name }}"/>
+                                                    </div>
+                                                    <div class="flex w-1/5 items-center justify-center font-bold text-lg">
+                                                        {{ $game->home_score }}:{{ $game->away_score }}
+                                                    </div>
+                                                    <div class="flex w-2/5 items-center justify-start">
+                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1" title="{{ $game->awayTeam->team_name }}" alt="{{ $game->awayTeam->team_name }}"/> 
+                                                        <span class="hidden md:block">{{ $game->awayTeam->team_name }}</span>
+                                                    </div>
+                                                </div>                                                  
+                                            </td>
+                                        </tr>
                                         @endif
                                     @endforeach
                                 @else
@@ -355,8 +370,10 @@
                                         {{ __('No future games.') }}
                                     </div>
                                 @endif
+                                </table>
                             </div>
                             <div id="game-tab-ongoing" role="gametabpanel" class="tab-active">
+                                <table class="table min-w-full">
                                 @php
                                     $ongoingGames = false;
                                     foreach ($games as $game) {
@@ -370,33 +387,55 @@
                                 @if ($ongoingGames)
                                     @foreach ($games as $game)                                        
                                         @if (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture())
-                                            <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
-                                                {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
-                                                <h2 class="text-2xl">{{ $game->game_name }}</h2>
-                                                <p>{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
-                                            </div>
+                                        <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                            <td class="border-b-2 border-base-300">
+                                                <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
+                                                <div class="flex justify-center">
+                                                    <div class="flex w-2/5 items-center justify-end">
+                                                        <span class="hidden md:block">{{ $game->homeTeam->team_name }}</span> 
+                                                        <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1" title="{{ $game->homeTeam->team_name }}" alt="{{ $game->homeTeam->team_name }}"/>
+                                                    </div>
+                                                    <div class="flex w-1/5 items-center justify-center font-bold text-lg">
+                                                        {{ $game->home_score }}:{{ $game->away_score }}
+                                                    </div>
+                                                    <div class="flex w-2/5 items-center justify-start">
+                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1" title="{{ $game->awayTeam->team_name }}" alt="{{ $game->awayTeam->team_name }}"/> 
+                                                        <span class="hidden md:block">{{ $game->awayTeam->team_name }}</span>
+                                                    </div>
+                                                </div>                                                  
+                                            </td>
+                                        </tr>
                                         @endif
                                     @endforeach
                                 @else
                                     <div class="pt-4 col-span-2">
                                         {{ __('No ongoing games.') }}
                                     </div>
-                                @endif
+                                @endif                                
+                                </table>
                             </div>
                             <div id="game-tab-past" role="gametabpanel" class="hidden">
                                 <table class="table min-w-full">  
                                     @foreach ($games as $game)                                      
                                         @if (\Carbon\Carbon::parse($game->datetime)->isPast())
-                                                <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
-                                                    <td class="border-b-2 border-base-300">
-                                                        {{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}
-                                                    </td>
-                                                    <td class="flex items-center border-b-2 border-base-300 text-left font-semibold">
-                                                        <span class="hidden sm:block"> {{ $game->homeTeam->team_name }}</span> <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1"> 
-                                                        {{ $game->home_score }}-{{ $game->away_score }} 
-                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1"> <span class="hidden sm:block">{{ $game->awayTeam->team_name }}</span>
-                                                    </td>
-                                                </tr>
+                                        <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                            <td class="border-b-2 border-base-300">
+                                                <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
+                                                <div class="flex justify-center">
+                                                    <div class="flex w-2/5 items-center justify-end">
+                                                        <span class="hidden md:block">{{ $game->homeTeam->team_name }}</span> 
+                                                        <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1" title="{{ $game->homeTeam->team_name }}" alt="{{ $game->homeTeam->team_name }}"/>
+                                                    </div>
+                                                    <div class="flex w-1/5 items-center justify-center font-bold text-lg">
+                                                        {{ $game->home_score }}:{{ $game->away_score }}
+                                                    </div>
+                                                    <div class="flex w-2/5 items-center justify-start">
+                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1" title="{{ $game->awayTeam->team_name }}" alt="{{ $game->awayTeam->team_name }}"/> 
+                                                        <span class="hidden md:block">{{ $game->awayTeam->team_name }}</span>
+                                                    </div>
+                                                </div>                                                  
+                                            </td>
+                                        </tr>
                                         @endif
                                     @endforeach
                                 </table>
