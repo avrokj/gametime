@@ -188,10 +188,13 @@
                                     {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                <div class="flex justify-end">                                      
+                                <div class="flex justify-end">
                                     <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
                                         <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
-                                    </a>                         
+                                    </a>
+                                    <a href="score/stat/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
+                                        <x-heroicon-s-document-chart-bar class="w-6 h-6 opacity-70" />
+                                    </a>                        
                                     <x-edit-button onclick="document.getElementById('edit_game{{ $game->id }}').showModal()">                      
                                     </x-edit-button>
                                     <dialog id="edit_game{{ $game->id }}" class="modal modal-bottom sm:modal-middle">
@@ -320,7 +323,7 @@
                                         {{ $event->event_name }}
                                     @endif
                                 </td>
-                                <td class="border-b-2 border-base-300 text-center">
+                                <td class="border-b-2 border-base-300">
                                     {{ $game->datetime }}
                                 </td>
                                 <td class="border-b-2 border-base-300 text-center">
@@ -360,10 +363,13 @@
                                     {{ $game->sb_id }}
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    <div class="flex justify-end">    
+                                    <div class="flex justify-end">
                                         <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
                                             <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
-                                        </a>         
+                                        </a>
+                                        <a href="score/stat/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
+                                            <x-heroicon-s-document-chart-bar class="w-6 h-6 opacity-70" />
+                                        </a>
                                         <!-- Open the modal using ID.showModal() method -->
                                         <x-edit-button onclick="document.getElementById('my_modal_edit{{ $game->id }}').showModal()">                      
                                         </x-edit-button>
