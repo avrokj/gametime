@@ -123,6 +123,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/score/guestteam/{game_id}/{team_id}', [SegmentController::class, 'guestteam'])->name('score.guestteam');
     Route::get('/score/team', [SegmentController::class, 'team'])->name('score.team');
     Route::get('/score/player', [SegmentController::class, 'player'])->name('score.player');
+    Route::get('/score/gamelog/{game_id}', [SegmentController::class, 'gamelog'])->name('score.gamelog');
+    Route::get('/score/stats/{game_id}', [SegmentController::class, 'stats'])->name('score.stats');
 });
 
 Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'] )->name('score.lastHomeScoreUpdate');

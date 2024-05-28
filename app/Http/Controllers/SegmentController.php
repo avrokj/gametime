@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
-use App\Models\Player;
+use App\Models\GameLog;
 use App\Models\Lineup;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
@@ -27,7 +27,9 @@ class SegmentController extends Controller
     }
     public function guestteam($game_id, $team_id)
     {
-        $guestTeamPlayers = Lineup::where('player_team_id', $team_id)->get();
+        $guestTeamPlayers = Lineup::where('player_team_id', $team_id)
+        ->where('game_id', $game_id)->get();
+
         $id = $guestTeamPlayers[0]->game_id;
         //dd($guestTeamPlayers[0]->game_id);
         View::share('id', $id);
@@ -44,4 +46,19 @@ class SegmentController extends Controller
     {
         return view('score.player');
     }
+
+    public function stats($game_id)
+    {
+        $stats = GameLog::where('game_id', $game_id)->get();
+
+        return view('score.stats', compact('stats'));
+    }
+
+    public function gamelog($game_id)
+    {
+        $gamelog = GameLog::where('game_id', $game_id)->get();
+
+        return view('score.gamelog', compact('gamelog'));
+    }
+
 }
