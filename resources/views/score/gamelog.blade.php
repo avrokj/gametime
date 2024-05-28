@@ -8,6 +8,7 @@
             </div>
         </div>
     </x-slot>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if($gamelog->isEmpty())
@@ -18,7 +19,24 @@
             @foreach($gamelog as $log)
             
             <p>
-                Mangija id: {{ $log->player_id }} sooritas viske {{ $log->action}} ja mangu seis on {{ $log->home_score}} : {{ $log->away_score}}
+                {{ $log->player->player_name }} 
+                @switch($log->action)
+                                @case(0)
+                                    viskas ässa
+                                    @break
+                                @case(1)
+                                    tabas vabaviske
+                                    @break
+                                @case(2)
+                                    tabas kahepuntki viske
+                                    @break
+                                @case(3)
+                                    tabas kolmese
+                                    @break
+                                @default
+                                    ladus tellise
+                            @endswitch
+                 ,seis on <b>{{ $log->home_score}} : {{ $log->away_score}}</b>
             </p>
             @endforeach
             @endif
