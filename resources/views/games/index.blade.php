@@ -97,6 +97,31 @@
                             <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
                         </div>
 
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="mt-4 text-left">
+                                <x-input-label :value="__('Home Players')" />
+                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                    @foreach($teams as $team)
+                                        @foreach($team->players as $player)
+                                            <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
+                                            <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
+                                            <br />
+                                        @endforeach
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mt-4 text-left">
+                                <x-input-label :value="__('Away Players')" />
+                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                @foreach ($players as $id => $player)
+                                    <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
+                                    <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
+                                    <br />
+                                @endforeach
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt-4 space-x-2 text-left">
                             <x-save-button> {{ __('Save') }}</x-save-button>
                         </div>
@@ -451,6 +476,32 @@
                                                         <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id', $game->sb_id)" autocomplete="sb_id" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
+                                                </div>
+
+                                                <!-- Players -->
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    <div class="mt-4 text-left">
+                                                        <x-input-label :value="__('Home Players')" />
+                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                                        @foreach ($players as $id => $player)
+                                                            <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
+                                                            <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
+                                                            <br />
+                                                        @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-4 text-left">
+                                                        <x-input-label :value="__('Away Players')" />
+                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
+                                                            @if(!empty($selectedAwayTeam))
+                                                                @foreach($selectedAwayTeam->players as $player)
+                                                                    <input type="checkbox" name="players[]" id="player-{{ $player->id }}" value="{{ $player->id }}" @if(in_array($player->id, old('players', []))) checked @endif>
+                                                                    <label class="text-sm font-medium" for="player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
+                                                                    <br>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="mt-4 space-x-2 text-left">

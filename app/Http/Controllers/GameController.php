@@ -6,6 +6,8 @@ use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use App\Models\Event;
+use App\Models\Lineup;
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -34,8 +36,9 @@ class GameController extends Controller
             ->paginate(20);
         $teams = Team::all(); // Retrieve teams data
         $events = Event::all(); // Retrieve events data
+        $players = Player::all();
 
-        return view('games.index', compact('games', 'teams', 'events'));
+        return view('games.index', compact('games', 'teams', 'events', 'players'));
     }
 
 
@@ -65,10 +68,39 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request): RedirectResponse
     {
-
+        // Validate the request
         $validatedData = $request->validated();
 
-        Game::create($validatedData);
+        // Create the game
+        $game = Game::create($validatedData);
+
+        // Fetch the selected home team's players
+        if ($request->has('home_team_id')) {
+            $selectedHomeTeam = Team::with('players')->find($request->home_team_id);
+            if ($selectedHomeTeam) {
+                // Store lineup data for the selected home team's players
+                foreach ($selectedHomeTeam->players as $player) {
+                    Lineup::create([
+                        'game_id' => $game->id,
+                        'player_id' => $player->id,
+                    ]);
+                }
+            }
+        }
+
+        // Fetch the selected away team's players
+        if ($request->has('away_team_id')) {
+            $selectedAwayTeam = Team::with('players')->find($request->away_team_id);
+            if ($selectedAwayTeam) {
+                // Store lineup data for the selected away team's players
+                foreach ($selectedAwayTeam->players as $player) {
+                    Lineup::create([
+                        'game_id' => $game->id,
+                        'player_id' => $player->id,
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('games.index')
             ->withSuccess('New game is added successfully.');
