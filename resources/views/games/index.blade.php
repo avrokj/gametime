@@ -192,7 +192,7 @@
                                     <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
                                         <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
                                     </a>
-                                    <a href="score/stat/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
+                                    <a href="score/stats/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
                                         <x-heroicon-s-document-chart-bar class="w-6 h-6 opacity-70" />
                                     </a>                        
                                     <x-edit-button onclick="document.getElementById('edit_game{{ $game->id }}').showModal()">                      
@@ -367,7 +367,7 @@
                                         <a href="score/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Add score') }}">
                                             <x-iconpark-scoreboard class="w-6 h-6 opacity-70" />
                                         </a>
-                                        <a href="score/stat/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
+                                        <a href="score/stats/{{ $game->id }}" class="p-2 focus:outline-none focus:shadow-outline text-green-500 hover:text-green-600" title="{{ __('Statistics') }}">
                                             <x-heroicon-s-document-chart-bar class="w-6 h-6 opacity-70" />
                                         </a>
                                         <!-- Open the modal using ID.showModal() method -->
