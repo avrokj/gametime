@@ -248,7 +248,7 @@
                                             <div class="mt-4">
                                                 <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $event->datetime)" >
                                                     <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                                    <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $event->datetime)" autocomplete="datetime" />
+                                                    <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', \Carbon\Carbon::parse($game->datetime)->format('Y-m-d H:i'))" autocomplete="datetime" />
                                                 </label>
                                                 <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                             </div>
@@ -424,7 +424,7 @@
                                                 <div class="mt-4">
                                                     <label class="input input-bordered flex items-center gap-2" for="location" :value="old('datetime', $game->datetime)" >
                                                         <x-heroicon-c-calendar-days class="w-4 h-4 opacity-70" />
-                                                        <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', $game->datetime)" autocomplete="datetime" />
+                                                        <x-text-input id="datetime" type="datetime" class="grow border-none focus:outline-none" placeholder="{{ __('Datetime yyyy-mm-dd hh:mm') }}" name="datetime" :value="old('datetime', \Carbon\Carbon::parse($game->datetime)->format('Y-m-d H:i'))" autocomplete="datetime" />
                                                     </label>
                                                     <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                                 </div>
