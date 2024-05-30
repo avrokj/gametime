@@ -8,7 +8,7 @@ require 'recipe/laravel.php';
 set('application', 'gametime');
 set('remote_user', 'vhost122307ssh');
 set('http_user', 'vhost122307f0');
-set('keep_releases', 2);
+set('keep_releases', 3);
 
 host('production')
     ->setHostname('gametime.ee')
