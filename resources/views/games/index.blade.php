@@ -54,76 +54,71 @@
                                         
                         <!-- Home Team name -->
                         <div class="mt-4">
-                            <x-select name="home_team_id" class="!max-w-full">
+                            <x-select name="home_team_id" id="home_team_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Home Team') }}</option>
                                 @foreach ($teams as $team)
                                     <option value="{{ $team->id }}">{{ $team->team_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>                      
-                                        
+
                         <!-- Away Team name -->
                         <div class="mt-4">
-                            <x-select name="away_team_id" class="!max-w-full">
+                            <x-select name="away_team_id" id="away_team_id" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Away Team') }}</option>
                                 @foreach ($teams as $team)
                                     <option value="{{ $team->id }}">{{ $team->team_name }}</option>
                                 @endforeach                                
                             </x-select>
                         </div>            
-                                        
+
                         <!-- Status -->
                         <div class="mt-4">
                             <x-select name="status" class="!max-w-full">
                                 <option disabled selected value="">{{ __('Select Status') }}</option>
-                                    <option value="0">
-                                        {{ __('Created') }}
-                                    </option>  
-                                    <option value="1">
-                                        {{ __('Live') }}
-                                    </option> 
-                                    <option value="2">
-                                        {{ __('End') }}
-                                    </option>                             
+                                <option value="0">{{ __('Created') }}</option>  
+                                <option value="1">{{ __('Live') }}</option> 
+                                <option value="2">{{ __('End') }}</option>                             
                             </x-select>
                         </div>            
-                                        
+
                         <!-- Scoreboard ID -->
                         <div class="mt-4">
-                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Scoreboard Id') }}" >
+                            <label class="input input-bordered flex items-center gap-2" for="sb_id" :value="{{ __('Scoreboard Id') }}">
                                 <x-iconpark-scoreboard class="w-4 h-4 opacity-70" />
-                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" type="text" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
+                                <x-text-input id="sb_id" type="text" class="grow border-none focus:outline-none" placeholder="{{ __('Scoreboard Id') }}" name="sb_id" :value="old('sb_id')" autocomplete="sb_id" />
                             </label>
                             <x-input-error :messages="$errors->get('sb_id')" class="mt-2" />
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
+                            <!-- Home Players -->
                             <div class="mt-4 text-left">
                                 <x-input-label :value="__('Home Players')" />
-                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
-                                    @foreach($teams as $team)
-                                        @foreach($team->players as $player)
-                                            <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
-                                            <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
-                                            <br />
-                                        @endforeach
+                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll" id="home-players-list">
+                                    @foreach ($players as $player)
+                                        <input type="checkbox" name="home_players[]" id="home-player-{{ $player->id }}" value="{{ $player->id }}" @checked(in_array($player->id, old('home_players', [])))>
+                                        <label class="text-sm font-medium" for="home-player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
+                                        <br />
                                     @endforeach
                                 </div>
                             </div>
+
+                            <!-- Away Players -->
                             <div class="mt-4 text-left">
                                 <x-input-label :value="__('Away Players')" />
-                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
-                                @foreach ($players as $id => $player)
-                                    <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
-                                    <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
-                                    <br />
-                                @endforeach
+                                <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll" id="away-players-list">
+                                    @foreach ($players as $player)
+                                        <input type="checkbox" name="away_players[]" id="away-player-{{ $player->id }}" value="{{ $player->id }}" @checked(in_array($player->id, old('away_players', [])))>
+                                        <label class="text-sm font-medium" for="away-player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
+                                        <br />
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-4 space-x-2 text-left">
-                            <x-save-button> {{ __('Save') }}</x-save-button>
+                            <x-save-button>{{ __('Save') }}</x-save-button>
                         </div>
                     </form>
                     </div>
@@ -345,7 +340,10 @@
                                     @if($game->event_id == 0)
                                         {{ __('No Event') }}
                                     @else
-                                        {{ $event->event_name }}
+                                        @php
+                                            $selectedEvent = $events->firstWhere('id', $game->event_id);
+                                        @endphp
+                                        {{ $selectedEvent ? $selectedEvent->event_name : __('No Event') }}
                                     @endif
                                 </td>
                                 <td class="border-b-2 border-base-300">
@@ -428,10 +426,10 @@
                                                     </label>
                                                     <x-input-error :messages="$errors->get('datetime')" class="mt-2" />
                                                 </div>
-                                    
+
                                                 <!-- Home Team name -->
                                                 <div class="mt-4">
-                                                    <x-select name="home_team_id" class="!max-w-full">
+                                                    <x-select name="home_team_id" id="home_team_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Home Team') }}</option>
                                                         @foreach ($teams as $team)
                                                             <option value="{{ $team->id }}" {{ (old('home_team_id', $game->home_team_id) == $team->id) ? 'selected' : '' }}>
@@ -439,11 +437,11 @@
                                                             </option>
                                                         @endforeach                                
                                                     </x-select>
-                                                </div>
-                                        
+                                                </div>                      
+
                                                 <!-- Away Team name -->
                                                 <div class="mt-4">
-                                                    <x-select name="away_team_id" class="!max-w-full">
+                                                    <x-select name="away_team_id" id="away_team_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Away Team') }}</option>
                                                         @foreach ($teams as $team)
                                                             <option value="{{ $team->id }}" {{ (old('away_team_id', $game->away_team_id) == $team->id) ? 'selected' : '' }}>
@@ -457,15 +455,15 @@
                                                 <div class="mt-4">
                                                     <x-select name="status" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Status') }}</option>
-                                                            <option value="0" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
-                                                                {{ __('Created') }}
-                                                            </option>  
-                                                            <option value="1" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
-                                                                {{ __('Live') }}
-                                                            </option> 
-                                                            <option value="2" {{ (old('status', $game->status) == $game->status) ? 'selected' : '' }}>
-                                                                {{ __('End') }}
-                                                            </option>                             
+                                                        <option value="0" {{ (old('status', $game->status) == 0) ? 'selected' : '' }}>
+                                                            {{ __('Created') }}
+                                                        </option>  
+                                                        <option value="1" {{ (old('status', $game->status) == 1) ? 'selected' : '' }}>
+                                                            {{ __('Live') }}
+                                                        </option> 
+                                                        <option value="2" {{ (old('status', $game->status) == 2) ? 'selected' : '' }}>
+                                                            {{ __('End') }}
+                                                        </option>                             
                                                     </x-select>
                                                 </div>            
                                                                 
@@ -480,26 +478,27 @@
 
                                                 <!-- Players -->
                                                 <div class="grid grid-cols-2 gap-4">
+                                                    <!-- Home Players -->
                                                     <div class="mt-4 text-left">
                                                         <x-input-label :value="__('Home Players')" />
-                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
-                                                        @foreach ($players as $id => $player)
-                                                            <input type="checkbox" name="players[]" id="player-{{ $player['id'] }}" value="{{ $player['id'] }}" @checked(in_array($player['id'], old('players', [])))>
-                                                            <label class="text-sm font-medium" for="player-{{ $player['id'] }}">{{ $player['player_no'] }} {{ $player['player_name'] }}</label>
-                                                            <br />
-                                                        @endforeach
+                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll" id="home-players-list-edit">
+                                                            @foreach ($players as $player)
+                                                                <input type="checkbox" name="home_players[]" id="home-player-{{ $player->id }}" value="{{ $player->id }}" @checked(in_array($player->id, old('home_players', [])))>
+                                                                <label class="text-sm font-medium" for="home-player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
+                                                                <br />
+                                                            @endforeach
                                                         </div>
                                                     </div>
+
+                                                    <!-- Away Players -->
                                                     <div class="mt-4 text-left">
                                                         <x-input-label :value="__('Away Players')" />
-                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll">
-                                                            @if(!empty($selectedAwayTeam))
-                                                                @foreach($selectedAwayTeam->players as $player)
-                                                                    <input type="checkbox" name="players[]" id="player-{{ $player->id }}" value="{{ $player->id }}" @if(in_array($player->id, old('players', []))) checked @endif>
-                                                                    <label class="text-sm font-medium" for="player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
-                                                                    <br>
-                                                                @endforeach
-                                                            @endif
+                                                        <div class="max-h-80 border input-bordered p-2 rounded-lg overflow-y-scroll" id="away-players-list-edit">
+                                                            @foreach ($players as $player)
+                                                                <input type="checkbox" name="away_players[]" id="away-player-{{ $player->id }}" value="{{ $player->id }}" @checked(in_array($player->id, old('away_players', [])))>
+                                                                <label class="text-sm font-medium" for="away-player-{{ $player->id }}">{{ $player->player_no }} {{ $player->player_name }}</label>
+                                                                <br />
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
@@ -539,4 +538,73 @@
         </div>
         </div>
     </div>
+    <script>
+        document.getElementById('home_team_id').addEventListener('change', function () {
+        var teamId = this.value;
+        fetch(`/api/teams/${teamId}/players`)
+            .then(response => response.json())
+            .then(data => {
+                var playersList = document.getElementById('home-players-list');
+                playersList.innerHTML = '';
+                var oldHomePlayers = @json(old('home_players', []));
+
+                data.forEach(player => {
+                    if (player.status === 'active') { // Check if the player is active
+                        var checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.name = 'home_players[]';
+                        checkbox.id = `home-player-${player.id}`;
+                        checkbox.value = player.id;
+
+                        if (oldHomePlayers.includes(player.id.toString())) {
+                            checkbox.checked = true;
+                        }
+
+                        var label = document.createElement('label');
+                        label.className = 'text-sm font-medium';
+                        label.htmlFor = `home-player-${player.id}`;
+                        label.textContent = `${player.player_no} ${player.player_name}`;
+
+                        playersList.appendChild(checkbox);
+                        playersList.appendChild(label);
+                        playersList.appendChild(document.createElement('br'));
+                    }
+                });
+            });
+        });
+
+        document.getElementById('away_team_id').addEventListener('change', function () {
+            var teamId = this.value;
+            fetch(`/api/teams/${teamId}/players`)
+                .then(response => response.json())
+                .then(data => {
+                    var playersList = document.getElementById('away-players-list');
+                    playersList.innerHTML = '';
+                    var oldAwayPlayers = @json(old('away_players', []));
+
+                    data.forEach(player => {
+                        if (player.status === 'active') { // Check if the player is active
+                            var checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'away_players[]';
+                            checkbox.id = `away-player-${player.id}`;
+                            checkbox.value = player.id;
+
+                            if (oldAwayPlayers.includes(player.id.toString())) {
+                                checkbox.checked = true;
+                            }
+
+                            var label = document.createElement('label');
+                            label.className = 'text-sm font-medium';
+                            label.htmlFor = `away-player-${player.id}`;
+                            label.textContent = `${player.player_no} ${player.player_name}`;
+
+                            playersList.appendChild(checkbox);
+                            playersList.appendChild(label);
+                            playersList.appendChild(document.createElement('br'));
+                        }
+                    });
+                });
+        });
+    </script>
 </x-app-layout>

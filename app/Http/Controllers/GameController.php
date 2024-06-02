@@ -83,6 +83,8 @@ class GameController extends Controller
                     Lineup::create([
                         'game_id' => $game->id,
                         'player_id' => $player->id,
+                        'player_team_id' => $player->team_id,
+                        'status' => 'active'
                     ]);
                 }
             }
@@ -97,6 +99,8 @@ class GameController extends Controller
                     Lineup::create([
                         'game_id' => $game->id,
                         'player_id' => $player->id,
+                        'player_team_id' => $player->team_id,
+                        'status' => 'active'
                     ]);
                 }
             }

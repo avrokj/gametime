@@ -9,7 +9,7 @@ class Lineup extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['player_id', 'game_id', 'position'];
+    protected $fillable = ['game_id', 'player_id', 'player_team_id', 'status'];
 
     public function player()
     {
