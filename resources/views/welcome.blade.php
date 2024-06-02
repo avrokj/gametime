@@ -335,7 +335,7 @@
                                 @php
                                     $futureGames = false;
                                     foreach ($games as $game) {
-                                        if ($game->status == 1) {
+                                        if ($game->status == 0) {
                                             $futureGames = true;
                                             break;
                                         }
@@ -344,7 +344,7 @@
 
                                 @if ($futureGames)
                                     @foreach ($games as $game)
-                                        @if (\Carbon\Carbon::parse($game->datetime)->isFuture())
+                                        @if (\Carbon\Carbon::parse($game->datetime)->isFuture() || $game->status == 0)
                                         <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                             <td class="border-b-2 border-base-300">
                                                 <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
@@ -386,7 +386,7 @@
 
                                 @if ($ongoingGames)
                                     @foreach ($games as $game)                                        
-                                        @if (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture())
+                                        @if ($game->status == 1) {{-- (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture()) --}}
                                         <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                             <td class="border-b-2 border-base-300">
                                                 <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
@@ -417,7 +417,7 @@
                             <div id="game-tab-past" role="gametabpanel" class="hidden">
                                 <table class="table min-w-full">  
                                     @foreach ($games as $game)                                      
-                                        @if (\Carbon\Carbon::parse($game->datetime)->isPast())
+                                        @if ($game->status == 2){{-- (\Carbon\Carbon::parse($game->datetime)->isPast()) --}}
                                         <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                             <td class="border-b-2 border-base-300">
                                                 <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>

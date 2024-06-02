@@ -21,6 +21,7 @@ use App\Http\Controllers\GameLogController;
 use App\Models\Position;
 use App\Models\Event;
 use App\Models\Game;
+use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -127,12 +128,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/score/stats/{game_id}', [SegmentController::class, 'stats'])->name('score.stats');
 });
 
-Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'] )->name('score.lastHomeScoreUpdate');
-Route::post('/score/guest', [ScoreController::class, 'lastAwayScoreUpdate'] )->name('score.lastAwayScoreUpdate');
+Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'])->name('score.lastHomeScoreUpdate');
+Route::post('/score/guest', [ScoreController::class, 'lastAwayScoreUpdate'])->name('score.lastAwayScoreUpdate');
 Route::post('/gamelog/home', [GameLogController::class, 'storeHome']);
 Route::post('/gamelog/away', [GameLogController::class, 'storeAway']);
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
+Route::get('/api/teams/{team}/players', function (Team $team) {
+    return response()->json($team->players);
+});
 
 Route::post('/players/updateAwayPlayerStatus/{id}', [PlayerController::class, 'updateAwayPlayerStatus'])->name('players.updateAwayPlayerStatus');
 Route::post('/players/updateAwayPlayerStatusToBench/{id}', [PlayerController::class, 'updateAwayPlayerStatusToBench'])->name('players.updateAwayPlayerStatusToBench');
