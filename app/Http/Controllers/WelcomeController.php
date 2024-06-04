@@ -12,8 +12,8 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
-        $games = Game::all();
+        $events = Event::orderBy('datetime', 'desc')->get();
+        $games = Game::orderBy('datetime', 'desc')->get();
         $teams = Team::all();
         $gamelogs = GameLog::all();
 
