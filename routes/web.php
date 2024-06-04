@@ -130,8 +130,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/score/home', [ScoreController::class, 'lastHomeScoreUpdate'])->name('score.lastHomeScoreUpdate');
 Route::post('/score/guest', [ScoreController::class, 'lastAwayScoreUpdate'])->name('score.lastAwayScoreUpdate');
-Route::post('/gamelog/home', [GameLogController::class, 'storeHome']);
-Route::post('/gamelog/away', [GameLogController::class, 'storeAway']);
+Route::post('/score/gamelog/home', [GameLogController::class, 'storeHome']);
+Route::post('/score/gamelog/away', [GameLogController::class, 'storeAway']);
 
 Route::post('/apis', [ApiController::class, 'updateApi']);
 Route::get('/api/teams/{team}/players', function (Team $team) {
