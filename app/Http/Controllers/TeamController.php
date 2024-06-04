@@ -35,12 +35,14 @@ class TeamController extends Controller
 
     public function players(Request $request, $teamId)
     {
-        // dd($request);        
-        $team = Team::with('coaches')->findOrFail($teamId); // Retrieve the team by ID
-        $players = $team->players; // Fetch players associated with the team        
-        $positions = Position::all(); // Retrieve positions data
-        $countries = Country::all(); // Retrieve countries data
-        $coaches = $team->coaches; // Fetch coaches associated with the team
+        // dd($request);
+        $team = Team::with(['players', 'coaches'])->findOrFail($teamId);
+
+        $positions = Position::all();
+        $countries = Country::all();
+
+        $players = $team->players;
+        $coaches = $team->coaches;
 
         return view('teams.players', compact('team', 'players', 'positions', 'countries', 'coaches'));
     }
