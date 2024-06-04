@@ -9,7 +9,7 @@
             </div>
         </div>
     </x-slot>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="py-12">
     
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

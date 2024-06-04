@@ -44,24 +44,26 @@ class GameLogController extends Controller
 
     public function storeAway(Request $request)
     {
-        $player = Player::find($request->player_id);
-
-        // Check if the player exists
-        if ($player) {
-            // Get the team_id from the player
-            $team_id = $player->team_id;
-        }
-
-        $request->validate
-        ([
+        // Validate request data
+        $validated = $request->validate([
             'game_id' => 'required|integer',
-            'team_id' => 'required|integer',
             'player_id' => 'required|integer',
             'action' => 'required|string|max:45',
             'home_score' => 'required|integer',
             'away_score' => 'required|integer'
         ]);
 
+        // Find the player and get the team_id
+        $player = Player::find($request->player_id);
+
+        // Check if the player exists
+        if (!$player) {
+            return response()->json(['error' => 'Player not found'], 404);
+        }
+
+        $team_id = $player->team_id;
+
+        // Create new game log entry
         $gameLog = new GameLog();
         $gameLog->game_id = $request->game_id;
         $gameLog->team_id = $team_id;
@@ -71,9 +73,7 @@ class GameLogController extends Controller
         $gameLog->away_score = $request->away_score;
         $gameLog->save();
 
-        // return redirect()->route('players.index')
-        //     ->with('success', 'Player added successfully.');
-        return back();
+        return response()->json(['success' => 'Game log added successfully']);
     }
 
 }
