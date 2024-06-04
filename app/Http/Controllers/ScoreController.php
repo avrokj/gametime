@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Session;
 
 use App\Models\Game;
@@ -13,13 +14,13 @@ class ScoreController extends Controller
 {
     public function index($id)
     {
-        $buttons = 
-        [
-            'step' => [-1, 0, 1, 2, 3],
-            'color' => ['#BF0915', '#555555', '#08680B', '#08680B', '#08660D'],
-            'bg_color' => ['#C1A3A6', '#C1B6A6', '#B4BfB7', '#A2B3A6', '#A2B3A6']
-        ];
-       
+        $buttons =
+            [
+                'step' => [-1, 0, 1, 2, 3],
+                'color' => ['#BF0915', '#555555', '#08680B', '#08680B', '#08660D'],
+                'bg_color' => ['#C1A3A6', '#C1B6A6', '#B4BfB7', '#A2B3A6', '#A2B3A6']
+            ];
+
         $game = Game::find($id);
         $home_team = Team::find($game->home_team_id);
         $away_team = Team::find($game->away_team_id);
@@ -30,16 +31,13 @@ class ScoreController extends Controller
         // Retrieve the players collection from the session
         $players = Lineup::where('game_id', $id)->get();
         // Check if players data exists in session
-        if ($players)
-        {
-        // Filter players with status 'xxxx_court'
-        $awayTeamPlayers = $players->where('status', 'guest_court')->take(5); // Limit to 5 players
-        $homeTeamPlayers = $players->where('status', 'home_court')->take(5); // Limit to 5 players
-        }
-        else
-        {
-        $homeTeamPlayers = collect(); // Empty collection if no players found
-        $awayTeamPlayers = collect(); // Empty collection if no players found
+        if ($players) {
+            // Filter players with status 'xxxx_court'
+            $awayTeamPlayers = $players->where('status', 'guest_court')->take(5); // Limit to 5 players
+            $homeTeamPlayers = $players->where('status', 'home_court')->take(5); // Limit to 5 players
+        } else {
+            $homeTeamPlayers = collect(); // Empty collection if no players found
+            $awayTeamPlayers = collect(); // Empty collection if no players found
         }
         //dd($buttons['color']);
         return view('score.index', [
@@ -49,14 +47,14 @@ class ScoreController extends Controller
             'away_score' => $away_score,
             'game_id' => $id,
             'status' => $status,
-            'buttons' => $buttons
+            'buttons' => $buttons,
+            'sb_id' => $game->sb_id
         ], compact('awayTeamPlayers', 'homeTeamPlayers', 'id'));
-        
     }
 
-    public function updateHomeScore(Request $request)
+    public function updateHomeScore(Request $request, $id)
     {
-        $game = Game::find(1);
+        $game = Game::find($id);
         if ($game) {
             $game->home_score = $request->input('homeScore');
             $game->save();
@@ -65,9 +63,9 @@ class ScoreController extends Controller
         return response()->json(['success' => false, 'message' => 'Game not found']);
     }
 
-    public function updateAwayScore(Request $request)
+    public function updateAwayScore(Request $request, $id)
     {
-        $game = Game::find(1);
+        $game = Game::find($id);
         if ($game) {
             $game->away_score = $request->input('awayScore');
             $game->save();
@@ -76,9 +74,9 @@ class ScoreController extends Controller
         return response()->json(['success' => false, 'message' => 'Game not found']);
     }
 
-    public function updateScore(Request $request)
+    public function updateScore(Request $request, $id)
     {
-        $game = Game::find(1);
+        $game = Game::find($id);
         if ($game) {
             $game->away_score = $request->input('awayScore');
             $game->home_score = $request->input('homeScore');
@@ -91,7 +89,7 @@ class ScoreController extends Controller
     public function lastHomeScoreUpdate(Request $request)
     {
         $player_id = (int)$request->player_id;
-        $points = (int)$request->points;       
+        $points = (int)$request->points;
 
         return redirect()->route('score.index')->with('success', 'Gamelog updated');
     }
@@ -99,9 +97,8 @@ class ScoreController extends Controller
     public function lastAwayScoreUpdate(Request $request)
     {
         $player_id = (int)$request->player_id;
-        $points = (int)$request->points;       
+        $points = (int)$request->points;
 
         return redirect()->route('score.index')->with('success', 'Gamelog updated');
     }
-
 }

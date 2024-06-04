@@ -173,13 +173,11 @@ class PlayerController extends Controller
         $player->save();
 
         $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
-        $awayCourtPlayers = $teamPlayers->where('status', 'home_court');
+        $homeCourtPlayers = $teamPlayers->where('status', 'home_court');
 
-        if ($awayCourtPlayers->count() >= 5)
-        {
-            $extraPlayers = $awayCourtPlayers->slice(5);
-            foreach ($extraPlayers as $extraPlayer)
-            {
+        if ($homeCourtPlayers->count() >= 5) {
+            $extraPlayers = $homeCourtPlayers->slice(5);
+            foreach ($extraPlayers as $extraPlayer) {
                 $extraPlayer->status = 'home_bench';
                 $extraPlayer->save();
             }
@@ -199,11 +197,9 @@ class PlayerController extends Controller
         $teamPlayers = Lineup::where('player_team_id', $team_id)->get();
         $awayCourtPlayers = $teamPlayers->where('status', 'guest_court');
 
-        if ($awayCourtPlayers->count() >= 5)
-        {
+        if ($awayCourtPlayers->count() >= 5) {
             $extraPlayers = $awayCourtPlayers->slice(5);
-            foreach ($extraPlayers as $extraPlayer)
-            {
+            foreach ($extraPlayers as $extraPlayer) {
                 $extraPlayer->status = 'guest_bench';
                 $extraPlayer->save();
             }
@@ -217,7 +213,7 @@ class PlayerController extends Controller
         $player = Lineup::findOrFail($id);
         $player->status = 'home_bench';
         $player->save();
-        
+
         return redirect()->back()->with('status', 'Player status updated.');
     }
 
@@ -254,5 +250,4 @@ class PlayerController extends Controller
 
         return redirect()->back()->with('message', 'All players are active!');
     }
-
 }

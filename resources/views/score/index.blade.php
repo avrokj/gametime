@@ -1,4 +1,6 @@
 <x-app-layout>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-slot name="header">
         <div class="flex justify-between">
@@ -61,7 +63,7 @@
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
                                             ">
-                                            {{ $player->player_no }}
+                                            {{ $player->player->player_no }}
                                         </p>
                                      </button>
                                 </div>
@@ -111,7 +113,7 @@
                                                 font-size: xx-large;
                                                 text-shadow: -1px 1px 0 #111, 1px 1px 0 #111, 1px -1px 0 #111, -1px -1px 0 #111;
                                             ">
-                                            {{ $player->player_no }}
+                                            {{ $player->player->player_no }}
                                         </p>
                                     </button>
                                 </div>
@@ -179,7 +181,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            sb_id: 241002, // Provide sb_id here
+            sb_id: {{ $sb_id }}, // Provide sb_id here
             awayScore: aScore,
             homeScore: hScore
         },
@@ -237,7 +239,7 @@ var handleHomeScore = function(amount) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            sb_id: 241002, // Provide sb_id here
+            sb_id: {{ $sb_id }}, // Provide sb_id here
             awayScore: aScore,
             homeScore: hScore
         },
@@ -262,7 +264,7 @@ var lastAwayPointsBy = function(player){
 
         data: {
             game_id: {{ $id }},
-            team_id: 2,
+            team_id: {{ $away_team->id }},
             player_id: player,
             action: lastAwayPoints,
             home_score: hScore,
@@ -287,7 +289,7 @@ var lastHomePointsBy = function(player){
         },
         data: {
             game_id: {{ $id }},
-            team_id: 1,
+            team_id: {{ $home_team->id }},
             player_id: player,
             action: lastHomePoints,
             home_score: hScore,
