@@ -164,8 +164,8 @@
         },
         data: {
             gameId: {{ $id }},
-            homeScore: home_score,
-            awayScore: away_score,
+            home_score: hScore,
+            away_score: aScore,
         },
         success: function(response) {
             console.log('score saved to database');
@@ -182,8 +182,8 @@
         },
         data: {
             sb_id: {{ $sb_id }},
-            homeScore: home_score,
-            awayScore: away_score,
+            home_score: hScore,
+            away_score: aScore,
         },
         success: function(response) {
             console.log('score saved to api');
@@ -221,8 +221,8 @@ var handleHomeScore = function(amount) {
         },
         data: {
             gameId: {{ $id }},            
-            homeScore: home_score,
-            awayScore: away_score,
+            home_score: hScore,
+            away_score: aScore,
         },
         success: function(response) {
             console.log('score saved to database');
@@ -240,8 +240,8 @@ var handleHomeScore = function(amount) {
         },
         data: {
             sb_id: {{ $sb_id }}, // Provide sb_id here            
-            homeScore: home_score,
-            awayScore: away_score,
+            home_score: hScore,
+            away_score: aScore,
         },
         success: function(response) {
             console.log('score saved to api');
