@@ -34,8 +34,8 @@ class GameController extends Controller
     {
         $games = Game::latest()
             ->paginate(20);
-        $teams = Team::all(); // Retrieve teams data
-        $events = Event::all(); // Retrieve events data
+        $teams = Team::all();
+        $events = Event::all();
         $players = Player::all();
 
         return view('games.index', compact('games', 'teams', 'events', 'players'));
@@ -45,12 +45,23 @@ class GameController extends Controller
     public function search(Request $request)
     {
         $term = $request->input('search');
-        $games = Game::where('game_name', 'like', "%$term%");
-        $games->orWhereHas('team', function ($query) use ($term) {
-            $query->where('team_name', 'like', "%$term%");
-        });
-        $games = $games->orderBy('game_name')->paginate(20);
-        $teams = Team::all(); // Retrieve teams data
+
+        // Search for games by game name, related team names (home or away), or event name
+        $games = Game::where('id', 'like', "%$term%")
+            ->orWhereHas('homeTeam', function ($query) use ($term) {
+                $query->where('team_name', 'like', "%$term%");
+            })
+            ->orWhereHas('awayTeam', function ($query) use ($term) {
+                $query->where('team_name', 'like', "%$term%");
+            })
+            ->orWhereHas('event', function ($query) use ($term) {
+                $query->where('event_name', 'like', "%$term%");
+            })
+            ->orderBy('datetime')
+            ->paginate(20);
+
+        $teams = Team::all();
+        $events = Event::all();
 
         return view('games.index', compact('games', 'teams', 'events'));
     }

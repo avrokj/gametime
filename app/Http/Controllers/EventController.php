@@ -33,9 +33,9 @@ class EventController extends Controller
     {
         $events = Event::latest()
             ->paginate(20);
-        $sports = Sport::all(); // Retrieve teams data
-        $games = Game::all(); // Retrieve events data        
-        $arenas = Arena::all(); // Retrieve arenas data
+        $sports = Sport::all();
+        $games = Game::all();
+        $arenas = Arena::all();
 
         return view('events.index', compact('events', 'sports', 'games', 'arenas'));
     }
@@ -49,8 +49,8 @@ class EventController extends Controller
             $query->where('arena_name', 'like', "%$term%");
         });
         $events = $events->orderBy('event_name')->paginate(20);
-        $sports = Sport::all(); // Retrieve teams data
-        $arenas = Arena::all(); // Retrieve teams data
+        $sports = Sport::all();
+        $arenas = Arena::all();
 
         return view('events.index', compact('events', 'sports', 'arenas', 'events'));
     }
@@ -104,7 +104,7 @@ class EventController extends Controller
     {
         $event->update($request->all());
         return redirect()->back()
-            ->withSuccess('Game is updated successfully.');
+            ->withSuccess('Event is updated successfully.');
     }
 
 

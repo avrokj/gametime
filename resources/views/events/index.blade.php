@@ -176,7 +176,7 @@
 
                                             <!-- Sport name -->
                                             <div class="mt-4">
-                                                <x-select name="event_id" class="!max-w-full">
+                                                <x-select name="sport_id" class="!max-w-full">
                                                     <option disabled selected value="">{{ __('Select Sport') }}</option>
                                                     @foreach ($sports as $sport)
                                                         <option value="{{ $sport->id }}" {{ (old('sport_id', $event->sport_id) == $sport->id) ? 'selected' : '' }}>
@@ -188,7 +188,7 @@
 
                                             <!-- Arena name -->
                                             <div class="mt-4">
-                                                <x-select name="event_id" class="!max-w-full">
+                                                <x-select name="arena_id" class="!max-w-full">
                                                     <option disabled selected value="">{{ __('Select Arena') }}</option>
                                                     @foreach ($arenas as $arena)
                                                         <option value="{{ $arena->id }}" {{ (old('arena_id', $event->arena_id) == $arena->id) ? 'selected' : '' }}>
@@ -299,7 +299,7 @@
 
                                                 <!-- Sport name -->
                                                 <div class="mt-4">
-                                                    <x-select name="event_id" class="!max-w-full">
+                                                    <x-select name="sport_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Sport') }}</option>
                                                         @foreach ($sports as $sport)
                                                             <option value="{{ $sport->id }}" {{ (old('sport_id', $event->sport_id) == $sport->id) ? 'selected' : '' }}>
@@ -311,7 +311,7 @@
 
                                                 <!-- Arena name -->
                                                 <div class="mt-4">
-                                                    <x-select name="event_id" class="!max-w-full">
+                                                    <x-select name="arena_id" class="!max-w-full">
                                                         <option disabled selected value="">{{ __('Select Arena') }}</option>
                                                         @foreach ($arenas as $arena)
                                                             <option value="{{ $arena->id }}" {{ (old('arena_id', $event->arena_id) == $arena->id) ? 'selected' : '' }}>
