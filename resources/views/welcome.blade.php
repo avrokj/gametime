@@ -237,6 +237,10 @@
                                 <a role="tab" class="tab font-semibold tab-active" href="#event-tab-ongoing"> {{ __('Ongoing Events') }}</a>
                                 <a role="tab" class="tab" href="#event-tab-past">{{ __('Past Events') }}</a>
                             </div>
+
+                            @php
+                                $sortedEvents = $events->sortByDesc('datetime');
+                            @endphp
                               
                             <div id="event-tab-future" role="eventtabpanel" class="hidden">                               
                                 @php
@@ -250,7 +254,7 @@
                                 @endphp
 
                                 @if ($futureEvents)
-                                    @foreach ($events as $event)
+                                    @foreach ($sortedEvents as $event)
                                         @if (\Carbon\Carbon::parse($event->datetime)->isFuture())
                                             <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                                 {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
@@ -268,7 +272,7 @@
                             <div id="event-tab-ongoing" role="eventtabpanel" class="tab-active">
                                 @php
                                     $ongoingEvents = false;
-                                    foreach ($events as $event) {
+                                    foreach ($sortedEvents as $event) {
                                         if (\Carbon\Carbon::parse($event->datetime)->isPast() && \Carbon\Carbon::parse($event->end_datetime)->isFuture()) {
                                             $ongoingEvents = true;
                                             break;
@@ -277,7 +281,7 @@
                                 @endphp
 
                                 @if ($ongoingEvents)
-                                    @foreach ($events as $event)                                        
+                                    @foreach ($sortedEvents as $event)                                        
                                         @if (\Carbon\Carbon::parse($event->datetime)->isPast() && \Carbon\Carbon::parse($event->end_datetime)->isFuture())
                                             <div class="bg-base-100 scale-100 text-center p-6 my-2 dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-lg motion-safe:hover:scale-[1.01] transition-all duration-250 hover:shadow-[0_16px_36px_rgba(237,_134,_0,_0.5)]">
                                                 {{-- <img src="{{ asset('images/players/' . $player->image) }}" alt="{{ $player->player_name }} image" class="object-cover w-full aspect-square rounded-full"> --}}
@@ -294,19 +298,19 @@
                             </div>
                             <div id="event-tab-past" role="eventtabpanel" class="hidden">
                                 <table class="table min-w-full">  
-                                    @foreach ($events as $event)                                      
+                                    @foreach ($sortedEvents as $event)                                      
                                         @if (\Carbon\Carbon::parse($event->datetime)->isPast())
-                                                <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
-                                                    <td class="border-b-2 border-base-300">
-                                                        {{ \Carbon\Carbon::parse($event->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($event->datetime)->format('H:i') }}
-                                                    </td>
-                                                    <td class="border-b-2 border-base-300 text-left font-semibold">
-                                                        {{ $event->event_name }}
-                                                    </td>
-                                                    <td class="border-b-2 border-base-300 text-right">
-                                                        {{ $event->sport->sports_name }}
-                                                    </td>
-                                                </tr>
+                                            <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                                <td class="border-b-2 border-base-300">
+                                                    {{ \Carbon\Carbon::parse($event->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($event->datetime)->format('H:i') }}
+                                                </td>
+                                                <td class="border-b-2 border-base-300 text-left font-semibold">
+                                                    {{ $event->event_name }}
+                                                </td>
+                                                <td class="border-b-2 border-base-300 text-right">
+                                                    {{ $event->sport->sports_name }}
+                                                </td>
+                                            </tr>
                                         @endif
                                     @endforeach
                                 </table>
@@ -329,6 +333,10 @@
                                 <a role="tab" class="tab font-semibold tab-active" href="#game-tab-ongoing"> {{ __('Ongoing Games') }}</a>
                                 <a role="tab" class="tab" href="#game-tab-past">{{ __('Past Games') }}</a>
                             </div>
+
+                            @php
+                                $sortedGames = $games->sortByDesc('datetime');
+                            @endphp
                               
                             <div id="game-tab-future" role="gametabpanel" class="hidden">  
                                 <table class="table min-w-full">                             
@@ -343,7 +351,7 @@
                                 @endphp
 
                                 @if ($futureGames)
-                                    @foreach ($games as $game)
+                                    @foreach ($sortedGames as $game)
                                         @if (\Carbon\Carbon::parse($game->datetime)->isFuture() || $game->status == 0)
                                         <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                             <td class="border-b-2 border-base-300">
@@ -376,7 +384,7 @@
                                 <table class="table min-w-full">
                                 @php
                                     $ongoingGames = false;
-                                    foreach ($games as $game) {
+                                    foreach ($sortedGames as $game) {
                                         if (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture()) {
                                             $ongoingGames = true;
                                             break;
@@ -385,7 +393,7 @@
                                 @endphp
 
                                 @if ($ongoingGames)
-                                    @foreach ($games as $game)                                        
+                                    @foreach ($sortedGames as $game)                                        
                                         @if ($game->status == 1) {{-- (\Carbon\Carbon::parse($game->datetime)->isPast() && \Carbon\Carbon::parse($game->end_datetime)->isFuture()) --}}
                                         <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
                                             <td class="border-b-2 border-base-300">
@@ -416,28 +424,28 @@
                             </div>
                             <div id="game-tab-past" role="gametabpanel" class="hidden">
                                 <table class="table min-w-full">  
-                                    @foreach ($games as $game)                                      
-                                        @if ($game->status == 2){{-- (\Carbon\Carbon::parse($game->datetime)->isPast()) --}}
-                                        <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
-                                            <td class="border-b-2 border-base-300">
-                                                <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
-                                                <div class="flex justify-center">
-                                                    <div class="flex w-2/5 items-center justify-end">
-                                                        <span class="hidden md:block">{{ $game->homeTeam->team_name }}</span> 
-                                                        <img src="./images/logos/{{ $game->homeTeam->logo }}" class="h-8 p-1" title="{{ $game->homeTeam->team_name }}" alt="{{ $game->homeTeam->team_name }}"/>
-                                                    </div>
-                                                    <div class="flex w-1/5 items-center justify-center font-bold text-lg">
-                                                        {{ $game->home_score }}:{{ $game->away_score }}
-                                                    </div>
-                                                    <div class="flex w-2/5 items-center justify-start">
-                                                        <img src="./images/logos/{{ $game->awayTeam->logo }}" class="h-8 p-1" title="{{ $game->awayTeam->team_name }}" alt="{{ $game->awayTeam->team_name }}"/> 
-                                                        <span class="hidden md:block">{{ $game->awayTeam->team_name }}</span>
-                                                    </div>
-                                                </div>                                                  
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
+                                    @foreach ($sortedGames as $game)                                      
+                                    @if ($game->status == 2)
+                                    <tr class="odd:bg-base-200 even:bg-base-100 justify-between items-center transition duration-300 ease-in-out hover:scale-[1.01] hover:shadow-[0_9px_4px_-6px_rgba(0,0,0,0.3)] hover:font-semibold">
+                                        <td class="border-b-2 border-base-300">
+                                            <p class="text-center text-xs leading-5 mb-0">{{ \Carbon\Carbon::parse($game->datetime)->format('d.m.Y') }} {{ __('at') }} {{ \Carbon\Carbon::parse($game->datetime)->format('H:i') }}</p>
+                                            <div class="flex justify-center">
+                                                <div class="flex w-2/5 items-center justify-end">
+                                                    <span class="hidden md:block">{{ $game->homeTeam->team_name }}</span> 
+                                                    <img src="{{ asset('images/logos/' . $game->homeTeam->logo) }}" class="h-8 p-1" title="{{ $game->homeTeam->team_name }}" alt="{{ $game->homeTeam->team_name }}"/>
+                                                </div>
+                                                <div class="flex w-1/5 items-center justify-center font-bold text-lg">
+                                                    {{ $game->home_score }}:{{ $game->away_score }}
+                                                </div>
+                                                <div class="flex w-2/5 items-center justify-start">
+                                                    <img src="{{ asset('images/logos/' . $game->awayTeam->logo) }}" class="h-8 p-1" title="{{ $game->awayTeam->team_name }}" alt="{{ $game->awayTeam->team_name }}"/> 
+                                                    <span class="hidden md:block">{{ $game->awayTeam->team_name }}</span>
+                                                </div>
+                                            </div>                                                  
+                                        </td>
+                                    </tr>
+                                    @endif
+                                @endforeach
                                 </table>
                             </div>
                         </div>
