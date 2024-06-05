@@ -9,6 +9,7 @@ use App\Models\Lineup;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Support\Facades\Log;
 
 class ScoreController extends Controller
 {
@@ -76,10 +77,12 @@ class ScoreController extends Controller
 
     public function updateScore(Request $request, $id)
     {
-        $game = Game::find($id);
+        //Log::info('Updating score for game ID: ' . $id);
+        //Log::info('Request data: ', $request->all());
+        $game = Game::find($request->input('id'));
         if ($game) {
-            $game->away_score = $request->input('awayScore');
-            $game->home_score = $request->input('homeScore');
+            $game->away_score = $request->input('away_score');
+            $game->home_score = $request->input('home_score');
             $game->save();
             return response()->json(['success' => true]);
         }

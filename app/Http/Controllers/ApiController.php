@@ -24,11 +24,11 @@ class ApiController extends Controller
 
     public function updateApi(Request $request)
     {
-        $apiData = Api::where('sb_id', '=', $request->sb_id)->first();
-        //dd ($apiData);
+        $apiData = Api::where('sb_id', $request->input('sb_id'))->first();
+        //dd ($request);
         if ($apiData) {
-            $apiData->away_score = $request->input('awayScore');
-            $apiData->home_score = $request->input('homeScore');
+            $apiData->away_score = $request->input('away_score');
+            $apiData->home_score = $request->input('home_score');
             $apiData->save();
             return response()->json(['success' => true]);
         }

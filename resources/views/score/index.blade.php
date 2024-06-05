@@ -163,7 +163,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            gameId: {{ $id }},
+            id: {{ $id }},
             home_score: hScore,
             away_score: aScore,
         },
@@ -175,7 +175,7 @@
         }
     });
     $.ajax({
-        url: 'apis', // Endpoint for API route
+        url: '/apis', // Endpoint for API route
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -189,7 +189,7 @@
             console.log('score saved to api');
         },
         error: function(xhr, status, error) {
-            console.error(error);
+            console.error('wtf happened');
         }
     });
     return lastAwayPoints;
@@ -220,7 +220,7 @@ var handleHomeScore = function(amount) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            gameId: {{ $id }},            
+            id: {{ $id }},            
             home_score: hScore,
             away_score: aScore,
         },
@@ -233,7 +233,7 @@ var handleHomeScore = function(amount) {
     });
 
     $.ajax({
-        url: 'apis', // Endpoint for API route
+        url: '/apis', // Endpoint for API route
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
