@@ -157,15 +157,15 @@
     var formattedAwayScore = aScore < 10 ? '0' + aScore : aScore;
     awayScore.innerHTML = formattedAwayScore;
     $.ajax({
-        url: 'score', // Assuming this is the route you've defined in your Laravel routes file
+        url: 'score',
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
             gameId: {{ $id }},
-            awayScore: aScore,
-            homeScore: hScore,
+            homeScore: home_score,
+            awayScore: away_score,
         },
         success: function(response) {
             console.log('score saved to database');
@@ -181,9 +181,9 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            sb_id: {{ $sb_id }}, // Provide sb_id here
-            awayScore: aScore,
-            homeScore: hScore
+            sb_id: {{ $sb_id }},
+            homeScore: home_score,
+            awayScore: away_score,
         },
         success: function(response) {
             console.log('score saved to api');
@@ -220,9 +220,9 @@ var handleHomeScore = function(amount) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            gameId: {{ $id }},
-            awayScore: aScore,
-            homeScore: hScore,
+            gameId: {{ $id }},            
+            homeScore: home_score,
+            awayScore: away_score,
         },
         success: function(response) {
             console.log('score saved to database');
@@ -239,9 +239,9 @@ var handleHomeScore = function(amount) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            sb_id: {{ $sb_id }}, // Provide sb_id here
-            awayScore: aScore,
-            homeScore: hScore
+            sb_id: {{ $sb_id }}, // Provide sb_id here            
+            homeScore: home_score,
+            awayScore: away_score,
         },
         success: function(response) {
             console.log('score saved to api');
