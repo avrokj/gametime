@@ -31,7 +31,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::latest()
+        $events = Event::orderBy('datetime', 'desc')
             ->paginate(20);
         $sports = Sport::all();
         $games = Game::all();

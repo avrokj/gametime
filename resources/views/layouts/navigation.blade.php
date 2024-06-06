@@ -161,31 +161,60 @@
             <x-responsive-nav-link :href="route('games.index')" :active="request()->routeIs('games.index')">
                 {{ __('Games') }}
             </x-responsive-nav-link>
-        </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
+            <!-- Responsive Settings Options -->
+            <x-responsive-accordion title="{{ __('Settings') }}">
+                <div class="pt-4 pb-1 border-t border-gray-200 grid grid-cols-2">
+                    <x-responsive-nav-link :href="route('countries.index')" class="flex">
+                        <x-heroicon-c-flag class="w-5 h-5 opacity-70 pr-1" /> {{ __('Countries') }}
                     </x-responsive-nav-link>
-                </form>
-            </div>
+                    <x-responsive-nav-link :href="route('arenas.index')" class="flex">
+                        <x-iconpark-arena class="w-5 h-5 opacity-70 pr-1" /> {{ __('Arenas') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('sports.index')" class="flex">
+                        <x-iconpark-sport class="w-5 h-5 opacity-70 pr-1" /> {{ __('Sports') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('positions.index')" class="flex">
+                        <x-heroicon-c-cube-transparent class="w-5 h-5 opacity-70 pr-1" /> {{ __('Positions') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('coaches.index')" class="flex">
+                        <x-iconpark-whistling-o class="w-5 h-5 opacity-70 pr-1" /> {{ __('Coaches') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('teams.index')" class="flex">
+                        <x-heroicon-c-user-group class="w-5 h-5 opacity-70 pr-1" /> {{ __('Teams') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('players.index')" class="flex">
+                        <x-heroicon-m-users class="w-5 h-5 opacity-70 pr-1" /> {{ __('Players') }}
+                    </x-responsive-nav-link>
+                </div>
+            </x-responsive-accordion>            
+
+            <!-- Responsive Settings Options -->
+            <x-responsive-accordion title="{{ __('Profile') }}">
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
+                
+                <div class="pt-4 pb-1 border-t border-gray-200 grid grid-cols-2">
+                    <div class="mt-3 space-y-1">
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+                        </x-responsive-nav-link>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-responsive-nav-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-responsive-nav-link>
+                        </form>
+                    </div>
+                </div>        
+            </x-responsive-accordion>
         </div>
     </div>
 </nav>

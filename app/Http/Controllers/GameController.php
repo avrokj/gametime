@@ -32,7 +32,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::latest()
+        $games = Game::orderBy('datetime', 'desc')
             ->paginate(20);
         $teams = Team::all();
         $events = Event::all();
