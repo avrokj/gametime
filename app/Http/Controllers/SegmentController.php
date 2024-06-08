@@ -17,8 +17,9 @@ class SegmentController extends Controller
 
     public function hometeam($game_id, $team_id)
     {
-        $homeTeamPlayers = Lineup::where('player_team_id', $team_id)
-            ->where('game_id', $game_id)->get();
+        $homeTeamPlayers = Lineup::where('game_id', $game_id)
+        ->where('player_team_id', $team_id)
+        ->get();
 
         $id = $homeTeamPlayers[0]->game_id;
         //dd(compact('homeTeamPlayers'));
@@ -27,8 +28,9 @@ class SegmentController extends Controller
     }
     public function guestteam($game_id, $team_id)
     {
-        $guestTeamPlayers = Lineup::where('player_team_id', $team_id)
-            ->where('game_id', $game_id)->get();
+        $guestTeamPlayers = Lineup::where('game_id', $game_id)
+        ->where('player_team_id', $team_id)
+        ->get();
 
         $id = $guestTeamPlayers[0]->game_id;
         //dd($guestTeamPlayers[0]->game_id);
