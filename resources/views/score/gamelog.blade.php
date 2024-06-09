@@ -25,9 +25,6 @@
                     </p>
                     @else              
                     <ul class="timeline timeline-vertical">
-                        @foreach($gamelog as $log)
-                            {{$log->game->home_team_id->team->team_name }}
-                        @endforeach
                     @foreach($gamelog as $log)  
                         @if ($log->game->home_team_id == $log->player->team_id)                      
                         <li>
