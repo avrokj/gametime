@@ -3,11 +3,27 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-slot name="header">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
             <div>
-                <h2 class="font-semibold text-xl leading-tight">
-                    {{ __('Scoreboard') }}
+                <h2 class="flex font-semibold text-xl leading-tight items-center">
+                    {{ __('Scoreboard') }} - 
+                    <div class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full hover:scale-[2.5]">
+                            <img src="{{ asset('images/logos/' . $home_team->logo) }}" alt="{{ $home_team->team_name }} image">
+                        </div>
+                    </div> vs                     
+                    <div class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full hover:scale-[2.5]">
+                            <img src="{{ asset('images/logos/' . $away_team->logo) }}" alt="{{ $away_team->team_name }} image">
+                        </div>
+                    </div>
                 </h2> 
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg leading-tight flex gap-4">
+                    <a href="gamelog/{{ $id }}" class="flex"><x-iconpark-timeline-o class="w-6 h-6 opacity-70 text-green-500 hover:text-green-600" /> {{ __('Gamelog') }}</a>
+                    <a href="stats/{{ $id }}" class="flex"><x-heroicon-s-document-chart-bar class="w-6 h-6 opacity-70 text-green-500 hover:text-green-600" /> {{ __('Statistics') }}</a>
+                </h3> 
             </div>
         </div>
     </x-slot>
