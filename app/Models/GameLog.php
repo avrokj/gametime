@@ -19,4 +19,9 @@ class GameLog extends Model
     {
         return $this->belongsTo(Game::class, 'game_id');
     }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id');
+    }
 }

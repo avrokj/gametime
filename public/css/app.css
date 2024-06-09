@@ -3278,6 +3278,9 @@ input.tab:checked + .tab-content,
 .ml-4 {
   margin-left: 1rem;
 }
+.mr-1 {
+  margin-right: 0.25rem;
+}
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -3382,6 +3385,9 @@ input.tab:checked + .tab-content,
 }
 .max-h-80 {
   max-height: 20rem;
+}
+.min-h-6 {
+  min-height: 1.5rem;
 }
 .min-h-screen {
   min-height: 100vh;

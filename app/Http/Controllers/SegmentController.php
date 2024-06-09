@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use Illuminate\Support\Facades\Session;
 use App\Models\GameLog;
 use App\Models\Lineup;
+use App\Models\Team;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
@@ -18,8 +20,8 @@ class SegmentController extends Controller
     public function hometeam($game_id, $team_id)
     {
         $homeTeamPlayers = Lineup::where('game_id', $game_id)
-        ->where('player_team_id', $team_id)
-        ->get();
+            ->where('player_team_id', $team_id)
+            ->get();
 
         $id = $homeTeamPlayers[0]->game_id;
         //dd(compact('homeTeamPlayers'));
@@ -29,8 +31,8 @@ class SegmentController extends Controller
     public function guestteam($game_id, $team_id)
     {
         $guestTeamPlayers = Lineup::where('game_id', $game_id)
-        ->where('player_team_id', $team_id)
-        ->get();
+            ->where('player_team_id', $team_id)
+            ->get();
 
         $id = $guestTeamPlayers[0]->game_id;
         //dd($guestTeamPlayers[0]->game_id);
@@ -101,7 +103,11 @@ class SegmentController extends Controller
         $gamelog = GameLog::where('game_id', $game_id)->get();
         // Eager load players to avoid multiple queries in the view
         $gamelog->load('player');
+        $gamelog->load('team');
+        $game = Game::where('id', $game_id)->first();
+        $homeTeam = Team::where('id', $game->home_team_id)->first();
+        $guestTeam = Team::where('id', $game->away_team_id)->first();
 
-        return view('score.gamelog', compact('gamelog'));
+        return view('score.gamelog', compact('gamelog', 'homeTeam', 'guestTeam'));
     }
 }

@@ -246,17 +246,17 @@
                                 <td class="border-b-2 border-base-300">                                    
                                     <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">
                                         <div class="btn btn-ghost btn-circle avatar">
-                                            <div class="w-10 rounded-full">
+                                            <div class="w-10 rounded-full hover:scale-[2.5]">
                                                 <img src="{{ asset('images/logos/' . $team->logo) }}" alt="Team Image">
                                             </div>
                                         </div>
                                     </a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $team->team_name }} 
+                                    <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">{{ $team->team_name }}</a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
-                                    {{ $team->short_name }} 
+                                    <a href="{{ route('teams.players', ['teamId' => $team->id]) }}">{{ $team->short_name }}</a>
                                 </td>
                                 <td class="border-b-2 border-base-300">
                                     {{ $team->sport->sports_name }}
